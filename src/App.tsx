@@ -174,7 +174,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <div className="title">Bank Web</div>
+        <div className="title">CoinBank</div>
         <div className="outer">
           <div className="perspective">
             <div
@@ -418,7 +418,7 @@ function App() {
             })}
           </div>
           <div className="notes">
-            <b style={{}}>Bank Web</b>, here every customer is verified and user
+            <b style={{}}>CoinBank</b>, here every customer is verified and user
             data are protected by the C-SKv architecture, guaranteeing
             <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
             done by logged in users promptings.
