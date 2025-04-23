@@ -334,8 +334,7 @@ function App() {
                 backgroundColor: "#c77700",
               }}
             >
-              The prices above reflect real-time cryptocurrency prices. Tickers
-              are tracked live.
+              Crypto prices above change as trades in the orderbook. Tickers reflect real-time transactions.
             </div>
           </div>
 
