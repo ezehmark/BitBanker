@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import "./login.css";
+import {setDoc, doc} from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
 import {signInWithPopup} from "firebase/auth";
-import {googleProvider,auth} from "./firebase.ts";
+import {googleProvider,auth, db} from "./firebase.ts";
 import {FirebaseError} from "firebase/app";
 
 const Login = () => {
@@ -25,9 +26,17 @@ const navigate = useNavigate();
   const handleLogin = async() => {
     try{
 	    const result = await signInWithPopup(auth,googleProvider);
-	    if(result){setCheckerColor("#00ff00");
+	    if(result){
 
-	    setChecker("You are now logged in successfully!");
+	const user = result.user;
+
+	await setDoc(doc(db,"bitbankers",user.uid),{
+	name:user.displayName,
+	email:user.email,
+	pic:user.photoURL});
+	setCheckerColor("#00ff00");
+
+	setChecker(`${user.displayName}, you are now logged in successfully!`);
 
       setTimeout(() => {
         navigate("/home");
