@@ -1,6 +1,6 @@
 // src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";  // Added auth imports
+import { getAuth, GoogleAuthProvider } from "firebase/auth";  // Added auth imports
 import { getAnalytics } from "firebase/analytics";
 
 // Your Firebase configuration (already copied from Firebase Console)
