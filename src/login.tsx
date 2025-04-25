@@ -34,8 +34,10 @@ const navigate = useNavigate();
       }, 2000);}
     }
     catch(error:unknown) {
-      setChecker(error instanceof FirebaseError);
+	    if(error instanceof FirebaseError){
+      setChecker(error.message);
     }
+    else{setChecker("There is a problem on your end!")}}
     }
   
   const[t,setT]=useState(false);
