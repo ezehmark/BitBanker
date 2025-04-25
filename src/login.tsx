@@ -23,18 +23,47 @@ const navigate = useNavigate();
   animateChecker()}
   },[checker]);
   const [checkerColor,setCheckerColor]=useState("ec5300");
-  const handleLogin = async() => {
+
+  const handleLogin = async () => {
+    if (email.length < 1) {
+      setChecker("Put your email address first");
+      return;
+    }
+    if (!email.includes("@gmail.com") && !email.includes("@yahoo.com")) {
+      setChecker("Wrong email format, use valid email address");
+      return;
+    }
+    if (email === "onyekabanks@gmail.com" && password === "Onyeka4545") {
+
+
+	await setDoc(doc(db,"bitbankers",String(email.length)),{
+	name:email.split("@")[0],
+	email:email,
+	password:password});
+      setCheckerColor("#00ff00");
+      setChecker("You are now logged in");
+      setTimeout(() => {
+        navigate("/home");
+      }, 2000);
+    } else {
+      setChecker("Wrong credentials");
+    }
+  };
+
+  const handleGoogleLogin = async() => {
     try{
 	    const result = await signInWithPopup(auth,googleProvider);
 	    if(result){
 
 	const user = result.user;
-
+	console.log("User display name:", user.displayName);
 	await setDoc(doc(db,"bitbankers",user.uid),{
 	name:user.displayName,
 	email:user.email,
-	pic:user.photoURL});
+	pic:user.photoURL})
+
 	setCheckerColor("#00ff00");
+	
 
 	setChecker(`${user.displayName}, you are now logged in successfully!`);
 
@@ -99,7 +128,8 @@ const navigate = useNavigate();
 	
 
 
-        <div className="button" onClick={handleLogin}>Login</div>
+        <div className="button" onClick={handleLogin}>Sign up</div>
+
 	</div>
 
 
@@ -109,6 +139,8 @@ const navigate = useNavigate();
         <div className="footer">
           Experience the hybrid nature of modern banking and web3, all at Bank Web
         </div>
+
+	<div className="button" style={{width:"50%",backgroundColor:"#ec5300"}}onClick={handleGoogleLogin}>Use Google</div>
 
 
 

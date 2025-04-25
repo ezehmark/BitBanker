@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCHKz2c_zOCdrRYzYFw0a1CwWwHVUU0lPE",
   authDomain: "bitbankerauth.firebaseapp.com",
   projectId: "bitbankerauth",
-  storageBucket: "bitbankerauth.firebasestorage.app",
+  storageBucket: "bitbankerauth.appspot.com",
   messagingSenderId: "307534060015",
   appId: "1:307534060015:web:6ff9462be34fabd592be1a",
   measurementId: "G-YT9EJEXV2L",
