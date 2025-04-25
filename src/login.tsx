@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import "./login.css";
+import {useNavigate} from "react-router-dom";
+import {signInWithPopup} from "firebase/auth";
+import {googleProvider,auth} from "./firebase.js";
 
-const Login = ({toggleLogin}:{toggleLogin:()=>void}) => {
+const Login = () => {
+const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checker, setChecker] = useState("");
@@ -15,24 +20,23 @@ const Login = ({toggleLogin}:{toggleLogin:()=>void}) => {
   if(checker){
   animateChecker()}
   },[checker]);
-  const handleLogin = () => {
-    if (email.length < 1) {
-      setChecker("Put your email address first");
-      return;
-    }
-    if (!email.includes("@gmail.com") && !email.includes("@yahoo.com")) {
-      setChecker("Wrong email format, use valid email address");
-      return;
-    }
-    if (email === "onyekabanks@gmail.com" && password === "Onyeka4545") {
-      setChecker("You are now logged in");
+  const [checkerColor,setCheckerColor]=useState("ec5300");
+  const handleLogin = async() => {
+    try{
+	    const result = await signInWithPopup(auth,googleProvider);
+	    if(result){setCheckerColor("#00ff00");
+
+	    setChecker("You are now logged in successfully!");
+
       setTimeout(() => {
-        toggleLogin();
-      }, 2000);
-    } else {
-      setChecker("Wrong credentials");
+        navigate("/home");
+      }, 2000);}
     }
-  };
+    catch(error) {
+      setChecker(`Wrong credentials, ${error.message}`);
+    }
+    }
+  
   const[t,setT]=useState(false);
   const[t2,setT2]=useState(false);
 
@@ -52,7 +56,7 @@ const Login = ({toggleLogin}:{toggleLogin:()=>void}) => {
       <div className="formAndFooter">
       <div className="notifyer"> Continue to app</div>
 
-      {checker &&<div ref={checkerRef} className='checkerCover'> <div className="checker">{checker}</div></div>}
+      {checker &&<div ref={checkerRef} style={{backgroundColor:checkerColor}} className='checkerCover'> <div className="checker">{checker}</div></div>}
 
 
       <div className="form">

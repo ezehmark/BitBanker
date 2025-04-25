@@ -1,0 +1,25 @@
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";  // Added auth imports
+import { getAnalytics } from "firebase/analytics";
+
+// Your Firebase configuration (already copied from Firebase Console)
+const firebaseConfig = {
+  apiKey: "AIzaSyCHKz2c_zOCdrRYzYFw0a1CwWwHVUU0lPE",
+  authDomain: "bitbankerauth.firebaseapp.com",
+  projectId: "bitbankerauth",
+  storageBucket: "bitbankerauth.firebasestorage.app",
+  messagingSenderId: "307534060015",
+  appId: "1:307534060015:web:6ff9462be34fabd592be1a",
+  measurementId: "G-YT9EJEXV2L",
+};
+
+// Initialize Firebase and Analytics
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// Initialize Auth
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+export { auth, googleProvider };
