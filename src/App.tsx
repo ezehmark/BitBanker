@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import Login from "./login"
 
 function App() {
+const[login,setLogin]=useState(true);                           const toggleLogin = ()=>{setLogin(prev=>!prev)};
   const topRef = useRef<HTMLDivElement>(null);
   const button2Ref = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState("1300450");
@@ -59,7 +61,7 @@ function App() {
               ? parseFloat(btcPriceRef.current)
               : 0;
             const currentP = parseFloat(price);
-            if (currentP < prev) setBtcColor("#e5300");
+            if (currentP < prev) setBtcColor("#ec5300");
             else if (currentP > prev) setBtcColor("#feb819");
             else {
               setBtcColor("#ccc");
@@ -172,9 +174,11 @@ function App() {
   };
 
   return (
+
     <>
-      <div className="container">
-        <div className="title">CoinBank</div>
+    { login && <Login toggleLogin = {toggleLogin}/>}
+    {!login && <div className="container">
+        <div className="title">Bank Web</div>
         <div className="outer">
           <div className="perspective">
             <div
@@ -334,7 +338,8 @@ function App() {
                 backgroundColor: "#c77700",
               }}
             >
-              Crypto prices above change as trades in the orderbook. Tickers reflect real-time transactions.
+              The prices above reflect real-time cryptocurrency prices. Tickers
+              are tracked live.
             </div>
           </div>
 
@@ -417,13 +422,14 @@ function App() {
             })}
           </div>
           <div className="notes">
-            <b style={{}}>CoinBank</b>, here every customer is verified and user
+            <b style={{}}>Bank Web</b>, here every customer is verified and user
             data are protected by the C-SKv architecture, guaranteeing
             <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
             done by logged in users promptings.
           </div>
         </div>
       </div>
+    }
     </>
   );
 }
