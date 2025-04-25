@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import "./login.css";
 import {useNavigate} from "react-router-dom";
 import {signInWithPopup} from "firebase/auth";
-import {googleProvider,auth} from "./firebase.js";
+import {googleProvider,auth} from "./firebase.ts";
+import {FirebaseError} from "firebase/app";
 
 const Login = () => {
 const navigate = useNavigate();
@@ -32,8 +33,8 @@ const navigate = useNavigate();
         navigate("/home");
       }, 2000);}
     }
-    catch(error) {
-      setChecker(`Wrong credentials, ${error.message}`);
+    catch(error:unknown) {
+      setChecker(error instanceof FirebaseError);
     }
     }
   
