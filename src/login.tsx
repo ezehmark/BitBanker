@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import "./login.css";
 import {setDoc, doc} from "firebase/firestore";
+import {analytics} from "./firebase.ts";
+import {logEvent} from "firebase/analytics";
 import {useNavigate} from "react-router-dom";
 import {signInWithPopup} from "firebase/auth";
 import {googleProvider,auth, db} from "./firebase.ts";
@@ -23,6 +25,9 @@ const navigate = useNavigate();
   animateChecker()}
   },[checker]);
   const [checkerColor,setCheckerColor]=useState("ec5300");
+
+  const handleAnalytics =()=>{
+  logEvent(analytics,"Hitting Sign up",{Button:"ContinueWithGoogleBtn"})}
 
   const handleLogin = async () => {
     if (email.length < 1) {
@@ -128,7 +133,7 @@ const navigate = useNavigate();
 	
 
 
-        <div className="button" onClick={handleLogin}>Sign up</div>
+        <div className="button" onClick={()=>{handleLogin();handleAnalytics()}}>Sign up</div>
 
 	</div>
 
@@ -140,7 +145,7 @@ const navigate = useNavigate();
           Experience the hybrid nature of modern banking and web3, all at Bank Web
         </div>
 
-	<div className="button" style={{width:"50%",backgroundColor:"#ec5300"}}onClick={handleGoogleLogin}>Use Google</div>
+	<div className="button" style={{width:"50%",backgroundColor:"#ec5300"}}onClick={()=>{handleGoogleLogin();handleAnalytics()}}>Use Google</div>
 
 
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import {analytics} from "./firebase.ts";                              import {logEvent} from "firebase/analytics";
 
 function Home() {
   const topRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,9 @@ function Home() {
   const [btcColor, setBtcColor] = useState("white");
   const [ethColor, setEthColor] = useState("white");
   const [solColor, setSolColor] = useState("white");
+
+  useEffect(()=>{
+  logEvent(analytics,"Screen_Views",{screen:"home"})},[]);
 
   useEffect(() => {
     let myWs: WebSocket;
