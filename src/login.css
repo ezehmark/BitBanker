@@ -1,18 +1,22 @@
 *{box-sizing:border-box;font-family:Inter, san-serif}
-.loginScreen{z-index:200;position:absolute;height:100%;width:100%;transform:translateX(-50%);left:50%;top:0%;background-color:white;display:flex;align-items:center;justify-content:center}
+.loginScreen{z-index:200;position:absolute;height:100vh;width:100%;transform:translateX(-50%);left:50%;top:0%;background-color:white;display:flex;align-items:center;justify-content:center}
 .titleAndLogo{position:absolute;top:10px;display:flex;left:20px;justify-content:space-between;flex-direction:row;align-items:center;gap:10px;}
 
 .formAndFooter{position:absolute;border-radius:20px;
-transform:translateX(-50%);background-color:transparent;top:105px;width:95%;justify-content:space-between;display:flex;align-items:center;flex-direction:column;gap:5px;left:50%;padding:5px 5px}
-.logoC{display:flex;align-items:center;overflow:hidden;justify-content:center;height:30px;width:40px;border-radius:10px;position:absolute;top:0px;margin-bottom:2px;left:0px;}
+transform:translateX(-50%);background-color:transparent;top:85px;width:95%;justify-content:space-between;display:flex;align-items:center;flex-direction:column;gap:5px;left:50%;padding:5px 5px 50px 5px}
+.logoC{display:flex;align-items:center;overflow:hidden;justify-content:center;position:relative;height:30px;width:40px;border-radius:10px}
 .app-name{color:black;font-size:20px;font-weight:bold}
-.notifyer{padding:15px 15px; margin-bottom:-5px;font-weigrht:bold;width:100%;background-color:#ffe0b2;color:#c77700;border-radius:20px 20px 0px 0px;font-size:18px;align-items:flex-start;justify-content:center}
+.notifyer{padding:15px 15px; margin-bottom:-5px;font-weight:bold;width:100%;background-color:black;color:#ec5300;border-radius:20px 20px 0px 0px;font-size:18px;align-items:flex-start;justify-content:center}
 .form{border-radius:0px 0px 2px 2px;background-color:#ef9800;flex-direction:column;justify-content:space-between;gap:20px;align-items:center;padding:30px 1px 40px 1px;display:flex;width:100%}
 
 .desc{position:absolute;line-height:30px;top:40px;font-size:25px;left:15px;font-weight:bold;color:black}
 .input{height:40px;padding:15px;width:90%;border-radius:15px;background-color:#ffe0b2;color:#5a3600;border:1px solid #c77700;outline:none}
-.button{height:50px;margin-top:20px;width:90%;text-align:center;display:flex;align-items:center;color:white;border-radius:20px;font-weight:bold;justify-content:center;background-color:#c77700;box-shadow:1px 2px 4px rgba(0,0,0,0.3)}
-.footer{color:#5a3600;border-radius:2px 2px 20px 20px;height:80px;width:100%;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;background-color:#ffe0b2;padding:5px;text-align:center}
+.button{position:relative;height:50px;margin-top:20px;width:90%;text-align:center;display:flex;align-items:center;color:white;border-radius:20px;justify-content:center;gap:2%;font-weight:bold;flex-direction:row;background-color:#ec5300;box-shadow:1px 2px 4px rgba(0,0,0,0.3)}
+
+.buttonIn{position:absolute;display:flex;background-color:transparent;padding:2px;align-items:center;justify-content:space-between;gap:10px}
+.buttonTitle{white-space:nowrap}
+.loader{position:}
+.footer{color:white;border-radius:2px 2px 20px 20px;height:80px;width:100%;font-size:142x;font-weight:bold;display:flex;align-items:center;justify-content:center;background-color:black;text-align:center;}
 
 
 @keyframes checkerAnim {
@@ -21,6 +25,6 @@ transform:translateX(-50%);background-color:transparent;top:105px;width:95%;just
 .checkerCover{margin:-4px 0px -4px 0px;width:100%;height:50px;display:flex;align-items:center;background-color:#ec5300;justify-content:center}
 
 .checkerAnimClass{animation:checkerAnim 1s ease forwards}
-.checker{text-align:center;color:white;font-weight:normal;font-size:14px;border-radius:10px}
+.checker{text-align:center;font-weight:bold;font-size:12px;border-radius:10px;padding:5px}
 
 

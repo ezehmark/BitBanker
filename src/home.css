@@ -13,6 +13,8 @@
   top: 0px;
   position: absolute;
 }
+
+.logout{overflow:hidden;height:30px;width:30px;border-radius:50%;position:absolute;background-color:black;top:5px;right:10px}
 .outer {
   position: absolute;
   align-items: center;
@@ -25,7 +27,7 @@
   width: 100%;
   display: flex;
   padding: 0px 10px 46px 10px;
-  top: 40px;
+  top: 50px;
 }
 .perspective {
   height: 150px;

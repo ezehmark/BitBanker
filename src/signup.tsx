@@ -11,10 +11,8 @@ import { ClipLoader } from "react-spinners";
 
 import PicUpload from "./picupload.tsx";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
-  let savedGmail = "";
-  let savedPassword = "";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,31 +41,61 @@ const Login = () => {
     logEvent(analytics, "Hitting Sign up", { Button: "ContinueWithGoogleBtn" });
   };
 
-  useEffect(()=>{
-  savedPassword = localStorage.getItem("password");
-  savedGmail=localStorage.getItem("email")},[]);
+  const handleLogin = async () => {
+    if (fullName.length < 4) {
+      setChecker("Full name too short to be valid");
+      return;
+    }
 
-  const handleLogin = async () =>{
-      
+    if (email.length < 1) {
+      setChecker("Put your email address first");
+      return;
+    }
+    if (!email.includes("@gmail.com") && !email.includes("@yahoo.com")) {
+      setChecker("Wrong email format, use valid email address");
+      return;
+    }
+
+    if (password.length < 6) {
+      setChecker("Password length must be up to six (6)");
+      return;
+    }
+    if (email.includes("@gmail.com" || "@yahoo.com") && password.length >= 6) {
+      try {
         setLoading1(true);
-	if(password.length <1){setChecker("Please enter your password");setLoading1(false);return}
-	if(email.length < 1){setCheckerk("Please type email youraddress");setLoading1(false);return;}
 
-	if(!email.includes("@gmail.com" || "@yahoo.com" || ".live")){setChecker("Wrong email format!");setLoading1(false);return;}
-
-	
-
-        if (savedGmail == email && savedPassword == password) {
-		setLoading1(true);
-          setCheckerColor("#00ff00");
-	  setCheckerC("black");
-	  setChecker("You are logged back in 3s...");
-
-          setTimeout(()=>{navigate("/home")},4500);
+        let savedGmail = localStorage.getItem("gmail");
+        if (savedGmail == email) {
+          setChecker("Email already registered. Enter another email");
+          setTimeout(() => {
+            setLoading1(false);
+          }, 3000);
+          return;
         }
-      
-     else {
-      setChecker("Wrong credentials");setTimeout(()=>{setLoading1(false)},3000);
+        localStorage.setItem("fullName", fullName);
+        localStorage.setItem("gmail", email);
+        localStorage.setItem("password", password);
+
+        await setDoc(
+          doc(db, "bitbankers", `${email.split("@")[0]}-${Date.now()}`),
+          {
+            name: fullName,
+            email: email,
+            password: password,
+          },
+        );
+        setCheckerC("black");
+        setCheckerColor("#00ff00");
+        setChecker("Signed up successfully ");
+        setLoading1(false);
+        setTimeout(() => {
+          navigate("/picupload");
+        }, 2000);
+      } catch (error: any) {
+        setChecker(error.message || "Something is wrong somewhere!");
+      }
+    } else {
+      setChecker("Wrong credentials");
     }
   };
 
@@ -77,32 +105,58 @@ const Login = () => {
       const result = await signInWithPopup(auth, googleProvider);
       if (result) {
         const user = result.user;
-          if(user.email !==savedGmail){
-		  setCheckerColor("#00ff00");
-		  setCheckerC("black");
-	setChecker(`Account created for ${user.displayName} and auto-login   3s ...`);
+        console.log("User display name:", user.displayName);
+	await setDoc(doc(db, "bitbankers", user.uid), {
+            name: user.displayName,                                         email: user.email,                                              photo: user.photoURL,
+          });
 
-	  localStorage.setItem("fullName", user.displayName);
-        localStorage.setItem("gmail", user.email);                      localStorage.setItem("picURL", user.photoURL);
+
+        let savedEmail = localStorage.getItem("gmail");
+
+        if (savedEmail == user.email) {
+          setChecker(
+            `We have registered ${user.displayName} before, logging in 3s ...`,
+          );
+
+          localStorage.setItem("picURL", user.photoURL);
 
           setTimeout(() => {
             navigate("/home");
           }, 4000);
-          return;}
-	  setCheckerColor("#00ff00");
-	  setCheckerC("black");
-	  setChecker("You are logged back in");
-	  setTimeout(()=>{navigate("/home")},4500);
+          return;
         }
-	else{setCheckerColor("#ec5300");setCheckerC("black");
-		setChecker("There is an error, please retry...");
-	setLoading2(false)}
+//if new user
+        setCheckerColor("#00ff00");
+        localStorage.setItem("fullName", user.displayName);
+        localStorage.setItem("gmail", user.email);
+        localStorage.setItem("picURL", user.photoURL);
+        setDoc(doc(db, "bitbankers", user.uid), {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        });
+
+        setChecker(`${user.displayName}, You have signed up successfully!`);
+
+        setLoading2(false);
+
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
+      }
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        setChecker(error.message);
+        setLoading2(false);
+      } else {
+        setChecker("There is a problem on your end!");
+      }
     }
-	catch(error:any){setChecker(error.message || "Broken request")}
   };
 
   const [t, setT] = useState(false);
   const [t2, setT2] = useState(false);
+  const [t3, setT3] = useState(false);
 
   return (
     <div className="loginScreen">
@@ -136,6 +190,21 @@ const Login = () => {
         )}
 
         <div className="form">
+          <input
+            type="fullName"
+            value={fullName}
+            onFocus={() => {
+              setT3(true);
+              setChecker("");
+            }}
+            onBlur={() => setT3(false)}
+            style={{ backgroundColor: t3 ? "white" : "#ffe0b2" }}
+            className="input"
+            placeholder="Enter full name"
+            onChange={(e) => {
+              setFullName(e.target.value);
+            }}
+          />
 
           <input
             type="email"
@@ -147,7 +216,7 @@ const Login = () => {
             onBlur={() => setT(false)}
             style={{ backgroundColor: t ? "white" : "#ffe0b2" }}
             className="input"
-            placeholder="Type registered email."
+            placeholder="Enter email here..."
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -175,7 +244,7 @@ const Login = () => {
             }}
           >
             <div className="buttonIn">
-              <div className="buttonTitle">Login</div>
+              <div className="buttonTitle">Sign up</div>
               {loading1 && (
                 <ClipLoader className="loader" size={30} color="white" />
               )}
@@ -189,13 +258,19 @@ const Login = () => {
 
         <div
           className="button"
-          style={{width:"80%",backgroundColor:"#00f0a9"}}onClick={() => {
+          style={{
+            marginBottom: 60,
+            width: "50%",
+            color: "white",
+            backgroundColor: "#00f0a9",
+          }}
+          onClick={() => {
             handleGoogleLogin();
             handleAnalytics();
           }}
         >
           <div className="buttonIn">
-            <div className="buttonTitle">Continue with  Google</div>
+            <div className="buttonTitle">Use Google</div>
             {loading2 && (
               <ClipLoader className="loader" size={30} color="white" />
             )}
@@ -211,4 +286,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

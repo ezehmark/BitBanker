@@ -1,0 +1,24 @@
+*{box-sizing:border-box;font-family:Inter, san-serif}
+.outerContainer{height:100vh;width:100%;background-color:white;position:absolute;transform:translateX(-50%);left:50%;top:0%;align-items:center;justify-content:center}
+
+.uploadArea{flex-direction:column;position:absolute;justify-content:space-between;gap:20px;display:flex;align-items:center;transform:translateX(-50%);top:20px;left:50%;width:90%;background-color:transparent}
+
+.clickAndSpinner{position:relative;justify-content:space-between;gap:5px;flex-direction:column;}
+.uploadBox{display:flex;position:relative;box-shadow:0px 1px 4px rgba(0,0,0,0.2);overflow:hidden;height:350px;width:90%;background-color:rgba(0,0,0,0.0);border:1px solid #ccc;color:rgba(0,0,0,0.8);font-size:20px;align-items:center;text-align:center;justify-content:center;border-radius:20px}
+.fileArea{position:absolute;z-index:60;color:red;height:100%;width:100%;z-index:20;background-color:transparent}
+.uploadbtn{border-radius:5px;width:70%;display:flex;align-items:center;justify-content:center;color:white;padding:10px 20px;font-weight:bold;top:440px;}
+
+.boxOut{height:8px;width:80%;align-items:center;justify-content:center;font-size:5px;color:#33f4b9;overflow:hidden;position:relative;background-color:#00986f;display:flex}
+.boxIn{position:absolute;display:flex;align-items:center;justify-content:center;height:100%;color:#feb819;font-size:6px;font-weight:bold;width:20%;left:-20%;background-color:#00f0a9;animation:moveboxIn 2s linear infinite}
+@keyframes moveboxIn{
+10%{width:8%}
+30%{width:30%}
+50%{width:40%}
+100%{transform:translateX(240%);width:50%}}
+
+.upText{margin-left:5px;font-size:20px;font-weight:bold;color:black}
+
+.noticeCover{margin:-4px 0px -4px 0px;width:80%;padding:5px 15px;display:flex;align-items:center;background-color:white;box-shadow:0px 0px 4px #00f0a9;border:0px solid #c77700;justify-content:center;border-radius:5px}
+
+.checkerAnimClass{animation:checkerAnim 1s ease forwards}
+.notice{text-align:center;font-weight:normal;font-size:14px;}

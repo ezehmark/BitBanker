@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import "./App.css";
-import {analytics} from "./firebase.ts";                              import {logEvent} from "firebase/analytics";
+import "./home.css";
+import {analytics} from "./firebase.ts";                   
+import {useNavigate} from "react-router-dom";
+import {logEvent} from "firebase/analytics";
 
 function Home() {
   const topRef = useRef<HTMLDivElement>(null);
@@ -9,6 +11,22 @@ function Home() {
   const [btc, setBtc] = useState("900000");
   const [eth, setEth] = useState("300000");
   const [sol, setSol] = useState("250000");
+
+  const[name,setName]=useState("null_user");
+  const[picUrl,setPicUrl]=useState("");
+  const[email,setEmail]=useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+let savedFullName = localStorage.getItem("fullName");
+let savedGmail = localStorage.getItem("gmail");
+let savedPicURL =localStorage.getItem("picURL");
+
+setName(savedFullName);
+  setPicUrl(savedPicURL);
+
+  },[]);
 
 
   const [btcPrice, setBtcPrice] = useState<string | null>(null);
@@ -175,11 +193,16 @@ function Home() {
     }
   };
 
+  const logout =()=>{
+  navigate("/login")}
+
   return (
 
     <>
     login && <div className="container">
-        <div className="title">Bank Web</div>
+        <div className="title">BitBanker</div>
+	<div onClick={logout} className="logout">
+	<img style={{position:'absolute',height:"98%",width:"98%"}} src="https://i.postimg.cc/63G1RBqV/images-35.png"/></div>
         <div className="outer">
           <div className="perspective">
             <div
@@ -271,7 +294,7 @@ function Home() {
                       height: "110%",
                       width: "105%",
                     }}
-                    src="https://i.postimg.cc/vH7TT4rX/1720950713065.jpg"
+                    src={picUrl}
                   />
                 </div>
                 <div
@@ -282,7 +305,7 @@ function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <div className="name">Onyekachi Banks</div>
+                  <div className="name">{name}</div>
                   <div className="verified">Verified ID</div>
                 </div>
               </div>
@@ -423,7 +446,7 @@ function Home() {
             })}
           </div>
           <div className="notes">
-            <b style={{}}>Bank Web</b>, here every customer is verified and user
+            <b style={{}}>BitBanker</b>, here every customer is verified and user
             data are protected by the C-SKv architecture, guaranteeing
             <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
             done by logged in users promptings.
