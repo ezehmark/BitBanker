@@ -14,13 +14,11 @@ function Home() {
 
   const[name,setName]=useState("null_user");
   const[picUrl,setPicUrl]=useState("");
-  const[email,setEmail]=useState("");
 
   const navigate = useNavigate();
 
   useEffect(()=>{
 let savedFullName = localStorage.getItem("fullName");
-let savedGmail = localStorage.getItem("gmail");
 let savedPicURL =localStorage.getItem("picURL");
 
 setName(savedFullName);
