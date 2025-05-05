@@ -24,7 +24,8 @@ const SignUp = () => {
   const[savedEmail,setSavedEmail]=useState<string>("");  
 
   useEffect(()=>{
-  setSavedEmail(localStorage.getItem("email" || ""))},[]);
+	  const storedEmail = localStorage.getItem("email");
+  setSavedEmail(storedEmail || ""))},[]);
 
   const animateChecker = () => {
     if (checkerRef.current) {
