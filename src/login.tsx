@@ -46,7 +46,7 @@ const Login = () => {
       
         setLoading1(true);
 	if(password.length <1){setChecker("Please enter your password");setLoading1(false);return}
-	if(email.length < 1){setCheckerk("Please type email youraddress");setLoading1(false);return;}
+	if(email.length < 1){setChecker("Please type email youraddress");setLoading1(false);return;}
 
 	if(!email.includes("@gmail.com" || "@yahoo.com" || ".live")){setChecker("Wrong email format!");setLoading1(false);return;}
 

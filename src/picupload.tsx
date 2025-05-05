@@ -28,9 +28,7 @@ navigate("/home")}}
 const handleFileSelect =(e:React.ChangeEvent<HTMLInputElement>)=>{
 const file = e.target.files?.[0];
 if(file){setSelected(file);
-setClick('You selected a picture. Click "Upload"')
-const url = URL.createObjectURL(file);
-setPreviewUrl(url)}}
+setClick('You selected a picture. Click "Upload"')}}
 
 const handleUpload = async()=>{
 if(!selected){setNotice("Please select photo to proceed");
