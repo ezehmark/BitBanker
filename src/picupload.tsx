@@ -45,7 +45,7 @@ const myFormData = new FormData();
 myFormData.append('file', selected);
 myFormData.append("upload_preset","bitbankers_upload");
 
-await axios.post("https://api.cloudinary.com/v1_1/dadvxxgl1/upload",myFormData).then((response)=>{console.log("Picture uplodeded to cloudiary @bibakers_uploads");
+await axios.post("https://api.cloudinary.com/v1_1/dadvxxgl1/upload",myFormData).then(async (response)=>{console.log("Picture uplodeded to cloudiary @bibakers_uploads");
 setClick("");
 setImgUrl(response.data.secure_url);
 localStorage.setItem("picURL",response.data.secure_url);

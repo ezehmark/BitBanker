@@ -21,6 +21,12 @@ const SignUp = () => {
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);
 
+  const[savedEmail,setSavedEmail]=useState<string | null>(null);  const[savedPassword,setSavedPassword]=useState<string | null>(null);
+
+  useEffect(()=>{
+  setSavedEmail(localStorage.getItem("email"));
+  setSavedPassword(localStorage.getItem("password"))},[]);
+
   const animateChecker = () => {
     if (checkerRef.current) {
       const ch = checkerRef.current;
@@ -62,7 +68,6 @@ const SignUp = () => {
       try {
         setLoading1(true);
 
-        let savedGmail = localStorage.getItem("gmail");
         if (savedGmail == email) {
           setChecker("Email already registered. Enter another email");
           setTimeout(() => {
@@ -109,7 +114,6 @@ const SignUp = () => {
           });
 
 
-        let savedEmail = localStorage.getItem("gmail");
 
         if (savedEmail == user.email) {
           setChecker(
