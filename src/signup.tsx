@@ -160,6 +160,7 @@ const SignUp = () => {
 
   return (
     <div className="loginScreen">
+    <div className="blurComp1"></div>
       <div className="titleAndLogo">
         <div className="logoC">
           <img
@@ -255,6 +256,7 @@ const SignUp = () => {
         <div className="footer">
           Experience the hybrid of banking and web3, all at BitBanker™.
         </div>
+	  <div className="blurComp2"></div>
 
         <div
           className="button"

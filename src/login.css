@@ -16,7 +16,7 @@ transform:translateX(-50%);background-color:transparent;top:85px;width:95%;justi
 .buttonIn{position:absolute;display:flex;background-color:transparent;padding:2px;align-items:center;justify-content:space-between;gap:10px}
 .buttonTitle{white-space:nowrap}
 .loader{position:}
-.footer{color:white;border-radius:2px 2px 20px 20px;height:80px;width:100%;font-size:142x;font-weight:bold;display:flex;align-items:center;justify-content:center;background-color:black;text-align:center;}
+.footer{color:#ccc;border-radius:2px 2px 20px 20px;height:80px;width:100%;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;background:linear-gradient(to right, black 80%, #00f0a9);text-align:center;}
 
 
 @keyframes checkerAnim {
@@ -26,5 +26,8 @@ transform:translateX(-50%);background-color:transparent;top:85px;width:95%;justi
 
 .checkerAnimClass{animation:checkerAnim 1s ease forwards}
 .checker{text-align:center;font-weight:bold;font-size:12px;border-radius:10px;padding:5px}
+.blurComp1{height:40px;width:150px;position:absolute;top:12px;left:15px;background:linear-gradient(to right, grey 30%,#ffe0b2 60%, #ef9800 100%);filter:blur(20px)}
+
+.blurComp2{height:30px;width:50%;position:absolute;top:80%;background:linear-gradient(to right, grey 30%,#ffe0b2 60%, #ef9800 100%);filter:blur(18px)}
 
 
