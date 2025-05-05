@@ -19,6 +19,7 @@ function Home() {
 
   useEffect(()=>{
 const storedName = localStorage.getItem("fullName");
+const savedPicURL = localStorage.getItem("picURL");
 
 setName(storedName ?? "");
   setPicUrl(savedPicURL);
