@@ -10,8 +10,8 @@ import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
-  const[savedGmail,setSavedGmail]=useState<string | null>(null);
-  const[savedPassword,setSavedPassword]=useState<string | null>(null);
+  const[savedGmail,setSavedGmail]=useState<string>("");
+  const[savedPassword,setSavedPassword]=useState<string>("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,8 +39,8 @@ const Login = () => {
   };
 
   useEffect(()=>{
-  setSavedPassword(localStorage.getItem("password"));
-  setSavedGmail(localStorage.getItem("email"))},[]);
+  setSavedPassword(localStorage.getItem("password" || ""));
+  setSavedGmail(localStorage.getItem("email" || ""))},[]);
 
   const handleLogin = () =>{
       

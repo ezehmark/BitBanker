@@ -21,10 +21,10 @@ const SignUp = () => {
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);
 
-  const[savedEmail,setSavedEmail]=useState<string | null>(null);  
+  const[savedEmail,setSavedEmail]=useState<string>("");  
 
   useEffect(()=>{
-  setSavedEmail(localStorage.getItem("email"))},[]);
+  setSavedEmail(localStorage.getItem("email" || ""))},[]);
 
   const animateChecker = () => {
     if (checkerRef.current) {
