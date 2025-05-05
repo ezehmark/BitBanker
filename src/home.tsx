@@ -18,10 +18,9 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-let savedFullName = localStorage.getItem("fullName");
-let savedPicURL =localStorage.getItem("picURL");
+const storedName = localStorage.getItem("fullName");
 
-setName(savedFullName);
+setName(storedName ?? "");
   setPicUrl(savedPicURL);
 
   },[]);
