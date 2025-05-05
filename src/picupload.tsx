@@ -63,7 +63,7 @@ return(
 
 <div className='uploadBox'>
 
-{imgUrl && <img style={{position:"absolute",height:"100%",width:"100%",resizeMode:"contain"}} src={imgUrl}/>}
+{imgUrl && <img style={{position:"absolute",height:"100%",width:"100%"}} src={imgUrl}/>}
 <input className="fileArea" type="file" onChange={handleFileSelect} accept="images/*"/>
 
 
