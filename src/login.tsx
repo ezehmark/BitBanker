@@ -1,15 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import "./login.css";
-import { setDoc, doc } from "firebase/firestore";
 import { analytics } from "./firebase.ts";
 import { logEvent } from "firebase/analytics";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
-import { googleProvider, auth, db } from "./firebase.ts";
-import { FirebaseError } from "firebase/app";
+import { googleProvider, auth } from "./firebase.ts";
 import { ClipLoader } from "react-spinners";
 
-import PicUpload from "./picupload.tsx";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,9 +15,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [checker, setChecker] = useState("");
-  const [render, setRender] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);

@@ -1,4 +1,5 @@
 import "./picupload.css";
+import{db} from "./firebase.ts"
 import{doc,setDoc} from "firebase/firestore";
 import {useState} from "react";
 import axios from "axios";
@@ -10,14 +11,11 @@ const navigate = useNavigate();
 
 
 
-const [isImage,setIsImage]=useState(false);
 const [selected,setSelected]=useState<File | null>(null);
 const[click,setClick]=useState("")
 
-const [previewUrl,setPreviewUrl]=useState("");
 const[imgUrl,setImgUrl]=useState("");
 const[notice,setNotice]=useState("");
-const[uploadText,setUploadText]=useState("Upload")
 const[uploading,setUploading]=useState(false);
 const[uploaded,setUploaded]=useState(false);
 
@@ -51,8 +49,8 @@ await axios.post("https://api.cloudinary.com/v1_1/dadvxxgl1/upload",myFormData).
 setClick("");
 setImgUrl(response.data.secure_url);
 localStorage.setItem("picURL",response.data.secure_url);
-setDoc(doc(db,"bitbankers",response.data.secure_url),{
-uploaded_pic:reaponse.data.secure_url});
+await setDoc(doc(db,"bitbankers",response.data.secure_url),{
+uploaded_pic:response.data.secure_url});
 setNotice("✅ Uploaded successfully, you can continue");})
 
 .catch((error:any)=>{setNotice(error.message || "Upload failed")})

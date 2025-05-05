@@ -9,7 +9,6 @@ import { googleProvider, auth, db } from "./firebase.ts";
 import { FirebaseError } from "firebase/app";
 import { ClipLoader } from "react-spinners";
 
-import PicUpload from "./picupload.tsx";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [checker, setChecker] = useState("");
-  const [render, setRender] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);
