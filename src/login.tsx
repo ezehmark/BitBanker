@@ -39,8 +39,8 @@ const Login = () => {
   };
 
   useEffect(()=>{
-	  const storedEmail = localStorage.getItem("email");
-	  const storedPassword = localStorage.getItem("password");
+	  const storedEmail = localStorage.getItem("email" || "");
+	  const storedPassword = localStorage.getItem("password" || "");
   setSavedPassword(storedPassword ?? "");
   setSavedGmail(storedEmail ?? "")},[]);
 
