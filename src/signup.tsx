@@ -165,11 +165,11 @@ const SignUp = () => {
   const [t3, setT3] = useState(false);
 
   const sendVerifyMail = async()=>{
-  set Loading(true);
+  setLoading1(true);
   await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullname,email:email})
   .then((response)=>{setChecker(response.data.msg)
   .catch((error)=>{setChecker(error.response.data.msgErr)})
-  .finally(()=>{setLoading(false)})})}
+  .finally(()=>{setLoading1(false)})})}
 
   return (
     <div className="loginScreen">
