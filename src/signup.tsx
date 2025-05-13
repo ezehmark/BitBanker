@@ -129,9 +129,9 @@ const SignUp = () => {
         }
 //if new user
         setCheckerColor("#00ff00");
-        localStorage.setItem("fullName", user.displayName);
-        localStorage.setItem("gmail", user.email);
-        localStorage.setItem("picURL", user.photoURL);
+        localStorage.setItem("fullName", user.displayName??"");
+        localStorage.setItem("gmail", user.email??"");
+        localStorage.setItem("picURL", user.photoURL??"");
         setDoc(doc(db, "bitbankers", user.uid), {
           name: user.displayName,
           email: user.email,
