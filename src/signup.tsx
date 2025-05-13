@@ -27,6 +27,8 @@ const SignUp = () => {
 	  const storedEmail = localStorage.getItem("email") ??"";
   setSavedEmail(storedEmail)},[]);
 
+  
+
   const animateChecker = () => {
     if (checkerRef.current) {
       const ch = checkerRef.current;
@@ -91,6 +93,7 @@ const SignUp = () => {
         setCheckerColor("#00ff00");
         setChecker("Signed up successfully ");
         setLoading1(false);
+	sendVeriyMail();
         setTimeout(() => {
           navigate("/picupload");
         }, 2000);
@@ -159,6 +162,13 @@ const SignUp = () => {
   const [t, setT] = useState(false);
   const [t2, setT2] = useState(false);
   const [t3, setT3] = useState(false);
+
+  const sendVerifyMail = async()=>{
+  set Loading(true);
+  await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullname,email:email})
+  .then((response)=>{setChecker(response.data.msg)
+  .catch((error)=>{setChecker(error.response.data.msgErr)})
+  .finally(()=>{setLoading(false)})})}
 
   return (
     <div className="loginScreen">
@@ -266,7 +276,7 @@ const SignUp = () => {
             marginBottom: 60,
             width: "50%",
             color: "white",
-            backgroundColor: "#00f0a9",
+            backgroundColor: "black",
           }}
           onClick={() => {
             handleGoogleLogin();
@@ -274,7 +284,7 @@ const SignUp = () => {
           }}
         >
           <div className="buttonIn">
-            <div className="buttonTitle">Use Google</div>
+            <div className="buttonTitle"><b style={{fontSize:20,color:"blue"}}>G<b style={{color:"grey",fontSize:20,fontWeight:"normal"}}> |</b></b> use Google</div>
             {loading2 && (
               <ClipLoader className="loader" size={30} color="white" />
             )}
