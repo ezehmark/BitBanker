@@ -166,7 +166,7 @@ const SignUp = () => {
 
   const sendVerifyMail = async()=>{
   setLoading1(true);
-  await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullname,email:email})
+  await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullName,email:email})
   .then((response)=>{setChecker(response.data.msg)
   .catch((error)=>{setChecker(error.response.data.msgErr)})
   .finally(()=>{setLoading1(false)})})}
