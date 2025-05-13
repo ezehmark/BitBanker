@@ -39,8 +39,8 @@ const Login = () => {
   };
 
   useEffect(()=>{
-	  const storedEmail = localStorage.getItem("email" || "");
-	  const storedPassword = localStorage.getItem("password" || "");
+	  const storedEmail = localStorage.getItem("email");
+	  const storedPassword = localStorage.getItem("password");
   setSavedPassword(storedPassword ?? "");
   setSavedGmail(storedEmail ?? "")},[]);
 
@@ -79,8 +79,8 @@ const Login = () => {
 		  setCheckerC("black");
 	setChecker(`Account created for ${user.displayName} and auto-login   3s ...`);
 
-	  localStorage.setItem("fullName", user.displayName);
-        localStorage.setItem("gmail", user.email);                      localStorage.setItem("picURL", user.photoURL);
+	  localStorage.setItem("fullName", user.displayName?? "Your name");
+        localStorage.setItem("gmail", user.email??"");                      localStorage.setItem("picURL", user.photoURL??"");
 
           setTimeout(() => {
             navigate("/home");
