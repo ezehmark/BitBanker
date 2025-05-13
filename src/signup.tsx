@@ -75,9 +75,9 @@ const SignUp = () => {
           }, 3000);
           return;
         }
-        localStorage.setItem("fullName", fullName);
-        localStorage.setItem("gmail", email);
-        localStorage.setItem("password", password);
+        localStorage.setItem("fullName", fullName??"");
+        localStorage.setItem("gmail", email??"");
+        localStorage.setItem("password", password??"");
 
         await setDoc(
           doc(db, "bitbankers", `${email.split("@")[0]}-${Date.now()}`),
@@ -120,7 +120,7 @@ const SignUp = () => {
             `We have registered ${user.displayName} before, logging in 3s ...`,
           );
 
-          localStorage.setItem("picURL", user.photoURL);
+          localStorage.setItem("picURL", user.photoURL??"");
 
           setTimeout(() => {
             navigate("/home");
