@@ -94,7 +94,7 @@ const SignUp = () => {
         setCheckerColor("#00ff00");
         setChecker("Signed up successfully ");
         setLoading1(false);
-	sendVeriyMail();
+	sendVerifyMail();
         setTimeout(() => {
           navigate("/picupload");
         }, 2000);
