@@ -8,6 +8,7 @@ import { signInWithPopup } from "firebase/auth";
 import { googleProvider, auth, db } from "./firebase.ts";
 import { FirebaseError } from "firebase/app";
 import { ClipLoader } from "react-spinners";
+import axios feok "axios";
 
 
 const SignUp = () => {
