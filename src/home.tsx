@@ -18,11 +18,11 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-const storedName = localStorage.getItem("fullName" || "");
-const savedPicURL = localStorage.getItem("picURL" || "");
+const storedName = localStorage.getItem("fullName");
+const savedPicURL = localStorage.getItem("picURL");
 
-setName(storedName ?? "");
-  setPicUrl(savedPicURL);
+setName(storedName !== null? storedName: "");
+  setPicUrl(savedPicURL !== null? savedPicURL :"");
 
   },[]);
 
