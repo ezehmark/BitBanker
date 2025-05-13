@@ -41,8 +41,8 @@ const Login = () => {
   useEffect(()=>{
 	  const storedEmail = localStorage.getItem("email");
 	  const storedPassword = localStorage.getItem("password");
-  setSavedPassword(storedPassword ?? "");
-  setSavedGmail(storedEmail ?? "")},[]);
+  setSavedPassword(storedPassword !== null ? storedPassword:"");
+  setSavedGmail(storedEmail !== null ? storedEmail : "")},[]);
 
   const handleLogin = () =>{
       
