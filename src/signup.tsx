@@ -169,7 +169,8 @@ const SignUp = () => {
   await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullName,email:email})
   .then((response)=>{setChecker(response.data.msg)})
   .catch((error:any)=>{setChecker(error.response.data.msgErr || "error")})
-  .finally(()=>{setLoading1(false)})})}
+  .finally(()=>{setLoading1(false)});
+  }
 
   return (
     <div className="loginScreen">
