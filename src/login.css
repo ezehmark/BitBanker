@@ -28,6 +28,6 @@ transform:translateX(-50%);background-color:transparent;top:85px;width:95%;justi
 .checker{text-align:center;font-weight:bold;font-size:12px;border-radius:10px;padding:5px}
 .blurComp1{height:18px;width:150px;position:absolute;top:16px;left:15px;background:linear-gradient(to right, grey 30%,#ffe0b2 50%, #ef9800 100%);filter:blur(15px)}
 
-.blurComp2{height:30px;width:50%;position:absolute;top:78%;background:linear-gradient(to right, grey 30%,#ffe0b2 60%, blue 100%);filter:blur(10px)}
+.blurComp2{height:30px;width:50%;position:absolute;top:78%;background:linear-gradient(to right, blue 30%,#ffe0b2 60%, grey 100%);filter:blur(10px)}
 
 
