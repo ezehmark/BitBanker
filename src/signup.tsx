@@ -10,7 +10,6 @@ import { FirebaseError } from "firebase/app";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
 
-
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -22,13 +21,12 @@ const SignUp = () => {
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);
 
-  const[savedEmail,setSavedEmail]=useState<string>("");  
+  const [savedEmail, setSavedEmail] = useState<string>("");
 
-  useEffect(()=>{
-	  const storedEmail = localStorage.getItem("email") ??"";
-  setSavedEmail(storedEmail)},[]);
-
-  
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email") ?? "";
+    setSavedEmail(storedEmail);
+  }, []);
 
   const animateChecker = () => {
     if (checkerRef.current) {
@@ -46,6 +44,24 @@ const SignUp = () => {
 
   const handleAnalytics = () => {
     logEvent(analytics, "Hitting Sign up", { Button: "ContinueWithGoogleBtn" });
+  };
+
+  const sendVerifyMail = async () => {
+    setLoading1(true);
+    await axios
+      .post("https://mybackend-oftz.onrender.com/postAndVerify", {
+        name: fullName,
+        email: email,
+      })
+      .then((response) => {
+        setChecker(response.data.msg);
+      })
+      .catch((error: any) => {
+        setChecker(error.response.data.msgErr || "error");
+      })
+      .finally(() => {
+        setLoading1(false);
+      });
   };
 
   const handleLogin = async () => {
@@ -78,9 +94,9 @@ const SignUp = () => {
           }, 3000);
           return;
         }
-        localStorage.setItem("fullName", fullName??"");
-        localStorage.setItem("gmail", email??"");
-        localStorage.setItem("password", password??"");
+        localStorage.setItem("fullName", fullName ?? "");
+        localStorage.setItem("gmail", email ?? "");
+        localStorage.setItem("password", password ?? "");
 
         await setDoc(
           doc(db, "bitbankers", `${email.split("@")[0]}-${Date.now()}`),
@@ -94,7 +110,7 @@ const SignUp = () => {
         setCheckerColor("#00ff00");
         setChecker("Signed up successfully ");
         setLoading1(false);
-	sendVerifyMail();
+        sendVerifyMail();
         setTimeout(() => {
           navigate("/picupload");
         }, 2000);
@@ -113,29 +129,29 @@ const SignUp = () => {
       if (result) {
         const user = result.user;
         console.log("User display name:", user.displayName);
-	await setDoc(doc(db, "bitbankers", user.uid), {
-            name: user.displayName,                                         email: user.email,                                              photo: user.photoURL,
-          });
-
-
+        await setDoc(doc(db, "bitbankers", user.uid), {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        });
 
         if (savedEmail == user.email) {
           setChecker(
             `We have registered ${user.displayName} before, logging in 3s ...`,
           );
 
-          localStorage.setItem("picURL", user.photoURL??"");
+          localStorage.setItem("picURL", user.photoURL ?? "");
 
           setTimeout(() => {
             navigate("/home");
           }, 4000);
           return;
         }
-//if new user
+        //if new user
         setCheckerColor("#00ff00");
-        localStorage.setItem("fullName", user.displayName??"");
-        localStorage.setItem("gmail", user.email??"");
-        localStorage.setItem("picURL", user.photoURL??"");
+        localStorage.setItem("fullName", user.displayName ?? "");
+        localStorage.setItem("gmail", user.email ?? "");
+        localStorage.setItem("picURL", user.photoURL ?? "");
         setDoc(doc(db, "bitbankers", user.uid), {
           name: user.displayName,
           email: user.email,
@@ -148,7 +164,7 @@ const SignUp = () => {
 
         setTimeout(() => {
           navigate("/home");
-        }, 2000);
+        }, 4000);
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -164,17 +180,9 @@ const SignUp = () => {
   const [t2, setT2] = useState(false);
   const [t3, setT3] = useState(false);
 
-  const sendVerifyMail = async()=>{
-  setLoading1(true);
-  await axios.post("https://mybackend-oftz.onrender.com/postAndVerify",{name:fullName,email:email})
-  .then((response)=>{setChecker(response.data.msg)})
-  .catch((error:any)=>{setChecker(error.response.data.msgErr || "error")})
-  .finally(()=>{setLoading1(false)});
-  }
-
   return (
     <div className="loginScreen">
-    <div className="blurComp1"></div>
+      <div className="blurComp1"></div>
       <div className="titleAndLogo">
         <div className="logoC">
           <img
@@ -199,7 +207,6 @@ const SignUp = () => {
             style={{ color: checkerC, backgroundColor: checkerColor }}
             className="checkerCover"
           >
-            
             <div className="checker">{checker}</div>
           </div>
         )}
@@ -270,7 +277,7 @@ const SignUp = () => {
         <div className="footer">
           Experience the hybrid of banking and web3, all at BitBanker™.
         </div>
-	  <div className="blurComp2"></div>
+        <div className="blurComp2"></div>
 
         <div
           className="button"
@@ -286,7 +293,18 @@ const SignUp = () => {
           }}
         >
           <div className="buttonIn">
-            <div className="buttonTitle"><b style={{fontSize:20,color:"blue"}}>G<b style={{color:"grey",fontSize:20,fontWeight:"normal"}}> |</b></b> use Google</div>
+            <div className="buttonTitle">
+              <b style={{ fontSize: 20, color: "blue" }}>
+                G
+                <b
+                  style={{ color: "grey", fontSize: 20, fontWeight: "normal" }}
+                >
+                  
+                  |
+                </b>
+              </b>
+              use Google
+            </div>
             {loading2 && (
               <ClipLoader className="loader" size={30} color="white" />
             )}

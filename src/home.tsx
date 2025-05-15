@@ -197,7 +197,7 @@ setName(storedName !== null? storedName: "");
   return (
 
     <>
-    login && <div className="container">
+    <div className="container">
         <div className="title">BitBanker</div>
 	<div onClick={logout} className="logout">
 	<img style={{position:'absolute',height:"98%",width:"98%"}} src="https://i.postimg.cc/63G1RBqV/images-35.png"/></div>
