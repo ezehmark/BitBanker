@@ -11,6 +11,7 @@
   left:50%;
   top: 0px;
   position: absolute;
+  background-color:green,
 }
 
 .logout{overflow:hidden;height:30px;width:30px;border-radius:50%;position:absolute;background-color:black;top:5px;right:10px}

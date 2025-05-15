@@ -24,7 +24,7 @@ const SignUp = () => {
   const [savedEmail, setSavedEmail] = useState<string>("");
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email") ?? "";
+    const storedEmail = localStorage.getItem("gmail") ?? "";
     setSavedEmail(storedEmail);
   }, []);
 
@@ -83,7 +83,8 @@ const SignUp = () => {
       setChecker("Password length must be up to six (6)");
       return;
     }
-    if (email.includes("@gmail.com" || "@yahoo.com") && password.length >= 6) {
+    if (email.includes("@gmail.com") || email.includes("@yahoo.com") && password.length >= 6) {
+	    
       try {
         setLoading1(true);
 
@@ -283,7 +284,7 @@ const SignUp = () => {
           className="button"
           style={{
             marginBottom: 60,
-            width: "50%",
+            width: "80%",
             color: "white",
             backgroundColor: "black",
           }}
@@ -293,18 +294,9 @@ const SignUp = () => {
           }}
         >
           <div className="buttonIn">
-            <div className="buttonTitle">
-              <b style={{ fontSize: 20, color: "blue" }}>
-                G
-                <b
-                  style={{ color: "grey", fontSize: 20, fontWeight: "normal" }}
-                >
-                  
-                  |
-                </b>
-              </b>
-              use Google
-            </div>
+              <img src="https://i.postimg.cc/hGBzPqZn/file-000000000f1861f4b39702d4fbc1e6b8-1.png" style={{position:"relative",display:"block",height:40,width:40}}/>
+
+	      <div className="buttonTitle">use Google</div>
             {loading2 && (
               <ClipLoader className="loader" size={30} color="white" />
             )}
