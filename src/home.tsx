@@ -2,10 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import "./home.css";
 
 import Particles from "react-tsparticles";
-import {loadFull} from "tsparticles";
-import {analytics} from "./firebase.ts";                   
-import {useNavigate} from "react-router-dom";
-import {logEvent} from "firebase/analytics";
+import { loadFull } from "tsparticles";
+import { analytics } from "./firebase.ts";
+import { useNavigate } from "react-router-dom";
+import { logEvent } from "firebase/analytics";
 
 function Home() {
   const topRef = useRef<HTMLDivElement>(null);
@@ -15,23 +15,22 @@ function Home() {
   const [eth, setEth] = useState("300000");
   const [sol, setSol] = useState("250000");
 
-  const[name,setName]=useState("null_user");
-  const[picUrl,setPicUrl]=useState("");
+  const [name, setName] = useState("null_user");
+  const [picUrl, setPicUrl] = useState("");
 
   const navigate = useNavigate();
 
-const initParticles = useCallback(async(engine:Engine)=>{
-await loadFull(engine)},[]);
+  const initParticles = useCallback(async (engine: Engine) => {
+    await loadFull(engine);
+  }, []);
 
-  useEffect(()=>{
-const storedName = localStorage.getItem("fullName");
-const savedPicURL = localStorage.getItem("picURL");
+  useEffect(() => {
+    const storedName = localStorage.getItem("fullName");
+    const savedPicURL = localStorage.getItem("picURL");
 
-setName(storedName !== null? storedName: "");
-  setPicUrl(savedPicURL !== null? savedPicURL :"");
-
-  },[]);
-
+    setName(storedName !== null ? storedName : "");
+    setPicUrl(savedPicURL !== null ? savedPicURL : "");
+  }, []);
 
   const [btcPrice, setBtcPrice] = useState<string | null>(null);
   const [ethPrice, setEthPrice] = useState<string | null>(null);
@@ -41,13 +40,13 @@ setName(storedName !== null? storedName: "");
   const ethPriceRef = useRef<string | null>(null);
   const solPriceRef = useRef<string | null>(null);
 
-
   const [btcColor, setBtcColor] = useState("white");
   const [ethColor, setEthColor] = useState("white");
   const [solColor, setSolColor] = useState("white");
 
-  useEffect(()=>{
-  logEvent(analytics,"Screen_Views",{screen:"home"})},[]);
+  useEffect(() => {
+    logEvent(analytics, "Screen_Views", { screen: "home" });
+  }, []);
 
   useEffect(() => {
     let myWs: WebSocket;
@@ -76,7 +75,6 @@ setName(storedName !== null? storedName: "");
           const symbol = myData.topic.split(".")[1];
           const price = myData.data[0].p;
 
-
           let totalBtc = 0;
           let totalEth = 0;
           let totalSol = 0;
@@ -92,7 +90,7 @@ setName(storedName !== null? storedName: "");
             }
             btcPriceRef.current = price;
             setBtcPrice(price);
-	    console.log("Price updated live, BTCUSDT:", price);
+            console.log("Price updated live, BTCUSDT:", price);
             totalBtc = Number(price) * 12;
             setBtc(totalBtc.toString());
           }
@@ -142,7 +140,7 @@ setName(storedName !== null? storedName: "");
             : 0;
           const solVal = solPriceRef.current
             ? parseFloat(solPriceRef.current) * 500
-            : 0; 
+            : 0;
           const totalValue = btcVal + ethVal + solVal;
           setTotal(totalValue.toString());
         }
@@ -196,56 +194,58 @@ setName(storedName !== null? storedName: "");
     }
   };
 
-  const logout =()=>{
-  navigate("/login")}
+  const logout = () => {
+    navigate("/login");
+  };
 
   return (
-
     <>
-
-<div className='topHeading'>
-<Particles
-  id="tsparticles"
-  init={initParticles}
-  style={{position:"absolute",height:"100vh",zIndex:92,width:"100vh"}}
-  options={{
-    background: { color: "white" },
-    particles: {
-      number: { value: 100 },
-      size: { value: 2 },
-      color: { value: "black" },
-      links: { // was "line-linked"
-        enable: true,
-        distance: 150, // was misspelled as "diatance"
-        color: "red",
-        opacity: 0.8,
-        width: 1,
-      },
-      move: {
-        enable: true, // was "enabled"
-        speed: 1,
-      },
-    },
-    interactivity: {
-      events: {
-        onHover: {
-          enable: true,
-          mode: "repulse",
-        },
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-        },
-      },
-    },
-  }}
-/>
-
-<div className="title">BitBanker</div>                     <div onClick={logout} className="logout">                  <img style={{position:'absolute',zIndex:12,height:"100%",width:"100%"}} src="https://i.postimg.cc/cLfZSFZC/file-000000003bb06246adca19d5bed32ef7.jpg"/>                                                      </div></div>
-    <div className="container" style={{backgroundImage:'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',backgroundSize:"cover"}}>
-
-        <div className="outer">
+    <div className="tsParticles" style={{ position: "relative", zIndex:10,width: "100vw", backgroundColor:"transparent",height: "100vh" }}>                                                      <Particles                                                   id="tsparticles"
+              init={initParticles}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 0,
+              }}
+              options={{
+                background: { color: "transparent" },
+                particles: {
+                  number: { value: 80 },
+                  size: { value: 1 },
+                  color: { value: "#000000" },
+                  links: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ff0000",
+                    opacity: 0.5,
+                    width: 0.5,                                              },                                                         move: { enable: true, speed: 0.7 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 100 } },                   },                                                       }}                                                       />                                                       </div>
+      <div className="topHeading">
+        <div className="title">BitBanker</div>
+        <div onClick={logout} className="logout">
+          
+          <img
+            style={{
+              position: "absolute",
+              zIndex: 12,
+              height: "100%",
+              width: "100%",
+            }}
+            src="https://i.postimg.cc/cLfZSFZC/file-000000003bb06246adca19d5bed32ef7.jpg"
+          />
+        </div>
+      </div>
+      <div
+        className="container"
+        style={{
+          backgroundImage:
+            'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',
+          backgroundSize: "cover"
+        }}
+      >
+        <div className="outer" style={{zIndex:20}}>
           <div className="perspective">
             <div
               className="button2"
@@ -358,11 +358,29 @@ setName(storedName !== null? storedName: "");
             <div className="table-title">
               <div>Coins</div>
 
-
-              <div style={{display:"flex",justifyContent:"space-between",gap:2,alignItems:"center",flexDirection:"row"}}>
-	      <div>Price</div>
-	      <div style={{borderRadius:2,alignItems:'center',padding:"2px 2px 2px 3px",border:"1px solid #5a3600",fontSize:10}}>  USDT<b style={{filter:"grayscale(30%)"}}>🔻</b></div>
-	      </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 2,
+                  alignItems: "center",
+                  flexDirection: "row",
+                }}
+              >
+                <div>Price</div>
+                <div
+                  style={{
+                    borderRadius: 2,
+                    alignItems: "center",
+                    padding: "2px 2px 2px 3px",
+                    border: "1px solid #5a3600",
+                    fontSize: 10,
+                  }}
+                >
+                  
+                  USDT<b style={{ filter: "grayscale(30%)" }}>🔻</b>
+                </div>
+              </div>
             </div>
             <div className="ticker1">
               <div>BTC</div>
@@ -371,9 +389,6 @@ setName(storedName !== null? storedName: "");
                   ? "Loading..."
                   : Number(btcPrice).toLocaleString("en-us")}
               </div>
-
-
-
             </div>
             <div className="ticker1">
               <div>ETH</div>
@@ -487,14 +502,15 @@ setName(storedName !== null? storedName: "");
               );
             })}
           </div>
-	  <div className="notes">                                           <b style={{}}>BitBanker</b>, here every customer is verified and user                                                           data are protected by the C-SKv architecture, guaran
-teeing
+          <div className="notes">
+            
+            <b style={{}}>BitBanker</b>, here every customer is verified and
+            user data are protected by the C-SKv architecture, guaran teeing
             <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
             done by logged in users promptings.
-          
-        </div></div>
+          </div>
+        </div>
       </div>
-    
     </>
   );
 }
