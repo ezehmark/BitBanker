@@ -294,9 +294,8 @@ const SignUp = () => {
           }}
         >
           <div className="buttonIn">
-              <img src="https://i.postimg.cc/hGBzPqZn/file-000000000f1861f4b39702d4fbc1e6b8-1.png" style={{position:"relative",display:"block",height:40,width:40}}/>
 
-	      <div className="buttonTitle">use Google</div>
+	      <div className="buttonTitle"><b style={{color:"blue",fontSize:20}}>G </b> <b style={{color:"#ccc"}}>| </b>use Google</div>
             {loading2 && (
               <ClipLoader className="loader" size={30} color="white" />
             )}

@@ -1,5 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import "./home.css";
+
+import Particles from "react-tsparticles";
+import {loadFull} from "tsparticles";
 import {analytics} from "./firebase.ts";                   
 import {useNavigate} from "react-router-dom";
 import {logEvent} from "firebase/analytics";
@@ -16,6 +19,9 @@ function Home() {
   const[picUrl,setPicUrl]=useState("");
 
   const navigate = useNavigate();
+
+const initParticles = useCallback(async(engine:Engine)=>{
+await loadFull(engine)},[]);
 
   useEffect(()=>{
 const storedName = localStorage.getItem("fullName");
@@ -136,8 +142,7 @@ setName(storedName !== null? storedName: "");
             : 0;
           const solVal = solPriceRef.current
             ? parseFloat(solPriceRef.current) * 500
-            : 0;
-
+            : 0; 
           const totalValue = btcVal + ethVal + solVal;
           setTotal(totalValue.toString());
         }
@@ -197,10 +202,49 @@ setName(storedName !== null? storedName: "");
   return (
 
     <>
-    <div className="container">
-        <div className="title">BitBanker</div>
-	<div onClick={logout} className="logout">
-	<img style={{position:'absolute',height:"98%",width:"98%"}} src="https://i.postimg.cc/63G1RBqV/images-35.png"/></div>
+
+<div className='topHeading'>
+<Particles
+  id="tsparticles"
+  init={initParticles}
+  style={{position:"absolute",height:"100vh",zIndex:92,width:"100vh"}}
+  options={{
+    background: { color: "white" },
+    particles: {
+      number: { value: 100 },
+      size: { value: 2 },
+      color: { value: "black" },
+      links: { // was "line-linked"
+        enable: true,
+        distance: 150, // was misspelled as "diatance"
+        color: "red",
+        opacity: 0.8,
+        width: 1,
+      },
+      move: {
+        enable: true, // was "enabled"
+        speed: 1,
+      },
+    },
+    interactivity: {
+      events: {
+        onHover: {
+          enable: true,
+          mode: "repulse",
+        },
+      },
+      modes: {
+        repulse: {
+          distance: 100,
+        },
+      },
+    },
+  }}
+/>
+
+<div className="title">BitBanker</div>                     <div onClick={logout} className="logout">                  <img style={{position:'absolute',zIndex:12,height:"100%",width:"100%"}} src="https://i.postimg.cc/cLfZSFZC/file-000000003bb06246adca19d5bed32ef7.jpg"/>                                                      </div></div>
+    <div className="container" style={{backgroundImage:'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',backgroundSize:"cover"}}>
+
         <div className="outer">
           <div className="perspective">
             <div
@@ -443,13 +487,12 @@ setName(storedName !== null? storedName: "");
               );
             })}
           </div>
-          <div className="notes">
-            <b style={{}}>BitBanker</b>, here every customer is verified and user
-            data are protected by the C-SKv architecture, guaranteeing
+	  <div className="notes">                                           <b style={{}}>BitBanker</b>, here every customer is verified and user                                                           data are protected by the C-SKv architecture, guaran
+teeing
             <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
             done by logged in users promptings.
-          </div>
-        </div>
+          
+        </div></div>
       </div>
     
     </>
