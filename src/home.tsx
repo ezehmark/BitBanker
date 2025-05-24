@@ -266,7 +266,7 @@ return()=>window.removeEventListener("scroll",handleScroll);
         style={{
           backgroundColor:"transparent",zIndex:22
         }}
-      ><div className="outer">
+      ><div className="outer" style={{flexDirection:isMobile?"column":"row"}}>
       <h1 className="heading1" style={{opacity:scrollOpacity,transition:'scrollOpacity 0.2s ease-in'}}>Enjoy the benefits of a hybrid economy. <b>Crypto</b> <b>meets</b> <b>banking...</b></h1>
 
           <div className="live-tickers">
