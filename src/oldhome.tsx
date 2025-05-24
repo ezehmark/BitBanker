@@ -22,32 +22,6 @@ const [darkTheme,setDarkTheme]=useState(false);
 
   const navigate = useNavigate();
 
-  const breakpoint = 768;
-
-  const [isMobile,setIsMobile]=useState(window.innerWidth < breakpoint);
-
-
-  const[scrollOpacity,setScrollOpacity]=useState(0);
-const maxScroll= 200;
-
-useEffect(()=>{
-const handleScroll = ()=>{
-const activeScroll = window.scrollY
-if(scrollOpacity < 1){const newOpacity = Math.min(1,activeScroll/maxScroll);
-setScrollOpacity(newOpacity);}}
-
-window.addEventListener("scroll",handleScroll);
-return()=>window.removeEventListener("scroll",handleScroll);
-},[scrollOpacity]);
-
-  useEffect(()=>{
-	  const handleScreenSize = ()=>{
-	setIsMobile(window.innerWidth < breakpoint)}
-
-	window.addEventListener("resize",handleScreenSize);
-	return()=>window.removeEventListener("resize",handleScreenSize);
-  },[]);
-
   const initParticles = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);
@@ -239,35 +213,126 @@ return()=>window.removeEventListener("scroll",handleScroll);
               options={{
                 background: { color: "transparent" },
                 particles: {
-                  number: { value: 80 },
-                  size: { value: 0.8},
-                  color: { value: "#131314" },
+                  number: { value: 50 },
+                  size: { value: 0.7 },
+                  color: { value: "#000000" },
                   links: {
                     enable: true,
                     distance: 100,
-                    color: "#d50204",
+                    color: "#ff0000",
                     opacity: 0.5,
-                    width: 0.4,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />                                                       </div>
-      <div className="topHeading" style={{}}>
+                    width: 0.5,                                              },                                                         move: { enable: true, speed: 0.7 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 100 } },                   },                                                       }}                                                       />                                                       </div>
+      <div className="topHeading">
       <div className="menu" onClick={()=>{toggleMenu();console.warn("menu toggled")}}>
       <img src = {darkTheme                                               ? "https://i.postimg.cc/B65wgYfV/images-41.jpg"                                                                       : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"} style={{position:"absolute",height:"100%",width:"100%"}}/>
 
 
           </div>
-
-	  <div className="title" style={{left:isMobile?"50%":100}}>Bitbanker</div>
-
-
       
-        <div onClick={()=>{navigate("/login")}} className="signInButton">Sign in</div>
+        <div onClick={()=>{toggleProfile()}} className="profileButton">
+          
+          <img
+            style={{
+              position: "absolute",
+              zIndex: 12,
+              height: "100%",
+              width: "100%",
+            }}
+            src={picUrl}
+          />
+        </div>
       </div>
       <div
         className="container"
         style={{
           backgroundColor:"transparent",zIndex:22
         }}
-      ><div className="outer">
-      <h1 className="heading1" style={{opacity:scrollOpacity,transition:'scrollOpacity 0.2s ease-in'}}>Enjoy the benefits of a hybrid economy. <b>Crypto</b> <b>meets</b> <b>banking...</b></h1>
+      >
+        <div className="outer" style={{zIndex:20}}>
+          <div className="perspective">
+            <div
+              className="button2"
+              ref={button2Ref}
+              onClick={() => {
+                handleAnim2();
+              }}
+            >
+              See bank
+            </div>
+            <div className="top" ref={topRef}>
+              <div className="button1" onClick={() => handleAnim1()}>
+                See coins
+              </div>
+              <div className="crypto-face">
+                <div className="total">
+                  {Number(total).toLocaleString("en-us")} USD
+                </div>
+                <div className="wallet">Crypto wallet</div>
+                <div className="coins-list">
+                  <div
+                    className="coin"
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                    }}
+                  >
+                    <div className="logo">
+                      <img src="https://i.postimg.cc/7L1GY17c/download-3.png" />
+                    </div>
+                    <div className="coin-name">
+                      <b style={{ fontWeight: "normal", fontSize: 10 }}>12 </b>
+                      BTC
+                    </div>
+                    <div className="price">
+                      ~ {Number(btc).toLocaleString("en-us")}
+                      <b style={{ fontSize: 10 }}> USDT</b>
+                    </div>
+                  </div>
+
+                  <div className="coin">
+                    <div style={{ backgroundColor: "white" }} className="logo">
+                      <img src="https://i.postimg.cc/PqqWcF0y/Ethereum-logo.png" />
+                    </div>
+                    <div className="coin-name">
+                      <b style={{ fontWeight: "normal", fontSize: 10 }}>120 </b>
+                      ETH
+                    </div>
+                    <div className="price">
+                      ~ {Number(eth).toLocaleString("en-us")}
+                      <b style={{ fontSize: 10 }}> USDT</b>
+                    </div>
+                  </div>
+
+                  <div
+                    className="coin"
+                    style={{
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                    }}
+                  >
+                    <div className="logo">
+                      <img
+                        style={{ width: "110%", backgroundColor: "black" }}
+                        src="https://i.postimg.cc/dV6R5KND/Solana-Logo.png"
+                      />
+                    </div>
+                    <div className="coin-name">
+                      <b style={{ fontWeight: "normal", fontSize: 10 }}>500 </b>
+                      SOL
+                    </div>
+                    <div className="price">
+                      ~ {Number(sol).toLocaleString("en-us")}
+                      <b style={{ fontSize: 10 }}> USDT</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="balance">
+                <div className="bal-txt">Balance</div>
+                <div className="bal-amount">$ 1,245,600</div>
+              </div>
+            </div>
+          </div>
 
           <div className="live-tickers">
             <div className="table-title">
