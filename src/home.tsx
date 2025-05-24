@@ -240,14 +240,14 @@ return()=>window.removeEventListener("scroll",handleScroll);
                 background: { color: "transparent" },
                 particles: {
                   number: { value: 80 },
-                  size: { value: 0.8},
+                  size: { value:isMobile? 0.8:1},
                   color: { value: "#131314" },
                   links: {
                     enable: true,
                     distance: 100,
                     color: "#d50204",
                     opacity: 0.5,
-                    width: 0.4,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />                                                       </div>
+                    width: isMobile?0.4 :0.7,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />                                                       </div>
       <div className="topHeading" style={{}}>
       <div className="menu" onClick={()=>{toggleMenu();console.warn("menu toggled")}}>
       <img src = {darkTheme                                               ? "https://i.postimg.cc/B65wgYfV/images-41.jpg"                                                                       : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"} style={{position:"absolute",height:"100%",width:"100%"}}/>
