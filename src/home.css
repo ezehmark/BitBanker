@@ -25,14 +25,14 @@ flex-direction:column;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   transform: translateX(-50%);
   left: 50%;
   backgrohund:linear-gradient( transparent 30%, transparent 60%,transparent 70%,#feb819 100%);
   width: 100%;
   display: flex;
   padding: 0px;
-  top: 150px;
+  top: 100px;
   z-index:20
 }
 .perspective {
@@ -413,6 +413,9 @@ img {
 
 }
 
+@keyframes translateBox {                                               0%{opacity:0;transform:translateY(0px)}                               100%{opacity:1;transform:translateY(-40px)}}
+.boxAnimClass{animation:translateBox 2s ease forwards                   }
+
 .live-tickers {
   color: #5a3600;
   position: relative;
@@ -426,6 +429,7 @@ img {
   justify-content: space-between;
   gap: 4px;
   flex-direction: column;
+  opacity:0
 
 }
 .ticker1 {
@@ -458,3 +462,11 @@ img {
 .menu{tmop:5px;left:2.5%;position:absolute;display:flex;align-items:center;justify-content:center;background-color:transparent;height:20px;width:25px;z-index:30}
 @media(orientation:landscape){
 .tsParticles{heibght:100%}}
+.cryptoBox{padding:10px 10px;border-radius:20px;}
+@keyframes cryptoBoxAnim {
+0%{transform:translateY(0px);opacity:0}
+100%{background-color:#00d4d4;transform:translateY(-50px);opacity:1}}
+.cryptoAnimClass{animation:cryptoBoxAnim 3s ease forwards}
+
+.menuItem1{color:#213547;border-radius:10px;padding:5px}
+.menuItem:hover{box-shadow:0px 0px 4px #00d4d4;color:#00d4d4}

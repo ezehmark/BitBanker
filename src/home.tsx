@@ -27,19 +27,59 @@ const [darkTheme,setDarkTheme]=useState(false);
   const [isMobile,setIsMobile]=useState(window.innerWidth < breakpoint);
 
 
-  const[scrollOpacity,setScrollOpacity]=useState(0);
-const maxScroll= 200;
 
-useEffect(()=>{
-const handleScroll = ()=>{
-const activeScroll = window.scrollY
-if(scrollOpacity < 1){const newOpacity = Math.min(1,activeScroll/maxScroll);
-setScrollOpacity(newOpacity);}}
+const [scrollOpacity1, setScrollOpacity1] = useState(0);
+  const [scrollOpacity2, setScrollOpacity2] = useState(0);
+  const [scrollOpacity3, setScrollOpacity3] = useState(0);
 
-window.addEventListener("scroll",handleScroll);
-return()=>window.removeEventListener("scroll",handleScroll);
-},[scrollOpacity]);
+  const maxScroll1 = 50;
+  const maxScroll2 = 300;
+  const maxScroll3 = 400;
 
+  const cryptoBoxRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+
+	    if(scrollOpacity1 < 1){
+      const scrollY = window.scrollY;
+
+      setScrollOpacity1(Math.min(1, scrollY / maxScroll1));
+    }
+    if(scrollOpacity1 === 1){cryptoBoxRef.current.classList.add("cryptoAnimClass")}};
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollOpacity1]);
+
+
+
+  const[scrollVisible,setScrollVisible]=useState(0);
+  const[boxVisibility,setBoxVisibility]=useState("hidden");
+
+  const tickerBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+
+  const maxScroll = 120;
+
+  function handleScroll(){
+
+	
+	  if(tickerBoxRef.current && scrollVisible < 1){
+		const scrollValue = window.scrollY;
+  const newScroll = Math.min(1,scrollValue/maxScroll);
+  setScrollVisible(newScroll);
+  }
+  
+  
+  if(scrollVisible == 1){tickerBoxRef.current.classList.add("boxAnimClass")}
+  }
+
+  window.addEventListener("scroll",handleScroll);
+  return ()=> window.removeEventListener("scroll",handleScroll);
+
+  },[scrollVisible]);
   useEffect(()=>{
 	  const handleScreenSize = ()=>{
 	setIsMobile(window.innerWidth < breakpoint)}
@@ -226,7 +266,8 @@ return()=>window.removeEventListener("scroll",handleScroll);
   return (
     <>
 
-    <div className="tsParticles" style={{ position: "absolute", zIndex:1,width: "100vw",backgroundImage:                                             'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',                                 backgroundSize: "cover",height: 1400 }}>                                                      <Particles                                                   id="tsparticles"
+    <div className="tsParticles" style={{ position: "absolute", zIndex:1,width: "100vw",backgroundImage:                                             'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',                                 backgroundSize: "cover",height: 1500 }}>
+    <div style={{height:500,overflow:"hidden",display:"flex",width:"100%",position:"absolute"}}><Particles                                                   id="tsparticles"
               init={initParticles}
               style={{
                 position: "absolute",
@@ -247,8 +288,9 @@ return()=>window.removeEventListener("scroll",handleScroll);
                     distance: 100,
                     color: "#d50204",
                     opacity: 0.5,
-                    width: isMobile?0.4 :0.7,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />                                                       </div>
-      <div className="topHeading" style={{}}>
+                    width: isMobile?0.4 :0.7,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />
+		    </div></div>
+		    {isMobile?<div className="topHeading" style={{}}>
       <div className="menu" onClick={()=>{toggleMenu();console.warn("menu toggled")}}>
       <img src = {darkTheme                                               ? "https://i.postimg.cc/B65wgYfV/images-41.jpg"                                                                       : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"} style={{position:"absolute",height:"100%",width:"100%"}}/>
 
@@ -260,15 +302,39 @@ return()=>window.removeEventListener("scroll",handleScroll);
 
       
         <div onClick={()=>{navigate("/login")}} className="signInButton">Sign in</div>
-      </div>
+      </div>:<div className="topHeading" style={{display:"flex",alignItems:"center",flexDirection:"row"}}>
+
+
+	  <div className="title" style={{left:isMobile?"50%":100}}>Bitbanker</div>
+
+	  <div className="menuList" style={{position:"absolute",display:"flex",justifyContent:"space-between",flexDirection:"row",gap:40}}>
+	  <div className="menuItem1">Verification</div>                          <div className="menuItem1">Markets</div>                               <div className="menuItem1">About us</div>                              <div className="menuItem1">Banking</div>	
+	  </div>
+
+
+      
+        <div onClick={()=>{navigate("/login")}} className="signInButton">Sign in</div>
+      </div>}
       <div
         className="container"
         style={{
           backgroundColor:"transparent",zIndex:22
         }}
-      ><h1 className="heading1" style={{opacity:scrollOpacity,transition:'scrollOpacity 0.2s ease-in'}}>Enjoy the benefits of a hybrid economy. <b>Crypto</b> <b>meets</b> <b>banking...</b></h1><div className="outer" style={{flexDirection:isMobile?"column":"row"}}>
+      >
+      <div className="outer" style={{flexDirection:isMobile?"column":"column"}}>
 
-          <div className="live-tickers">
+      <h1 className="heading1" style={{color:"#213547",textAlign:isMobile?"center":"center"}}>Enjoy the benefits of a hybrid economy.</h1>
+              
+
+
+      <div ref={cryptoBoxRef} className="cryptoBox" style={{opacity:0,color:"#213547"}}><h2>Crypto meets banking...</h2></div>
+
+
+
+
+
+
+          <div style={{}} ref ={tickerBoxRef} className="live-tickers">
             <div className="table-title">
               <div>Coins</div>
 
