@@ -327,7 +327,11 @@ const [scrollOpacity1, setScrollOpacity1] = useState(0);
               
 
 
+      <div style={{justifyContent:"space-between",display:"flex",flexDirection:"column",gap:5}}>
       <div ref={cryptoBoxRef} className="cryptoBox" style={{opacity:0,color:"#213547"}}><h2>Crypto meets banking...</h2></div>
+
+      <h3>The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your favourite cryptocurrencies anywhere, anytime from <b>Blocavax</b>. Ready to explore and trade? </h3>
+      </div>
 
 
 
