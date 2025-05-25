@@ -291,24 +291,24 @@ const [scrollOpacity1, setScrollOpacity1] = useState(0);
                     width: isMobile?0.4 :0.7,                                              },                                                         move: { enable: true, speed: 0.5 },                      },                                                         interactivity: {                                             events: { onHover: { enable: true, mode: "repulse" } },                                                               modes: { repulse: { distance: 80 } },                   },                                                       }}                                                       />
 		    </div></div>
 		    {isMobile?<div className="topHeading" style={{}}>
-      <div className="menu" onClick={()=>{toggleMenu();console.warn("menu toggled")}}>
+      <button className="menu" onClick={()=>{toggleMenu();console.warn("menu toggled")}}>
       <img src = {darkTheme                                               ? "https://i.postimg.cc/B65wgYfV/images-41.jpg"                                                                       : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"} style={{position:"absolute",height:"100%",width:"100%"}}/>
 
 
-          </div>
+          </button>
 
 	  <div className="title" style={{left:isMobile?"50%":100}}>Bitbanker</div>
 
 
       
-        <div onClick={()=>{navigate("/login")}} className="signInButton">Sign in</div>
+        <button onClick={()=>{navigate("/login")}} className="signInButton">Sign in</button>
       </div>:<div className="topHeading" style={{display:"flex",alignItems:"center",flexDirection:"row"}}>
 
 
 	  <div className="title" style={{left:isMobile?"50%":100}}>Bitbanker</div>
 
 	  <div className="menuList" style={{position:"absolute",display:"flex",justifyContent:"space-between",flexDirection:"row",gap:40}}>
-	  <button className="menuItem1">Verification</button>                          <button className="menuItem1">Markets</button>                               <button className="menuItem1">About us</button>                              <div className="menuItem1">Banking</div>	
+	  <button className="menuItem1">Verification</button>                          <button className="menuItem1">Markets</button>                               <button className="menuItem1">About us</button>                              <button className="menuItem1">Banking</button>	
 	  </div>
 
 

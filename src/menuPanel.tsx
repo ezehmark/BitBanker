@@ -31,10 +31,11 @@ return(<>
 
 <div ref={itemsHolderRef} className="menuItemsContainer">
 <div className="itemsHolder">
-<div className="menuItem">Verification</div>
-<div className="menuItem">Markets</div>
-<div className="menuItem">About us</div>
-<div className="menuItem">Banking</div>
+<button className="menuItem">Reigster</button>
+<button className="menuItem">Markets</button>
+<button className="menuItem">Banking</button>
+<button style={{marginTop:40}}className="menuItem">About us</button>
+<button className="menuItem">Settings</button>
 </div>
 </div>
 </div>
