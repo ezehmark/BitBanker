@@ -308,7 +308,7 @@ const [scrollOpacity1, setScrollOpacity1] = useState(0);
 	  <div className="title" style={{left:isMobile?"50%":100}}>Bitbanker</div>
 
 	  <div className="menuList" style={{position:"absolute",display:"flex",justifyContent:"space-between",flexDirection:"row",gap:40}}>
-	  <div className="menuItem1">Verification</div>                          <div className="menuItem1">Markets</div>                               <div className="menuItem1">About us</div>                              <div className="menuItem1">Banking</div>	
+	  <button className="menuItem1">Verification</button>                          <button className="menuItem1">Markets</button>                               <button className="menuItem1">About us</button>                              <div className="menuItem1">Banking</div>	
 	  </div>
 
 
