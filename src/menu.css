@@ -4,5 +4,5 @@
 display:flex;align-items:center}
 .itemsHolder{position:absolute;top:40px;left:20px;display:flex;justify-content:space-between;gap:10px;flex-direction:column}
 
-.menuItem{padding:10px 100px 10px 10px;white-space:nowrap;background-color:white;box-shadow:0px 1px 3px rgba(0,0,0,0.4);border:0px solid #00d4d4;border-radius:5px}
+.menuItem{color:#213547;padding:10px 100px 10px 10px;white-space:nowrap;background-color:white;box-shadow:0px 1px 3px rgba(0,0,0,0.4);border:0px solid #00d4d4;border-radius:5px}
 .menuItem:hover{background-color:white;box-shadow:0px 0px 4px #00d4d4;color:#00d4d4;border-bottom:4px solid #00d4d4}

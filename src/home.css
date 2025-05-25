@@ -16,9 +16,7 @@
   position: absolute;
 flex-direction:column;
 }
-.heading1{padding:10px;text-align:center}
-@media(orientation:portrait){
-.heading1{text-align:left}}
+.heading1{display:flex;height:400px;align-items:center;background-color:transparent;padding:2px;text-align:center}
 .signInButton{padding:8px 12px;border-radius:10px;position:absolute;background-color:#00d4d4;font-size:12px;font-weight:bold;tohp:4px;right:10px}
 .outer {
   position: absolute;
@@ -32,9 +30,11 @@ flex-direction:column;
   width: 100%;
   display: flex;
   padding: 0px;
-  top: 100px;
+  top: 0px;
   z-index:20
 }
+
+.outerMiddle{justify-content:space-between;display:flex;gap:40px;background-color:transparent;backdrop-filter:blur(4px);align-items:center;width:100%;flex-direction:column}
 .perspective {
   height: 150px;
   width: 100%;
@@ -413,7 +413,7 @@ img {
 
 }
 
-@keyframes translateBox {                                               0%{opacity:0;transform:translateY(0px)}                               100%{opacity:1;transform:translateY(-40px)}}
+@keyframes translateBox {                                               0%{opacity:0;transform:translateY(40px)}                               100%{opacity:1;transform:translateY(0px)}}
 .boxAnimClass{animation:translateBox 2s ease forwards                   }
 
 .live-tickers {
@@ -451,6 +451,7 @@ img {
   width: 100%;
   background-color: #ef9800;
 }
+
 .jprice{position:absolute;white-space:nowrap;transform:translate(-50%,-50%);top:50%;left:80%}
 
 .blurComp1{height:18px;width:100px;position:absolute;top:16px;left:15px;background:linear-gradient(to right, #ccc 30%,#ffe0b2 50%, red 100%);filter:blur(60px)}
@@ -462,15 +463,29 @@ img {
 .menu{tmop:5px;left:2.5%;position:absolute;display:flex;align-items:center;justify-content:center;padding:0px;background-cohlor:red;height:20px;width:25px;z-index:30}
 @media(orientation:landscape){
 .tsParticles{heibght:100%}}
-.cryptoBox{padding:10px 10px;border-radius:20px;}
+.cryptoBox{border:#00d4d4;color:#00d4d4;border-radius:10px;}
 @keyframes cryptoBoxAnim {
-0%{transform:translateY(0px);opacity:0}
-100%{background-color:#00d4d4;transform:translateY(-50px);opacity:1}}
+0%{border:0px solid #feb819;transform:translateY(0px);opacity:0.7}
+70%{border:0px solid #00d4d4;background-color:transparent}
+100%{background-color:#00d4d4;opacity:1;border:2px solid #00d4d4;transform:translateY(-60px);opacity:1}}
 .cryptoAnimClass{animation:cryptoBoxAnim 3s ease forwards}
+.boxAndText{backdrop-filter:blur(0px);border-radius:25px;border:2px solid #00d4d4}
+
+.boxText{transform:translateY(-20px)}
+@keyframes boxTextAnim {                                            
+0%{transform:translateY(0px);opacity:1}                               
+100%{transform:translateY(-60px);opacity:1}}
+.boxTextAnim{animation:boxTextAnim 4s ease}
 
 .menuItem1{color:#213547;border-radius:10px;padding:5px}
 .menuItem:hover{box-shadow:0px 0px 4px #00d4d4;color:#00d4d4}
 button{background-color:transparent}
 button:hover{outline:none}
+button:active{outline:none}
+button:focus{outline:none}
 .menuItem1:hover{color:white;border-radius:10px;background-color:#00d4d4;box-shadow:0px 0px 4px rgba(0,0,0,0.6)}
 .menuItem1:active{color:#00d4d4;border-radius:10px;background-color:#00d4d4;box-shadow:0px 0px 4px #00d4d4}
+
+.login2{height:50px;border-radius:20px;display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid #00d4d4;z-index:10;padding:10px 20px;flex-direction:row;}
+
+.login2Button{text-align:center;padding:10px 14px;border-radius:15px;background-color:#00d4d4}
