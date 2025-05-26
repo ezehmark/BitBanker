@@ -348,11 +348,11 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                   opacity: 0.5,
                   width: isMobile ? 0.6 : 1,
                 },
-                move: { enable: true, speed: 0.5 },
+                move: { enable: true, speed: 0.5,outModes:{default:"destroy"},attract:{enable:true,rotateX:40,rotateY:60} },
               },
               interactivity: {
-                events: { onHover: { enable: true, mode: "repulse" } },
-                modes: { repulse: { distance: 80 } },
+                events: { onHover: { enable: true, mode: "grab" } },
+                modes: { grab: { distance: 80,links:{opacity:0.8}} },
               },
             }}
           />
