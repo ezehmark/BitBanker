@@ -339,14 +339,14 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
               background: { color: "transparent" },
               particles: {
                 number: { value: 80 },
-                size: { value: isMobile ? 0.8 : 1 },
+                size: { value: isMobile ? 1 : 2 },
                 color: { value: "#131314" },
                 links: {
                   enable: true,
                   distance: 100,
                   color: "#d50204",
                   opacity: 0.5,
-                  width: isMobile ? 0.4 : 0.7,
+                  width: isMobile ? 0.6 : 1,
                 },
                 move: { enable: true, speed: 0.5 },
               },
