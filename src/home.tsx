@@ -35,7 +35,7 @@ function Home({
   const [scrollOpacity2, setScrollOpacity2] = useState(0);
   const [scrollOpacity3, setScrollOpacity3] = useState(0);
 
-  const maxScroll1 = 50;
+  const maxScroll1 = 30;
   const maxScroll2 = 90;
   const maxScroll3 = 400;
 
@@ -48,6 +48,9 @@ function Home({
 
         setScrollOpacity1(Math.min(1, scrollY / maxScroll1));
       }
+      if(!isMobile){
+      setTimeout(()=>{
+      cryptoBoxRef.current.classList.add("cryptoAnimClass");},2000)}
       if (scrollOpacity1 === 1) {
         cryptoBoxRef.current.classList.add("cryptoAnimClass");
       }
@@ -79,7 +82,7 @@ function Home({
   const tickerBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const maxScroll = 150;
+    const maxScroll = 350;
 
     function handleScroll() {
       if (tickerBoxRef.current && scrollVisible < 1) {
@@ -104,6 +107,25 @@ function Home({
     window.addEventListener("resize", handleScreenSize);
     return () => window.removeEventListener("resize", handleScreenSize);
   }, []);
+
+
+const login2Ref = useRef(null);
+  useEffect(()=>{
+const maxiScroll = 300;
+const handleButtonScroll = ()=>{
+if(scrollOpacity3 < 1){
+
+const scrollValue = window.scrollY;
+
+setScrollOpacity3(Math.min(1,scrollValue/maxiScroll))}
+if(scrollOpacity3 ==1){
+login2Ref.current.classList.add("login2AnimClass")}
+ 
+}
+
+window.addEventListener("scroll",handleButtonScroll);
+return()=>window.removeEventListener("scroll",handleButtonScroll);
+  },[scrollOpacity3]);
 
   const initParticles = useCallback(async (engine) => {
     await loadFull(engine);
@@ -292,33 +314,49 @@ function Home({
           backgroundSize: "cover",
           height: 1700,
         }}
-      ><div                                                                    style={{                                                                height: 500,                                                          overflow: "hidden",                                                   display: "flex",                                                      width: "100%",                                                        position: "absolute",                                               }}                                                                  >                                                                       <Particles                                                              id="tsparticles"                                                      init={initParticles}                                                  style={{                                                                position: "absolute",                                                 top: 0,
-                left: 0,                                                              width: "100%",
-                height: "100%",
-              }}
-              options={{                                                              background: { color: "transparent" },
-                particles: {                                                            number: { value: 80 },
-                  size: { value: isMobile ? 0.8 : 1 },
-                  color: { value: "#131314" },
-                  links: {
-                    enable: true,
-                    distance: 100,
-                    color: "#d50204",
-                    opacity: 0.5,
-                    width: isMobile ? 0.4 : 0.7,
-                  },
-                  move: { enable: true, speed: 0.5 },
+      >
+        <div
+          style={{
+            height: 500,
+            overflow: "hidden",
+            display: "flex",
+            width: "100%",
+            position: "absolute",
+          }}
+        >
+          
+          <Particles
+            id="tsparticles"
+            init={initParticles}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+            options={{
+              background: { color: "transparent" },
+              particles: {
+                number: { value: 80 },
+                size: { value: isMobile ? 0.8 : 1 },
+                color: { value: "#131314" },
+                links: {
+                  enable: true,
+                  distance: 100,
+                  color: "#d50204",
+                  opacity: 0.5,
+                  width: isMobile ? 0.4 : 0.7,
                 },
-                interactivity: {
-                  events: { onHover: { enable: true, mode: "repulse" } },
-                  modes: { repulse: { distance: 80 } },
-                },
-              }}
-            />
-
-	    </div>
-
-
+                move: { enable: true, speed: 0.5 },
+              },
+              interactivity: {
+                events: { onHover: { enable: true, mode: "repulse" } },
+                modes: { repulse: { distance: 80 } },
+              },
+            }}
+          />
+        </div>
       </div>
       {isMobile ? (
         <div className="topHeading" style={{}}>
@@ -402,9 +440,15 @@ function Home({
           className="outer"
           style={{ flexDirection: isMobile ? "column" : "column" }}
         >
-
-	<h1 className="heading1"style={{color: "#213547",textAlign: isMobile ? "center" : "center"}}>Enjoy the benefits of a hybrid economy</h1>
-          
+          <h1
+            className="heading1"
+            style={{
+              color: "#213547",
+              textAlign: isMobile ? "center" : "center",
+            }}
+          >
+            Enjoy the benefits of a hybrid economy
+          </h1>
 
           <div style={{}} className="outerMiddle">
             <div
@@ -421,13 +465,10 @@ function Home({
               <div
                 ref={cryptoBoxRef}
                 className="cryptoBox"
-                style={{ opacity: 1, padding:0,color: "#213547" }}
+                style={{ opacity: 1, padding: 0, color: "#213547" }}
               >
-                
-		<h2 style={{ padding: 0, textAlign: "center" }}>
-                  Crypto meets banking
-                </h2>
-		
+                <h2 
+		className="cryptoH2" style={{backgroundColor:scrollOpacity1 == 1&&"#00d4d4",margin:0,padding:10,borderRadius:20,textAlign: "center" }}>Crypto meets banking</h2>
               </div>
 
               <div
@@ -437,7 +478,7 @@ function Home({
                   fontSize: 15,
                   textAlign: "center",
                   backgroundColor: "transparent",
-		  color:"#213547",
+                  color: "#213547",
                 }}
               >
                 The speed of blockchain transactions and the ultimate safety of
@@ -447,11 +488,47 @@ function Home({
               </div>
             </div>
 
-	    <div style={{height:80,width:"90%",borderRadius:20,display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"grey"}}><div className="login2">
-	    <div style={{alignItems:"center",justifyContent:"center",display:"flex",position:"relative"}}>Quick sign in <img src="https://i.postimg.cc/hjwq2yr9/file-00000000df6061f9a2d97efda108b371.png" style={{position:"absolute",height:12,bottom:-6,right:10,zIndex:12,width:22}}/> </div>
-	
-	    <button className="login2Button">Sign in </button></div>
-	    </div>
+            <div
+              style={{
+                height: 80,
+                width: "90%",
+                borderRadius: 20,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "transparent",
+              }}
+            >
+              <div 
+	      className="login2">
+                <div
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    position: "relative",
+		    color:"black",
+		    zIndex:10
+                  }}
+                >
+                  Quick sign in
+                  <img
+		  className="arrowRight"
+                    src="https://i.postimg.cc/hjwq2yr9/file-00000000df6061f9a2d97efda108b371.png"
+                    style={{
+                      position: "absolute",
+                      height: 18,
+                      bottom: -15,
+                      right: 10,
+                      width: 25,
+		      opacity:1
+                    }}
+                  />
+                </div>
+
+                <button onClick={()=>navigate("/login")}ref={login2Ref} className="login2Button">Sign in </button>
+              </div>
+            </div>
 
             <div style={{}} ref={tickerBoxRef} className="live-tickers">
               <div className="table-title">
