@@ -1,0 +1,23 @@
+.sampleContainer{height:300px;width:100%;display:flex;align-items:center;background-color:grey;justify-content:flex-start;flex-direction:row;flex-wrap:nowrap;position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overflow-y:hidden;background:linear-gradient(to bottom,transparent 0% 30%, #213547 30% 70%,#f3f0e9 )}
+
+.coinBox{scroll-snap-align:center;height:90%;margin:10px;background:linear-gradient(to top, #213547 60%, #ccc);filter:sepia(50);backdrop-filter:blur(5px);opacity:0.9;width:200px;flex:0 0 auto;border-radius:20px;
+justify-content:space-between;padding:20px;align-items:center;flex-direction:column;display:flex;gap:10px}
+
+@keyframes coinBoxAnim{
+0%{background-color:white}
+100%{box-shadow: 0px 4px 4px white,0px 4px 7px rgba(257,252,246,0.8);filter:sepia(0);opacity:1;margin-bottom:40px;background:linear-gradient(to top, #213547 60%, #1b2b39)}}
+
+.coinBoxAnimClass{animation:coinBoxAnim 0.5s ease forwards}
+
+.coinLogo{z-index:23;height:80px;width:80px;display:flex;position:relative;overflow:hidden;box-shadow:0px 0px 4px white, 0px 2px 20px #ccc;border-radius:50%;background-color:#213547}
+.coinPrice{z-index:23;font-size:25px;font-weight:bold}
+.coinSymbol{z-index:23;font-size:18px;margin-top:20px;color:rgba(255,255,255,0.8);font-weight:bold}
+.coinName{z-index:23;font-size:14px;margin-top:-10px;color:grey;}
+.logoImg{position:absolute;height:100%;width:100%}
+@keyframes cointitleanim{
+0%{display:none}
+50%{display:flex}
+100%{opacity:1}}
+.coinTitleAnim{animation:cointitleanim 3s ease forwards}
+
+

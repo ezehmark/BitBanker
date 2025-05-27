@@ -1,11 +1,42 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import "./home.css";
+import "./sampleCoin.css";
 
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { analytics } from "./firebase.ts";
 import { useNavigate } from "react-router-dom";
 import { logEvent } from "firebase/analytics";
+
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+  TimeScale,
+  Title,
+  Filler,
+} from "chart.js";
+import "chartjs-adapter-date-fns";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+  TimeScale,
+  Title,
+  Filler,
+);
 
 function Home({
   toggleProfile,
@@ -34,31 +65,21 @@ function Home({
   const [scrollOpacity1, setScrollOpacity1] = useState(0);
   const [scrollOpacity2, setScrollOpacity2] = useState(0);
   const [scrollOpacity3, setScrollOpacity3] = useState(0);
+  const [scrollOpacity4, setScrollOpacity4] = useState(0);
 
   const maxScroll1 = 30;
   const maxScroll2 = 90;
   const maxScroll3 = 400;
 
   const cryptoBoxRef = useRef(null);
+  const boxTitleRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (scrollOpacity1 < 1) {
-        const scrollY = window.scrollY;
-
-        setScrollOpacity1(Math.min(1, scrollY / maxScroll1));
-      }
-      if(!isMobile){
-      setTimeout(()=>{
-      cryptoBoxRef.current.classList.add("cryptoAnimClass");},2000)}
-      if (scrollOpacity1 === 1) {
-        cryptoBoxRef.current.classList.add("cryptoAnimClass");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollOpacity1]);
+    
+      cryptoBoxRef.current.classList.add("cryptoAnimClass");
+      boxTitleRef.current.classList.add("boxTitleAnimClass")
+    
+  }, []);
 
   const boxText = useRef(null);
 
@@ -108,28 +129,130 @@ function Home({
     return () => window.removeEventListener("resize", handleScreenSize);
   }, []);
 
+  const login2Ref = useRef(null);
+  useEffect(() => {
+    const maxiScroll = 300;
+    const handleButtonScroll = () => {
+      if (scrollOpacity3 < 1) {
+        const scrollValue = window.scrollY;
 
-const login2Ref = useRef(null);
-  useEffect(()=>{
-const maxiScroll = 300;
-const handleButtonScroll = ()=>{
-if(scrollOpacity3 < 1){
+        setScrollOpacity3(Math.min(1, scrollValue / maxiScroll));
+      }
+      if (scrollOpacity3 == 1) {
+        login2Ref.current.classList.add("login2AnimClass");
+      }
+    };
 
-const scrollValue = window.scrollY;
+    window.addEventListener("scroll", handleButtonScroll);
+    return () => window.removeEventListener("scroll", handleButtonScroll);
+  }, [scrollOpacity3]);
 
-setScrollOpacity3(Math.min(1,scrollValue/maxiScroll))}
-if(scrollOpacity3 ==1){
-login2Ref.current.classList.add("login2AnimClass")}
- 
+
+  const arrowRef=useRef(null);
+  const loginRef = useRef(null);
+const triggerLoginHover=(e)=>{
+  if(loginRef.current && loginRef.current.contains(e.target as Node)){ arrowRef.current.classList.add(arrowAnim) }
 }
 
-window.addEventListener("scroll",handleButtonScroll);
-return()=>window.removeEventListener("scroll",handleButtonScroll);
-  },[scrollOpacity3]);
+
+  useEffect(()=>{
+  document.addEventListener("pointerdown",triggerLoginHover);
+	   return ()=>document.removeEventListener("pointerdown",triggerLoginHover);
+  },[]);
+
 
   const initParticles = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);
+
+  const containerRef = useRef(null);
+  useEffect(() => {
+    const container = containerRef.current;
+    const boxes = container.querySelectorAll(".coinBox");
+
+    const myObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("coinBoxAnimClass");
+          } else {
+            entry.target.classList.remove("coinBoxAnimClass");
+          }
+        });
+      },
+      { root: container, threshold: 1 },
+    );
+
+    boxes.forEach((box) => myObserver.observe(box));
+    return () => myObserver.disconnect();
+  }, []);
+
+  const coinTitle = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const maxScroll4 = 800;
+      if (scrollOpacity4 < 1) {
+        const scrollY = window.scrollY;
+        setScrollOpacity4(Math.min(1, scrollY / maxScroll4));
+      }
+      if (!isMobile) {
+        setTimeout(() => {
+          coinTitle.current.classList.add("coinTitleAnim");
+        }, 2000);
+      }
+      if (scrollOpacity4 === 1) {
+        cryptoBoxRef.current.classList.add("coinTitleAnim");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollOpacity4]);
+
+  const particlesOption = {
+    background: {
+      color: "transparent", // or any background color
+    },
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onClick: { enable: true, mode: "push" },
+        onHover: { enable: true, mode: "repulse" },
+        resize: true,
+      },
+      modes: {
+        push: { quantity: 0 },
+        repulse: { distance: 100, duration: 0.5 },
+      },
+    },
+    particles: {
+      color: { value: "#feb819" },
+      links: {
+        color: "#213547",
+        distance: 100,
+        enable: true,
+        opacity: 0.4,
+        width: 1,
+      },
+      collisions: { enable: true },
+      move: {
+        direction: "top-left",
+        enable: true,
+        outModes: { default: "bounce" },
+        random: false,
+        speed: 0.5,
+        straight: false,
+      },
+      number: {
+        density: { enable: true, area: 800 },
+        value: 40,
+      },
+      opacity: { value: 1 },
+      shape: { type: "circle" }, // You can also use: "square", "polygon", "star", "image", etc.
+      size: { value: { min: 1, max: 5 } },
+    },
+    detectRetina: true,
+  };
 
   useEffect(() => {
     const storedName = localStorage.getItem("fullName");
@@ -142,14 +265,17 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
   const [btcPrice, setBtcPrice] = useState<string | null>(null);
   const [ethPrice, setEthPrice] = useState<string | null>(null);
   const [solPrice, setSolPrice] = useState<string | null>(null);
+  const [dogePrice, setDogePrice] = useState<string | null>(null);
 
   const btcPriceRef = useRef<string | null>(null);
   const ethPriceRef = useRef<string | null>(null);
   const solPriceRef = useRef<string | null>(null);
+  const dogePriceRef = useRef<string | null>(null);
 
   const [btcColor, setBtcColor] = useState("white");
   const [ethColor, setEthColor] = useState("white");
   const [solColor, setSolColor] = useState("white");
+  const [dogeColor, setDogeColor] = useState("white");
 
   useEffect(() => {
     logEvent(analytics, "Screen_Views", { screen: "home" });
@@ -170,6 +296,9 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
               "publicTrade.BTCUSDT",
               "publicTrade.ETHUSDT",
               "publicTrade.SOLUSDT",
+              "publicTrade.DOGEUSDT",
+              "publicTrade.XRPUSDT",
+              "publicTrade.ADAUSDT",
             ],
           }),
         );
@@ -200,6 +329,23 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
             console.log("Price updated live, BTCUSDT:", price);
             totalBtc = Number(price) * 12;
             setBtc(totalBtc.toString());
+          }
+
+          if (symbol == "DOGEUSDT") {
+            const prev = dogePriceRef.current
+              ? parseFloat(dogePriceRef.current)
+              : 0;
+            const currentP = parseFloat(price);
+            if (prev < currentP) {
+              setDogeColor("#feb819");
+            } else if (prev > currentP) {
+              setDogeColor("#ec5300");
+            } else {
+              setDogeColor("grey");
+            }
+
+            dogePriceRef.current = price;
+            setDogePrice(price);
           }
 
           if (symbol === "ETHUSDT") {
@@ -270,36 +416,118 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
     };
   }, []);
 
-  const handleAnim1 = () => {
-    if (topRef.current && button2Ref.current) {
-      const top = topRef.current;
-      const button2 = button2Ref.current;
-      top.classList.remove("animClass");
-      void top.offsetWidth;
-      top.classList.add("animClass");
-      setTimeout(() => {
-        top.classList.remove("animClass2");
-        button2.classList.toggle("button2-show");
-      }, 4000);
+  const [loading, setLoading] = useState(false);
+  const [btcChartData, setBtcChartData] = useState(null);
+  async function getBtcChart() {
+    setLoading(true);
+    console.warn("effect triggered!");
+
+    try {
+      const response = await axios.get(
+        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7",
+      );
+      console.log(response.data);
+      const chartData = response.data;
+      console.warn(chartData);
+      const priceData = chartData.prices.map((p) => ({
+        x: new Date(p[0]),
+        y: p[1],
+      }));
+
+      setBtcChartData({
+        datasets: [
+          {
+            data: priceData,
+            backgroundColor: "red",
+            borderWidth: 0.6,
+            borderColor: "orange",
+            fill: false,
+            tension: 1,
+            pointRadius: 0.1,
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  useEffect(() => {
+    getBtcChart();
+  }, []);
+
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        type: "time",
+        time: { unit: "day" },
+        title: { display: true, text: "Date" },
+      },
+      y: {
+        title: { display: "true", text: "BTC price" },
+      },
+    },
+
+    plugins: {
+      title: { display: false, text: "7-Day Bitcoin price chart live" },
+    },
   };
 
-  const handleAnim2 = () => {
-    if (topRef.current && button2Ref.current) {
-      const top = topRef.current;
-      const button2 = button2Ref.current;
-      button2.style.backgroundColor = "#ef9800";
-      top.classList.remove("animClass2");
+  const chartOptions2 = {
+    responsive: false,
+    maintainAspectRatio: false,
 
-      top.classList.add("animClass2");
-      setTimeout(() => {
-        top.classList.remove("animClass");
-      }, 4000);
-      setTimeout(() => {
-        button2.classList.toggle("button2-show");
-      }, 100);
-    }
+    scales: {
+      x: {
+        display: false,
+        type: "time",
+        time: { unit: "day" },
+        title: { display: false, text: "Date" },
+      },
+      y: {
+        display: false,
+        title: { display: false, text: "BTC price" },
+      },
+    },
+    plugins: {
+      title: { display: false, text: "7-Day timeframe" },
+      legend: { display: false },
+    },
   };
+  const coinData = [
+    {
+      coinLogo: "https://i.postimg.cc/qvS5hZ24/images.png",
+      coinColor: btcColor,
+      coinPrice: btcPrice,
+      coinSymbol: "BTCUSDT",
+      coinName: "Bitcoin",
+      chartData: btcChartData,
+    },
+    {
+      coinLogo: "https://i.postimg.cc/L58T0zjx/images-1.png",
+      coinColor: ethColor,
+      coinPrice: ethPrice,
+      coinSymbol: "ETHUSDT",
+      coinName: "Ethereum",
+    },
+    {
+      coinLogo: "https://i.postimg.cc/B6G7NLhz/download.jpg",
+      coinColor: solColor,
+      coinPrice: solPrice,
+      coinSymbol: "SOLUSDT",
+      coinName: "Solana",
+    },
+    {
+      coinLogo: "https://i.postimg.cc/Znb7zkzF/download-1.jpg",
+      coinColor: dogeColor,
+      coinPrice: dogePrice,
+      coinSymbol: "DOGEUSDT",
+      coinName: "Dogecoin",
+    },
+  ];
 
   return (
     <>
@@ -312,7 +540,7 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
           backgroundImage:
             'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',
           backgroundSize: "cover",
-          height: 1700,
+          height: 2500,
         }}
       >
         <div
@@ -324,7 +552,6 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
             position: "absolute",
           }}
         >
-          
           <Particles
             id="tsparticles"
             init={initParticles}
@@ -335,26 +562,7 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
               width: "100%",
               height: "100%",
             }}
-            options={{
-              background: { color: "transparent" },
-              particles: {
-                number: { value: 80 },
-                size: { value: isMobile ? 1 : 2 },
-                color: { value: "#131314" },
-                links: {
-                  enable: true,
-                  distance: 100,
-                  color: "#d50204",
-                  opacity: 0.5,
-                  width: isMobile ? 0.6 : 1,
-                },
-                move: { enable: true, speed: 0.5,outModes:{default:"destroy"},attract:{enable:true,rotateX:40,rotateY:60} },
-              },
-              interactivity: {
-                events: { onHover: { enable: true, mode: "grab" } },
-                modes: { grab: { distance: 80,links:{opacity:0.8}} },
-              },
-            }}
+            options={particlesOption}
           />
         </div>
       </div>
@@ -413,7 +621,7 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
               gap: 40,
             }}
           >
-            <button className="menuItem1">Verification</button>
+            <button className="menuItem1">Track Prices</button>
             <button className="menuItem1">Markets</button>
             <button className="menuItem1">About us</button>
             <button className="menuItem1">Banking</button>
@@ -458,17 +666,39 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                 justifyContent: "space-between",
                 display: "flex",
                 width: "95%",
-                flexDirection: "column",
+                flexDirection: isMobile?"column":"row",
                 gap: 20,
               }}
             >
+
+
+	    <div 
+	    className='firstGroup'
+	    style={{justifyContent:"space-between",display:"flex",
+		    alignItems:"center",width:"100%",position:"relative",flexDirection:"column",gap:40}}>
+
+
+
+
               <div
                 ref={cryptoBoxRef}
                 className="cryptoBox"
                 style={{ opacity: 1, padding: 0, color: "#213547" }}
               >
-                <h2 
-		className="cryptoH2" style={{backgroundColor:scrollOpacity1 == 1&&"#00d4d4",margin:0,padding:10,borderRadius:20,textAlign: "center" }}>Crypto meets banking</h2>
+                <h2
+                  className="cryptoH2"
+		  ref={boxTitleRef}
+
+                  style={{
+                    margin: 0,
+                    padding: 10,
+                    borderRadius: 20,
+                    textAlign: "center",
+		    backgroundColor:"#00d4d4",
+                  }}
+                >
+                  Crypto meets banking
+                </h2>
               </div>
 
               <div
@@ -486,9 +716,10 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                 confidence of trading your favourite cryptocurrencies anywhere,
                 anytime from <b>Blocavax</b>. Ready to explore and trade?
               </div>
-            </div>
+            
 
             <div
+	    ref={loginRef}
               style={{
                 height: 80,
                 width: "90%",
@@ -499,21 +730,21 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                 backgroundColor: "transparent",
               }}
             >
-              <div 
-	      className="login2">
+              <div className="login2">
                 <div
                   style={{
                     alignItems: "center",
                     justifyContent: "center",
                     display: "flex",
                     position: "relative",
-		    color:"black",
-		    zIndex:10
+                    color: "black",
+                    zIndex: 10,
                   }}
                 >
                   Quick sign in
                   <img
-		  className="arrowRight"
+		  ref={arrowRef}
+                    className="arrowRight"
                     src="https://i.postimg.cc/hjwq2yr9/file-00000000df6061f9a2d97efda108b371.png"
                     style={{
                       position: "absolute",
@@ -521,83 +752,121 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                       bottom: -15,
                       right: 10,
                       width: 25,
-		      opacity:1
+                      opacity: 1,
                     }}
                   />
                 </div>
 
-                <button onClick={()=>navigate("/login")}ref={login2Ref} className="login2Button">Sign in </button>
-              </div>
-            </div>
-
-            <div style={{}} ref={tickerBoxRef} className="live-tickers">
-              <div className="table-title">
-                <div>Coins</div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 2,
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
+                <button
+                  onClick={() => navigate("/login")}
+                  ref={login2Ref}
+                  className="login2Button"
                 >
-                  <div>Price</div>
-                  <div
-                    style={{
-                      borderRadius: 2,
-                      alignItems: "center",
-                      padding: "2px 2px 2px 3px",
-                      border: "1px solid #5a3600",
-                      fontSize: 10,
-                    }}
-                  >
-                    USDT<b style={{ filter: "grayscale(30%)" }}>🔻</b>
-                  </div>
-                </div>
-              </div>
-              <div className="ticker1">
-                <div>BTC</div>
-                <div style={{ color: btcColor }}>
-                  {btcPrice == null
-                    ? "Loading..."
-                    : Number(btcPrice).toLocaleString("en-us")}
-                </div>
-              </div>
-              <div className="ticker1">
-                <div>ETH</div>
-                <div style={{ color: ethColor }}>
-                  {ethPrice == null
-                    ? "Loading..."
-                    : Number(ethPrice).toLocaleString("en-us")}
-                </div>
-              </div>
-              <div className="ticker1">
-                <div>SOL</div>
-                <div style={{ color: solColor }}>
-                  {solPrice == null
-                    ? "Loading..."
-                    : Number(solPrice).toLocaleString("en-us")}
-                </div>
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: 10,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                  width: "100%",
-                  height: 40,
-                  color: "#291900",
-                  backgroundColor: "#c77700",
-                }}
-              >
-                The prices above reflect real-time cryptocurrency prices.
-                Tickers are tracked live.
+                  Sign in
+                </button>
               </div>
             </div>
+
+	    </div>
+	    </div>
+	    
+
+
+
+
+
+	    <div                                                                  className='secondGroup'                                                style={{justifyContent:"space-between",display:"flex",
+		    alignItems:"center",width:isMobile?"100%":1000,
+	    position:"relative",flexDirection:isMobile?"column":"row",gap:40}}>
+
+            <div
+              style={{
+                justifyContent: "space-betweeen",
+                display: "flex",
+                flexDirection: "column",
+                gap: 40,
+                alignItems: "center",
+                
+              }}
+            >
+
+	    
+
+
+
+
+
+
+              <h2 ref={coinTitle} style={{color:"#213547"}}>
+                Trade best coins,<b style={{color:"#feb819"}}> anytime
+              </b></h2>
+
+              <div ref={containerRef} 
+	      style={{position:"relative",width:isMobile?window.innerWidth:500}}
+	      className="sampleContainer">
+                {coinData.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => getBtcChart()}
+                      className="coinBox"
+                    >
+                      <div className="coinLogo">
+                        <img
+                          className="logoImg"
+                          src={item.coinLogo}
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            position: "absolute",
+                          }}
+                        />
+                      </div>
+
+                      <div
+                        style={{ color: item.coinColor }}
+                        className="coinPrice"
+                      >
+                        {item.coinPrice == null
+                          ? "Loading"
+                          : Number(item.coinPrice).toLocaleString("en-us")}
+                      </div>
+
+                      <div
+                        style={{
+                          height: 150,
+                          position: "absolute",
+                          left: 2,
+                          top: 70,
+                          zIndex: 20,
+                          width: "100%",
+                          backgroundColor: "transparent",
+                          alignItems: "center",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {btcChartData ? (
+                          <Line
+                            options={chartOptions2}
+                            width={198}
+                            height={100}
+                            data={btcChartData}
+                          />
+                        ) : (
+                          <Skeleton height={100} width={150} />
+                        )}
+                      </div>
+
+                      <div className="coinSymbol">{item.coinSymbol}</div>
+                      <div className="coinName">{item.coinName}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            
+
+
 
             <div
               style={{
@@ -611,6 +880,9 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
               <div className="deposit">Deposit</div>
               <div className="withdraw">Withdraw</div>
             </div>
+
+
+	    </div>
 
             <div className="transactions">
               <div
@@ -677,6 +949,12 @@ return()=>window.removeEventListener("scroll",handleButtonScroll);
                 );
               })}
             </div>
+	    
+
+
+	    </div>
+
+
             <div className="notes">
               <b style={{}}>BitBanker</b>, here every customer is verified and
               user data are protected by the C-SKv architecture, guaran teeing

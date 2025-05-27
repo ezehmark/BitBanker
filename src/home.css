@@ -34,7 +34,7 @@ flex-direction:column;
   z-index:20
 }
 
-.outerMiddle{justify-content:space-between;display:flex;gap:40px;background-color:transparent;backdrop-filter:blur(4px);align-items:center;width:100%;flex-direction:column}
+.outerMiddle{justify-content:space-between;display:flex;gap:40px;background-color:transparent;backdrop-filter:blur(4px);align-items:center;width:100%;padding-bottom:500px;flex-direction:column}
 .perspective {
   height: 150px;
   width: 100%;
@@ -462,19 +462,24 @@ img {
 .menu{tmop:5px;left:2.5%;position:absolute;display:flex;align-items:center;justify-content:center;padding:0px;background-cohlor:red;height:20px;width:25px;z-index:30}
 @media(orientation:landscape){
 .tsParticles{heibght:100%}}
-.cryptoBox{border:#00d4d4;margin:0;backdrop-filter:blur(10px);color:#00d4d4;border-radius:20px;}
+.cryptoBox{border:#00d4d4;transform:translateY(-58px);margin:0;backdrop-filter:blur(10px);color:#00d4d4;border-radius:20px;}
 @keyframes cryptoBoxAnim {
 0%{border:0px solid #feb819;transform:translateY(0px);opacity:0.7}
 70%{border:0px solid #00d4d4}
-100%{padding:5px;color:white;opacity:1;border:2px solid #00d4d4;color:#213547;background-color:#f3f0e9;transform:translateY(-58px);opacity:1}}
-.cryptoAnimClass{animation:cryptoBoxAnim 3s ease forwards}
+100%{padding:5px;color:white;opacity:1;border:2px solid #00d4d4;color:#213547;background-color:#f3f0e9;opacity:1}}
+.cryptoAnimClass{animation:cryptoBoxAnim 1.5s ease forwards}
 .boxAndText{backdrop-filter:blur(0px);border-radius:25px;border:2px solid #00d4d4}
+
+@keyframes boxTitleRefAnim{
+0%{background-color:transparent}
+100%{background-color:"#00d4d4"}}
+.boxTitleAnimClass{animation:boxTitleRefAnim 2s ease forwards}
 
 .boxText{transform:translateY(-20px)}
 @keyframes boxTextAnim {                                            
 0%{transform:translateY(0px);opacity:1}                               
 100%{transform:translateY(-50px);opacity:1}}
-.boxTextAnim{animation:boxTextAnim 4s ease forwards}
+.boxTextAnim{animation:boxTextAnim 2s ease forwards}
 
 .menuItem1{color:#213547;border-radius:10px;padding:5px}
 .menuItem:hover{box-shadow:0px 0px 4px #00d4d4;color:#00d4d4}

@@ -20,7 +20,7 @@ console.log("menu closed x");
 useEffect(()=>{
 document.addEventListener("pointerdown",closeMenu);
 
-return ()=>document.removeEventListener("pointerdown",closeMenu)
+return ()=>document.removeEventListener("pointerdown",closeMenu);
 },[setOpenMenu]);
 
 
