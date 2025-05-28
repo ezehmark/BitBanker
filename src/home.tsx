@@ -156,9 +156,26 @@ const triggerLoginHover=(e)=>{
 
 
   useEffect(()=>{
-  document.addEventListener("pointerdown",triggerLoginHover);
-	   return ()=>document.removeEventListener("pointerdown",triggerLoginHover);
+  document.addEventListener("pointerenter",triggerLoginHover);
+	   return ()=>document.removeEventListener("pointerenter",triggerLoginHover);
   },[]);
+
+  const coinLogoRef = useRef(null);
+
+  const controlCoinLogo = (e)=>{
+
+  if(coinLogoRef.current.contains(e.target as Node)){
+  const cl = coinLogoRef.current;
+  cl.classList.remove("coinLogoAnimClass");
+  
+  void cl.offsetWidth;
+
+  cl.classList.add('coinLogoAnimClass')}
+  }
+
+  useEffect(()=>{
+  document.addEventListener("pointerenter",controlCoinLogo);
+  return ()=> document.removeEventListener("pointerenter",controlCoinLogo);},[]);
 
 
   const initParticles = useCallback(async (engine) => {
@@ -424,8 +441,7 @@ const triggerLoginHover=(e)=>{
 
     try {
       const response = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7",
-      );
+	      "https://mybackend-oftz.onrender.com/coingecko/charts");
       console.log(response.data);
       const chartData = response.data;
       console.warn(chartData);
@@ -448,7 +464,7 @@ const triggerLoginHover=(e)=>{
         ],
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -811,7 +827,9 @@ const triggerLoginHover=(e)=>{
                       onClick={() => getBtcChart()}
                       className="coinBox"
                     >
-                      <div className="coinLogo">
+                      <div 
+		      ref={coinLogoRef}
+		      className="coinLogo">
                         <img
                           className="logoImg"
                           src={item.coinLogo}

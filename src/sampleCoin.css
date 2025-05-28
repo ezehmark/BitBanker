@@ -10,6 +10,12 @@ justify-content:space-between;padding:20px;align-items:center;flex-direction:col
 .coinBoxAnimClass{animation:coinBoxAnim 0.5s ease forwards}
 
 .coinLogo{z-index:23;height:80px;width:80px;display:flex;position:relative;overflow:hidden;box-shadow:0px 0px 4px white, 0px 2px 20px #ccc;border-radius:50%;background-color:#213547}
+
+@keyframes coinLogoMove{
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}}
+
+.coinLogoAnimClass{animation:coinLogoMove 2s ease}
 .coinPrice{z-index:23;font-size:25px;font-weight:bold}
 .coinSymbol{z-index:23;font-size:18px;margin-top:20px;color:rgba(255,255,255,0.8);font-weight:bold}
 .coinName{z-index:23;font-size:14px;margin-top:-10px;color:grey;}
