@@ -793,7 +793,7 @@ const triggerLoginHover=(e)=>{
 
 	    <div                                                                  className='secondGroup'                                                style={{justifyContent:"space-between",display:"flex",
 		    alignItems:"center",width:isMobile?"100%":1000,
-	    position:"relative",flexDirection:isMobile?"column":"row",gap:40}}>
+	    position:"relative",backgroundColor:"red",flexDirection:isMobile?"column":"row",gap:40}}>
 
             <div
               style={{
