@@ -55,6 +55,10 @@ function Home({
 
   const [name, setName] = useState("null_user");
   const [picUrl, setPicUrl] = useState("");
+  const[day,setDay]=useState(true);
+
+  function toggleDay(){
+  setDay(d=>!d)}
 
   const navigate = useNavigate();
 
@@ -204,6 +208,25 @@ const triggerLoginHover=(e)=>{
     return () => myObserver.disconnect();
   }, []);
 
+  const nextRef = useRef(null);
+
+  
+
+
+  function moveForth(e){
+	  if(nextRef.contains(e.target as Node)){
+	  
+const scrollWidth = 300;
+
+containerRef.current.scrollX = scrollWidth;}
+  }
+
+  useEffect(()=>{
+  document.addEventListener("click",moveForth);
+
+  return()=>document.removeEventListener("click",moveForth);},[]);
+
+
   const coinTitle = useRef(null);
 
   useEffect(() => {
@@ -233,7 +256,7 @@ const triggerLoginHover=(e)=>{
     fpsLimit: 60,
     interactivity: {
       events: {
-        onClick: { enable: true, mode: "push" },
+        onClick: { enable: true, mode: "grab" },
         onHover: { enable: true, mode: "repulse" },
         resize: true,
       },
@@ -253,11 +276,11 @@ const triggerLoginHover=(e)=>{
       },
       collisions: { enable: true },
       move: {
-        direction: "top-left",
+        direction: "none",
         enable: true,
         outModes: { default: "bounce" },
-        random: false,
-        speed: 0.5,
+        random: true,
+        speed: 0.6,
         straight: false,
       },
       number: {
@@ -455,10 +478,10 @@ const triggerLoginHover=(e)=>{
           {
             data: priceData,
             backgroundColor: "red",
-            borderWidth: 0.6,
+            borderWidth: 0.8,
             borderColor: "orange",
             fill: false,
-            tension: 1,
+            tension: 0.2,
             pointRadius: 0.1,
           },
         ],
@@ -601,7 +624,9 @@ const triggerLoginHover=(e)=>{
             />
           </button>
 
-          <div className="title" style={{ left: isMobile ? "50%" : 100 }}>
+          <div className="title" style={{ 
+		  fontSize:18,
+		  left: isMobile ? "50%" : 100 }}>
             Blocavax
           </div>
 
@@ -610,6 +635,7 @@ const triggerLoginHover=(e)=>{
               navigate("/login");
             }}
             className="signInButton"
+	    style={{                                                        backgroundColor:day?"#00d4d4":"white",                          color:day?"black":"#00d4d4"}}
           >
             Sign in
           </button>
@@ -623,7 +649,7 @@ const triggerLoginHover=(e)=>{
             flexDirection: "row",
           }}
         >
-          <div className="title" style={{ left: isMobile ? "50%" : 100 }}>
+          <div className="title" style={{ color:day?"black":"#ccc",left: isMobile ? "50%" : 100 }}>
             Blocavax
           </div>
 
@@ -648,8 +674,11 @@ const triggerLoginHover=(e)=>{
               navigate("/login");
             }}
             className="signInButton"
+	    style={{
+	    backgroundColor:day?"#00d4d4":"white",
+	    color:day?"gray":"#00d4d4"}}
           >
-            Sign in
+            Sign in now	
           </div>
         </div>
       )}
@@ -662,19 +691,31 @@ const triggerLoginHover=(e)=>{
       >
         <div
           className="outer"
-          style={{ flexDirection: isMobile ? "column" : "column" }}
+          style={{ position:"relative",flexDirection: isMobile ? "column" : "column" }}
         >
-          <h1
+          <div
             className="heading1"
             style={{
               color: "#213547",
+	      position:"relative",
+	      justifyContent:"space-between",
+	      flexDirection:isMobile?"column":"row",
+	      gap:2,
+	      padding:0,
+	      height:300,
+	      display:"flex",
+	      alignItems:"center",
               textAlign: isMobile ? "center" : "center",
-            }}
-          >
-            Enjoy the benefits of a hybrid economy
-          </h1>
+	      fontSize:isMobile?12:15,
+            }}>
+	    <h1>Fast transactions</h1>
+	    <h1 style={{opacity:1}}>High security</h1>
+	    <h1>efficient system</h1>
+	    <h1>hybrid technology</h1>
+          </div>
 
-          <div style={{}} className="outerMiddle">
+          <div style={{backgroundColor:!day && "black"}} 
+	  className="outerMiddle">
             <div
               className="boxAndText"
               style={{
@@ -684,6 +725,7 @@ const triggerLoginHover=(e)=>{
                 width: "95%",
                 flexDirection: isMobile?"column":"row",
                 gap: 20,
+		backgroundColor:"#f3f0e9",
               }}
             >
 
@@ -777,6 +819,7 @@ const triggerLoginHover=(e)=>{
                   onClick={() => navigate("/login")}
                   ref={login2Ref}
                   className="login2Button"
+		  style={{color:"#ccc"}}
                 >
                   Sign in
                 </button>
@@ -793,18 +836,37 @@ const triggerLoginHover=(e)=>{
 
 	    <div                                                                  className='secondGroup'                                                style={{justifyContent:"space-between",display:"flex",
 		    alignItems:"center",width:isMobile?"100%":1000,
-	    position:"relative",backgroundColor:"red",flexDirection:isMobile?"column":"row",gap:40}}>
+	    position:"relative",backgroundColor:"transparent",flexDirection:isMobile?"column":"row",gap:40}}>
 
             <div
+	    onClick={()=>console.log(window.innerWidth)}
+
               style={{
                 justifyContent: "space-betweeen",
                 display: "flex",
                 flexDirection: "column",
                 gap: 40,
+		position:"relative",
                 alignItems: "center",
+		backgroundColor:"transparent"
                 
               }}
             >
+	    <div className="coinBoxTop"                                           style={{position:"absolute",bottom:70,pointerEvents:"none",zIndex:40,
+		    background:!day && "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 10%,                                      rgba(0, 0, 0, 0.0) 20%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 80%,rgba(0,0,0,0.3)  90%,black 100%)",
+	    height:450,width:isMobile?window.innerWidth:360}}></div>
+
+	    <div className="nextBack"
+	    style={{
+	    width:"95%",backgroundColor:"transparent",zIndex:50,justifyContent:"space-between",position:"absolute",top:300,display:"flex",alignItems:"center",flexDirection:"row",gap:"65%"}}>
+	    <button className="back">Back</button>
+	    <button 
+	    onClick={()=>{toggleDay()}}
+	    ref={nextRef}
+	    className="next"
+	    style={{color:"black"}}>Next</button>
+
+	    </div>
 
 	    
 
@@ -813,12 +875,33 @@ const triggerLoginHover=(e)=>{
 
 
 
-              <h2 ref={coinTitle} style={{color:"#213547"}}>
-                Trade best coins,<b style={{color:"#feb819"}}> anytime
+              <h2 ref={coinTitle} style={{
+		      fontSize:25,
+		      padding:10,
+		      textAlign:'center',
+		      color:day?"#213547":"white"}}>
+		      Trade your favourite 
+		<b style={{
+			color:"#feb819"}}> coins,</b> in a giffy,<b style={{color:"#00d4d4"}}> anytime
               </b></h2>
 
-              <div ref={containerRef} 
-	      style={{position:"relative",width:isMobile?window.innerWidth:500}}
+	      <div className="sampleBackground"
+	      ref={containerRef}
+	      style={{
+	      position:"relative",
+	      display:"flex",
+	      alignItems:"center",
+	      width:"90%",
+
+	      height:400,
+	      backgroundColor:"transparent",
+	      borderRadius:20,
+	      overflow:"hidden",
+	      border:"2px solid black"}}>
+
+
+              <div 
+	      style={{position:"relative",width:isMobile?window.innerWidth:500,paddingLeft:20,paddingRight:40,backgroundColor:"transparent",height:500}}
 	      className="sampleContainer">
                 {coinData.map((item, index) => {
                   return (
@@ -826,6 +909,8 @@ const triggerLoginHover=(e)=>{
                       key={index}
                       onClick={() => getBtcChart()}
                       className="coinBox"
+		      style={{height:270,width:180,
+		      }}
                     >
                       <div 
 		      ref={coinLogoRef}
@@ -837,12 +922,15 @@ const triggerLoginHover=(e)=>{
                             height: "100%",
                             width: "100%",
                             position: "absolute",
+			
                           }}
                         />
                       </div>
 
                       <div
-                        style={{ color: item.coinColor }}
+                        style={{ fontSize:!item.coinPrice && 12,
+				color: item.coinPrice?item.coinColor :"grey"}}
+
                         className="coinPrice"
                       >
                         {item.coinPrice == null
@@ -867,12 +955,12 @@ const triggerLoginHover=(e)=>{
                         {btcChartData ? (
                           <Line
                             options={chartOptions2}
-                            width={198}
+                            width={188}
                             height={100}
                             data={btcChartData}
                           />
                         ) : (
-                          <Skeleton height={100} width={150} />
+                          <Skeleton height={50} width={150} />
                         )}
                       </div>
 
@@ -882,6 +970,9 @@ const triggerLoginHover=(e)=>{
                   );
                 })}
               </div>
+
+	      </div>
+
             
 
 

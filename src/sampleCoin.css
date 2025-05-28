@@ -1,11 +1,24 @@
-.sampleContainer{height:300px;width:100%;display:flex;align-items:center;background-color:grey;justify-content:flex-start;flex-direction:row;flex-wrap:nowrap;position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overflow-y:hidden;background:linear-gradient(to bottom,transparent 0% 30%, #213547 30% 70%,#f3f0e9 )}
+.sampleContainer{width:100%;display:flex;align-items:center;background-colior:grey;justify-content:space-between;flex-direction:row;flex-wrap:nowrap;position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overflow-y:hidden;flex:0 0 auto;bhackground:linear-gradient(to bottom,transparent 0% 30%, #213547 30% 70%,#f3f0e9 )}
 
-.coinBox{scroll-snap-align:center;height:90%;margin:10px;background:linear-gradient(to top, #213547 60%, #ccc);filter:sepia(50);backdrop-filter:blur(5px);opacity:0.9;width:200px;flex:0 0 auto;border-radius:20px;
+.coinBoxTop{
+  background: linear-gradient(to right,
+    #f3f0e9 0%,
+    rgba(243,240,233,0.3) 10%,
+    rgba(0, 0, 0, 0.0) 20%,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 0) 70%,
+    rgba(0, 0, 0, 0.0) 80%,
+    rgba(243,240,233,0.3)  90%,
+    #f3f0e9 100%
+  );
+}
+
+.coinBox{scroll-snap-align:center;height:90%;margin:10px;background:linear-gradient(to top, #213547 60%, #ccc);filter:sepia(25);backdrop-filter:blur(5px);opacity:0.9;width:200px;flex:0 0 auto;border-radius:20px;
 justify-content:space-between;padding:20px;align-items:center;flex-direction:column;display:flex;gap:10px}
 
 @keyframes coinBoxAnim{
 0%{background-color:white}
-100%{box-shadow: 0px 4px 4px white,0px 4px 7px rgba(257,252,246,0.8);filter:sepia(0);opacity:1;margin-bottom:40px;background:linear-gradient(to top, #213547 60%, #1b2b39)}}
+100%{box-shadow: 0px 3px 3px white,0px 4px 10px rgba(0,0,0,0.6);filter:sepia(0);opacity:1;height:320px;width:220px;margin:0px 15px 0px 15px;transform:scale(1);background:linear-gradient(to top, #213547 60%, #1b2b39)}}
 
 .coinBoxAnimClass{animation:coinBoxAnim 0.5s ease forwards}
 
