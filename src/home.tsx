@@ -57,6 +57,17 @@ function Home({
   const [picUrl, setPicUrl] = useState("");
   const[day,setDay]=useState(true);
 
+  const[text,setText]=useState("The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your favourite cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?");
+
+const [speed,setSpeed]=useState(200);
+const [typedText,setTypedText]=useState("");
+
+
+useEffect(()=>{
+	let index =0;
+        const typingInterval = setInterval(()=>{
+                setTypedText((t)=>t + text.charAt(index));         index+=1;                                                                                                             if(index >= text.length){                                  clearInterval(typingInterval)}                                                                                                                                                   },speed);                                                                                                                                                                        return ()=>clearInterval(typingInterval);                  },[text,speed]);	
+
   function toggleDay(){
   setDay(d=>!d)}
 
@@ -692,11 +703,11 @@ containerRef.current.scrollX = scrollWidth;}
         <div
           className="outer"
           style={{ position:"relative",flexDirection: isMobile ? "column" : "column" }}
-        >
+        >{isMobile?
           <div
             className="heading1"
             style={{
-              color: "#213547",
+              color: day?"#213547":"white",
 	      position:"relative",
 	      justifyContent:"space-between",
 	      flexDirection:isMobile?"column":"row",
@@ -712,7 +723,14 @@ containerRef.current.scrollX = scrollWidth;}
 	    <h1 style={{opacity:1}}>High security</h1>
 	    <h1>efficient system</h1>
 	    <h1>hybrid technology</h1>
-          </div>
+          </div>:<h1 style={{
+		  paddingBottom:50,
+		  marginTop:30,
+		  textAlign:"center",
+		  color:day?"#213547":"white",
+	  }}> Fast transactions, High security, efficient sytstem hybrid technology
+	  </h1>
+	}
 
           <div style={{backgroundColor:!day && "black"}} 
 	  className="outerMiddle">
@@ -769,11 +787,7 @@ containerRef.current.scrollX = scrollWidth;}
                   color: "#213547",
                 }}
               >
-                The speed of blockchain transactions and the ultimate safety of
-                banking, all built together to empower you with the ease and
-                confidence of trading your favourite cryptocurrencies anywhere,
-                anytime from <b>Blocavax</b>. Ready to explore and trade?
-              </div>
+	      {typedText}</div>
             
 
             <div
@@ -854,7 +868,7 @@ containerRef.current.scrollX = scrollWidth;}
             >
 	    <div className="coinBoxTop"                                           style={{position:"absolute",bottom:70,pointerEvents:"none",zIndex:40,
 		    background:!day && "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 10%,                                      rgba(0, 0, 0, 0.0) 20%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 80%,rgba(0,0,0,0.3)  90%,black 100%)",
-	    height:450,width:isMobile?window.innerWidth:360}}></div>
+	    height:450,width:isMobile?window.innerWidth:500}}></div>
 
 	    <div className="nextBack"
 	    style={{
