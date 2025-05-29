@@ -3,12 +3,12 @@
 .coinBoxTop{
   background: linear-gradient(to right,
     #f3f0e9 0%,
-    rgba(243,240,233,0.3) 10%,
-    rgba(0, 0, 0, 0.0) 20%,
+    rgba(243,240,233,0.3) 5%,
+    rgba(0, 0, 0, 0.0) 15%,
     rgba(0, 0, 0, 0) 30%,
     rgba(0, 0, 0, 0) 70%,
-    rgba(0, 0, 0, 0.0) 80%,
-    rgba(243,240,233,0.3)  90%,
+    rgba(0, 0, 0, 0.0) 85%,
+    rgba(243,240,233,0.3)  95%,
     #f3f0e9 100%
   );
 }
@@ -26,7 +26,7 @@ justify-content:space-between;padding:20px;align-items:center;flex-direction:col
 
 @keyframes coinLogoMove{
 0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}}
+100%{transform:rotate(720deg)}}
 
 .coinLogoAnimClass{animation:coinLogoMove 2s ease}
 .coinPrice{z-index:23;font-size:25px;font-weight:bold}

@@ -55,21 +55,29 @@ function Home({
 
   const [name, setName] = useState("null_user");
   const [picUrl, setPicUrl] = useState("");
-  const[day,setDay]=useState(true);
+  const [day, setDay] = useState(true);
 
-  const[text,setText]=useState("The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your favourite cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?");
+  const [text, setText] = useState(
+    "The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?",
+  );
 
-const [speed,setSpeed]=useState(200);
-const [typedText,setTypedText]=useState("");
+  const [speed, setSpeed] = useState(300);
+  const [typedText, setTypedText] = useState("");
 
-
-useEffect(()=>{
-	let index =0;
-        const typingInterval = setInterval(()=>{
-                setTypedText((t)=>t + text.charAt(index));         index+=1;                                                                                                             if(index >= text.length){                                  clearInterval(typingInterval)}                                                                                                                                                   },speed);                                                                                                                                                                        return ()=>clearInterval(typingInterval);                  },[text,speed]);	
-
-  function toggleDay(){
-  setDay(d=>!d)}
+  useEffect(() => {
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      setTypedText((now) => now + text.charAt(index));
+      index += 1;
+      if (index >= text.length) {
+        clearInterval(typeInterval);
+      }
+    }, speed);
+    return () => clearInterval(typeInterval);
+  }, [text, speed]);
+  function toggleDay() {
+    setDay((d) => !d);
+  }
 
   const navigate = useNavigate();
 
@@ -90,10 +98,8 @@ useEffect(()=>{
   const boxTitleRef = useRef(null);
 
   useEffect(() => {
-    
-      cryptoBoxRef.current.classList.add("cryptoAnimClass");
-      boxTitleRef.current.classList.add("boxTitleAnimClass")
-    
+    cryptoBoxRef.current.classList.add("cryptoAnimClass");
+    boxTitleRef.current.classList.add("boxTitleAnimClass");
   }, []);
 
   const boxText = useRef(null);
@@ -162,36 +168,35 @@ useEffect(()=>{
     return () => window.removeEventListener("scroll", handleButtonScroll);
   }, [scrollOpacity3]);
 
-
-  const arrowRef=useRef(null);
+  const arrowRef = useRef(null);
   const loginRef = useRef(null);
-const triggerLoginHover=(e)=>{
-  if(loginRef.current && loginRef.current.contains(e.target as Node)){ arrowRef.current.classList.add(arrowAnim) }
-}
+  const triggerLoginHover = (e) => {
+    if (loginRef.current && loginRef.current.contains(e.target as Node)) {
+      arrowRef.current.classList.add(arrowAnim);
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("pointerenter", triggerLoginHover);
+    return () =>
+      document.removeEventListener("pointerenter", triggerLoginHover);
+  }, []);
 
-  useEffect(()=>{
-  document.addEventListener("pointerenter",triggerLoginHover);
-	   return ()=>document.removeEventListener("pointerenter",triggerLoginHover);
-  },[]);
+  const coinLogoRefs = useRef({});
 
-  const coinLogoRef = useRef(null);
-
-  const controlCoinLogo = (e)=>{
-
-  if(coinLogoRef.current.contains(e.target as Node)){
-  const cl = coinLogoRef.current;
-  cl.classList.remove("coinLogoAnimClass");
-  
-  void cl.offsetWidth;
-
-  cl.classList.add('coinLogoAnimClass')}
+  const controlCoinLogo = (e) => {
+Object.values(coinLogoRefs.current).forEach((cl)=>{
+if(cl.contains(e.target as Node)){
+cl.classList.remove("coinLogoAnimClass");
+void cl.offsetWidth;
+cl.classList.add("coinLogoAnimClass")}})
   }
+  
 
-  useEffect(()=>{
-  document.addEventListener("pointerenter",controlCoinLogo);
-  return ()=> document.removeEventListener("pointerenter",controlCoinLogo);},[]);
-
+  useEffect(() => {
+    document.addEventListener("click", controlCoinLogo);
+    return () => document.removeEventListener("click", controlCoinLogo);
+  }, []);
 
   const initParticles = useCallback(async (engine) => {
     await loadFull(engine);
@@ -221,22 +226,19 @@ const triggerLoginHover=(e)=>{
 
   const nextRef = useRef(null);
 
-  
+  function moveForth(e) {
+    if (nextRef.contains(e.target as Node)) {
+      const scrollWidth = 300;
 
-
-  function moveForth(e){
-	  if(nextRef.contains(e.target as Node)){
-	  
-const scrollWidth = 300;
-
-containerRef.current.scrollX = scrollWidth;}
+      containerRef.current.scrollX = scrollWidth;
+    }
   }
 
-  useEffect(()=>{
-  document.addEventListener("click",moveForth);
+  useEffect(() => {
+    document.addEventListener("click", moveForth);
 
-  return()=>document.removeEventListener("click",moveForth);},[]);
-
+    return () => document.removeEventListener("click", moveForth);
+  }, []);
 
   const coinTitle = useRef(null);
 
@@ -261,6 +263,7 @@ containerRef.current.scrollX = scrollWidth;}
   }, [scrollOpacity4]);
 
   const particlesOption = {
+    fullScreen: { enable: false },
     background: {
       color: "transparent", // or any background color
     },
@@ -475,7 +478,8 @@ containerRef.current.scrollX = scrollWidth;}
 
     try {
       const response = await axios.get(
-	      "https://mybackend-oftz.onrender.com/coingecko/charts");
+        "https://mybackend-oftz.onrender.com/coingecko/charts",
+      );
       console.log(response.data);
       const chartData = response.data;
       console.warn(chartData);
@@ -601,20 +605,7 @@ containerRef.current.scrollX = scrollWidth;}
             width: "100%",
             position: "absolute",
           }}
-        >
-          <Particles
-            id="tsparticles"
-            init={initParticles}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
-            options={particlesOption}
-          />
-        </div>
+        ></div>
       </div>
       {isMobile ? (
         <div className="topHeading" style={{}}>
@@ -635,9 +626,13 @@ containerRef.current.scrollX = scrollWidth;}
             />
           </button>
 
-          <div className="title" style={{ 
-		  fontSize:18,
-		  left: isMobile ? "50%" : 100 }}>
+          <div
+            className="title"
+            style={{
+              fontSize: 18,
+              left: isMobile ? "50%" : 100,
+            }}
+          >
             Blocavax
           </div>
 
@@ -646,7 +641,10 @@ containerRef.current.scrollX = scrollWidth;}
               navigate("/login");
             }}
             className="signInButton"
-	    style={{                                                        backgroundColor:day?"#00d4d4":"white",                          color:day?"black":"#00d4d4"}}
+            style={{
+              backgroundColor: day ? "#00d4d4" : "white",
+              color: day ? "black" : "#00d4d4",
+            }}
           >
             Sign in
           </button>
@@ -660,7 +658,13 @@ containerRef.current.scrollX = scrollWidth;}
             flexDirection: "row",
           }}
         >
-          <div className="title" style={{ color:day?"black":"#ccc",left: isMobile ? "50%" : 100 }}>
+          <div
+            className="title"
+            style={{
+              color: day ? "black" : "#ccc",
+              left: isMobile ? "50%" : 100,
+            }}
+          >
             Blocavax
           </div>
 
@@ -685,11 +689,12 @@ containerRef.current.scrollX = scrollWidth;}
               navigate("/login");
             }}
             className="signInButton"
-	    style={{
-	    backgroundColor:day?"#00d4d4":"white",
-	    color:day?"gray":"#00d4d4"}}
+            style={{
+              backgroundColor: day ? "#00d4d4" : "white",
+              color: day ? "gray" : "#00d4d4",
+            }}
           >
-            Sign in now	
+            Sign in now
           </div>
         </div>
       )}
@@ -702,38 +707,52 @@ containerRef.current.scrollX = scrollWidth;}
       >
         <div
           className="outer"
-          style={{ position:"relative",flexDirection: isMobile ? "column" : "column" }}
-        >{isMobile?
-          <div
-            className="heading1"
-            style={{
-              color: day?"#213547":"white",
-	      position:"relative",
-	      justifyContent:"space-between",
-	      flexDirection:isMobile?"column":"row",
-	      gap:2,
-	      paddingBottom:20,
-	      height:200,
-	      display:"flex",
-	      alignItems:"center",
-              textAlign: isMobile ? "center" : "center",
-	      fontSize:isMobile?12:15,
-            }}>
-	    <h1>Fast transactions</h1>
-	    <h1 style={{opacity:1}}>High security</h1>
-	    <h1>efficient system</h1>
-	    <h1>hybrid technology</h1>
-          </div>:<h1 style={{
-		  paddingBottom:50,
-		  marginTop:30,
-		  textAlign:"center",
-		  color:day?"#213547":"white",
-	  }}> Fast transactions, High security, efficient sytstem hybrid technology
-	  </h1>
-	}
+          style={{
+            position: "relative",
+            flexDirection: isMobile ? "column" : "column",
+          }}
+        >
+          {isMobile ? (
+            <div
+              className="heading1"
+              style={{
+                color: day ? "#213547" : "white",
+                position: "relative",
+                justifyContent: "space-between",
+                flexDirection: isMobile ? "column" : "row",
+                gap: 2,
+                paddingBottom: 20,
+                height: 200,
+                display: "flex",
+                alignItems: "center",
+                textAlign: isMobile ? "center" : "center",
+                fontSize: isMobile ? 12 : 15,
+              }}
+            >
+              <h1>Fast transactions</h1>
+              <h1 style={{ opacity: 1 }}>High security</h1>
+              <h1>efficient system</h1>
+              <h1>hybrid technology</h1>
+            </div>
+          ) : (
+            <h1
+              style={{
+                paddingBottom: 50,
+                marginTop: 30,
+                textAlign: "center",
+                color: day ? "#213547" : "white",
+              }}
+            >
+              
+              Fast transactions, High security, efficient sytstem hybrid
+              technology
+            </h1>
+          )}
 
-          <div style={{backgroundColor:!day && "black"}} 
-	  className="outerMiddle">
+          <div
+            style={{ backgroundColor: !day && "black" }}
+            className="outerMiddle"
+          >
             <div
               className="boxAndText"
               style={{
@@ -741,342 +760,390 @@ containerRef.current.scrollX = scrollWidth;}
                 justifyContent: "space-between",
                 display: "flex",
                 width: "95%",
-                flexDirection: isMobile?"column":"row",
+                flexDirection: isMobile ? "column" : "row",
                 gap: 20,
-		backgroundColor:"#f3f0e9",
+                backgroundColor: "#f3f0e9",
               }}
             >
-
-
-	    <div 
-	    className='firstGroup'
-	    style={{justifyContent:"space-between",display:"flex",
-		    alignItems:"center",width:"100%",position:"relative",flexDirection:"column",gap:40}}>
-
-
-
-
               <div
-                ref={cryptoBoxRef}
-                className="cryptoBox"
-                style={{ opacity: 1, padding: 0, color: "#213547" }}
-              >
-                <h2
-                  className="cryptoH2"
-		  ref={boxTitleRef}
-
-                  style={{
-                    margin: 0,
-                    padding: 10,
-                    borderRadius: 20,
-                    textAlign: "center",
-		    backgroundColor:"#00d4d4",
-                  }}
-                >
-                  Crypto meets banking
-                </h2>
-              </div>
-
-              <div
-                ref={boxText}
-                className="boxText"
+                className="firstGroup"
                 style={{
-                  fontSize: 15,
-                  textAlign: "center",
-                  backgroundColor: "transparent",
-                  color: "#213547",
+                  justifyContent: "space-between",
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  position: "relative",
+                  flexDirection: "column",
+                  gap: 40,
                 }}
               >
-	      {typedText}</div>
-            
-
-            <div
-	    ref={loginRef}
-              style={{
-                height: 80,
-                width: "90%",
-                borderRadius: 20,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-              }}
-            >
-              <div className="login2">
                 <div
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "flex",
-                    position: "relative",
-                    color: "black",
-                    zIndex: 10,
-                  }}
+                  ref={cryptoBoxRef}
+                  className="cryptoBox"
+                  style={{ opacity: 1, padding: 0, color: "#213547" }}
                 >
-                  Quick sign in
-                  <img
-		  ref={arrowRef}
-                    className="arrowRight"
-                    src="https://i.postimg.cc/hjwq2yr9/file-00000000df6061f9a2d97efda108b371.png"
+                  <h2
+                    className="cryptoH2"
+                    ref={boxTitleRef}
                     style={{
-                      position: "absolute",
-                      height: 18,
-                      bottom: -15,
-                      right: 10,
-                      width: 25,
-                      opacity: 1,
+                      margin: 0,
+                      padding: 10,
+                      borderRadius: 20,
+                      textAlign: "center",
+                      backgroundColor: "#00d4d4",
                     }}
-                  />
+                  >
+                    Crypto meets banking
+                  </h2>
                 </div>
 
-                <button
-                  onClick={() => navigate("/login")}
-                  ref={login2Ref}
-                  className="login2Button"
-		  style={{color:"#ccc"}}
+                <div
+                  ref={boxText}
+                  className="boxText"
+                  style={{
+                    fontSize: 15,
+                    textAlign: "center",
+                    backgroundColor: "transparent",
+                    color: "#213547",
+                  }}
                 >
-                  Sign in
-                </button>
+                  {typedText}
+                </div>
+
+                <div
+                  ref={loginRef}
+                  style={{
+                    height: 80,
+                    width: "90%",
+                    borderRadius: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  <div className="login2">
+                    <div
+                      style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                        position: "relative",
+                        color: "black",
+                        zIndex: 10,
+                      }}
+                    >
+                      Quick sign in
+                      <img
+                        ref={arrowRef}
+                        className="arrowRight"
+                        src="https://i.postimg.cc/hjwq2yr9/file-00000000df6061f9a2d97efda108b371.png"
+                        style={{
+                          position: "absolute",
+                          height: 18,
+                          bottom: -15,
+                          right: 10,
+                          width: 25,
+                          opacity: 1,
+                        }}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => navigate("/login")}
+                      ref={login2Ref}
+                      className="login2Button"
+                      style={{ color: "#ccc" }}
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
-	    </div>
-	    </div>
-	    
-
-
-
-
-
-	    <div                                                                  className='secondGroup'                                                style={{justifyContent:"space-between",display:"flex",
-		    alignItems:"center",width:isMobile?"100%":1000,
-	    position:"relative",backgroundColor:"transparent",flexDirection:isMobile?"column":"row",gap:40}}>
-
             <div
-	    onClick={()=>console.log(window.innerWidth)}
-
+              className="secondGroup"
               style={{
-                justifyContent: "space-betweeen",
+                justifyContent: "space-between",
                 display: "flex",
-                flexDirection: "column",
-                gap: 40,
-		position:"relative",
                 alignItems: "center",
-		backgroundColor:"transparent"
-                
+                width: isMobile ? "100%" : 1000,
+                position: "relative",
+                backgroundColor: "transparent",
+                flexDirection: isMobile ? "column" : "row",
+                gap: 40,
               }}
             >
-	    <div className="coinBoxTop"                                           style={{position:"absolute",bottom:70,pointerEvents:"none",zIndex:40,
-		    background:!day && "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 10%,                                      rgba(0, 0, 0, 0.0) 20%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 80%,rgba(0,0,0,0.3)  90%,black 100%)",
-	    height:450,width:isMobile?window.innerWidth:500}}></div>
+              <div
+                onClick={() => console.log(window.innerWidth)}
+                style={{
+                  justifyContent: "space-betweeen",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 40,
+                  position: "relative",
+                  alignItems: "center",
+                  backgroundColor: "transparent",
+                }}
+              >
+                <div
+                  className="coinBoxTop"
+                  style={{
+                    position: "absolute",
+                    bottom: 70,
+                    pointerEvents: "none",
+                    zIndex: 40,
+                    background:
+                      !day &&
+                      "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.3)  95%,black 100%)",
+                    height: 450,
+                    width: isMobile ? window.innerWidth : 498,
+                  }}
+                ></div>
 
-	    <div className="nextBack"
-	    style={{
-	    width:"95%",backgroundColor:"transparent",zIndex:50,justifyContent:"space-between",position:"absolute",top:300,display:"flex",alignItems:"center",flexDirection:"row",gap:"65%"}}>
-	    <button className="back">Back</button>
-	    <button 
-	    onClick={()=>{toggleDay()}}
-	    ref={nextRef}
-	    className="next"
-	    style={{color:"black"}}>Next</button>
+                <div
+                  className="nextBack"
+                  style={{
+                    width: isMobile?"95%":"88%",
+                    backgroundColor: "transparent",
+                    zIndex: 50,
+                    justifyContent: "space-between",
+                    position: "absolute",
+                    top: 300,
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    gap: "65%",
+                  }}
+                >
+                  <button 
+		  style={{boxShadow:day?"0px 0px 4px rgba(0,0,0,0.5)":"0px 0px 4px #ccc",
+		  color:day?"#feb819":"#213547",
+		  backgroundColor:day?"#213547":"white"}}
+		  className="back">Back</button>
+                  <button
+                    onClick={() => {
+                      toggleDay();
+                    }}
+                    ref={nextRef}
+                    className="next"
+                    style={{ color: "#feb819",
+		    boxShadow:day? "0px 1px 4px rgba(0,0,0,0.5)":
+		    "0px 0px 4px #ccc",
+		    backgroundColor:day?"#213547":"white"}}
+                  >
+                    Next
+                  </button>
+                </div>
 
-	    </div>
+                <h2
+                  ref={coinTitle}
+                  style={{
+                    fontSize: 25,
+                    padding: 10,
+                    textAlign: "center",
+                    color: day ? "#213547" : "white",
+                  }}
+                >
+                  Trade your favourite 
+                  <b
+                    style={{
+                      color: "#feb819",
+                    }}
+                  > coins,
+                  </b>
+                  in a giffy,<b style={{ color: "#00d4d4" }}> anytime</b>
+                </h2>
 
-	    
+                <div
+                  className="sampleBackground"
+                  ref={containerRef}
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    width: isMobile?"85%":"80%",
 
+                    height: 400,
+                    backgroundColor: "transparent",
+                    borderRadius: 20,
+                    overflow: "hidden",
+                    border: "2px solid #213547",
+                  }}
+                >
+                  <Particles
+                    id="tsparticles"
+                    init={initParticles}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      zIndex: 23,
+                    }}
+                    options={particlesOption}
+                  />
 
+                  <div
+                    style={{
+                      zIndex: 24,
+                      position: "relative",
+                      width: isMobile ? window.innerWidth : 500,
+                      paddingLeft: 20,
+                      paddingRight: 60,
+                      backgroundColor: "transparent",
+                      height: 500,
+                    }}
+                    className="sampleContainer"
+                  >
+                    {coinData.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => getBtcChart()}
+                          className="coinBox"
+                          style={{ height: 270, width: 180 }}
+                        >
+                          <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo">
+                            <img
+                              className="logoImg"
+                              src={item.coinLogo}
+                              style={{
+                                height: "100%",
+                                width: "100%",
+                                position: "absolute",
+                              }}
+                            />
+                          </div>
 
+                          <div
+                            style={{
+                              fontSize: !item.coinPrice && 12,
+                              color: item.coinPrice ? item.coinColor : "grey",
+                            }}
+                            className="coinPrice"
+                          >
+                            {item.coinPrice == null
+                              ? "Loading"
+                              : Number(item.coinPrice).toLocaleString("en-us")}
+                          </div>
 
+                          <div
+                            style={{
+                              height: 150,
+                              position: "absolute",
+                              left: 2,
+                              top: 70,
+                              zIndex: 20,
+                              width: "100%",
+                              backgroundColor: "transparent",
+                              alignItems: "center",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {btcChartData ? (
+                              <Line
+                                options={chartOptions2}
+                                width={188}
+                                height={100}
+                                data={btcChartData}
+                              />
+                            ) : (
+                              <Skeleton height={50} width={150} />
+                            )}
+                          </div>
 
+                          <div className="coinSymbol">{item.coinSymbol}</div>
+                          <div className="coinName">{item.coinName}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-              <h2 ref={coinTitle} style={{
-		      fontSize:25,
-		      padding:10,
-		      textAlign:'center',
-		      color:day?"#213547":"white"}}>
-		      Trade your favourite 
-		<b style={{
-			color:"#feb819"}}> coins,</b> in a giffy,<b style={{color:"#00d4d4"}}> anytime
-              </b></h2>
+                <div
+                  style={{
+                    width: "85%",
+                    justifyContent: "space-between",
+                    display: "flex",
+                    gap: 10,
+                    flexDirection: "row",
+                  }}
+                >
+                  <div className="deposit">Deposit</div>
+                  <div className="withdraw">Withdraw</div>
+                </div>
+              </div>
 
-	      <div className="sampleBackground"
-	      ref={containerRef}
-	      style={{
-	      position:"relative",
-	      display:"flex",
-	      alignItems:"center",
-	      width:"90%",
+              <div className="transactions">
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: "bold",
+                    color: "#5a3600",
+                    marginRight: 10,
+                  }}
+                >
+                  Transactions history
+                </div>
+                {[
+                  {
+                    id: 1,
+                    amount: "$40,000",
+                    status: "✔️",
+                    tId: "2504D56A...",
+                    type: "Credit",
+                  },
+                  {
+                    id: 2,
+                    amount: "$300,000",
+                    status: "✔️",
+                    tId: "2504G5A...",
+                    type: "Debit",
+                  },
+                  {
+                    id: 3,
+                    amount: "$106,000",
+                    status: "✔️",
+                    tId: "2504D76B...",
+                    type: "Credit",
+                  },
+                  {
+                    id: 4,
+                    amount: "$200,000",
+                    status: "✔️",
+                    tId: "2504D76B...",
+                    type: "Credit",
+                  },
+                ].map((item, index) => {
+                  const isTop = item.id == 1;
+                  const isBottom = item.id == 4;
 
-	      height:400,
-	      backgroundColor:"transparent",
-	      borderRadius:20,
-	      overflow:"hidden",
-	      border:"2px solid black"}}>
-
-
-              <div 
-	      style={{position:"relative",width:isMobile?window.innerWidth:500,paddingLeft:20,paddingRight:40,backgroundColor:"transparent",height:500}}
-	      className="sampleContainer">
-                {coinData.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      onClick={() => getBtcChart()}
-                      className="coinBox"
-		      style={{height:270,width:180,
-		      }}
-                    >
-                      <div 
-		      ref={coinLogoRef}
-		      className="coinLogo">
-                        <img
-                          className="logoImg"
-                          src={item.coinLogo}
-                          style={{
-                            height: "100%",
-                            width: "100%",
-                            position: "absolute",
-			
-                          }}
-                        />
-                      </div>
-
+                    <>
                       <div
-                        style={{ fontSize:!item.coinPrice && 12,
-				color: item.coinPrice?item.coinColor :"grey"}}
-
-                        className="coinPrice"
-                      >
-                        {item.coinPrice == null
-                          ? "Loading"
-                          : Number(item.coinPrice).toLocaleString("en-us")}
-                      </div>
-
-                      <div
+                        key={index}
                         style={{
-                          height: 150,
-                          position: "absolute",
-                          left: 2,
-                          top: 70,
-                          zIndex: 20,
-                          width: "100%",
-                          backgroundColor: "transparent",
-                          alignItems: "center",
-                          display: "flex",
-                          justifyContent: "center",
+                          borderTopLeftRadius: isTop ? 15 : 2,
+                          borderTopRightRadius: isTop ? 15 : 2,
+                          borderBottomLeftRadius: isBottom ? 20 : 2,
+                          borderBottomRightRadius: isBottom ? 20 : 2,
                         }}
+                        className="tbox"
                       >
-                        {btcChartData ? (
-                          <Line
-                            options={chartOptions2}
-                            width={188}
-                            height={100}
-                            data={btcChartData}
-                          />
-                        ) : (
-                          <Skeleton height={50} width={150} />
-                        )}
+                        <div className="status">{item.status}</div>
+                        <div className="alert">{item.type}</div>
+                        <div className="amount">{item.amount}</div>
+                        <div className="tId">{item.tId}</div>
                       </div>
-
-                      <div className="coinSymbol">{item.coinSymbol}</div>
-                      <div className="coinName">{item.coinName}</div>
-                    </div>
+                    </>
                   );
                 })}
               </div>
-
-	      </div>
-
-            
-
-
-
-            <div
-              style={{
-                width: "85%",
-                justifyContent: "space-between",
-                display: "flex",
-                gap: 10,
-                flexDirection: "row",
-              }}
-            >
-              <div className="deposit">Deposit</div>
-              <div className="withdraw">Withdraw</div>
             </div>
-
-
-	    </div>
-
-            <div className="transactions">
-              <div
-                style={{
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  color: "#5a3600",
-                  marginRight: 10,
-                }}
-              >
-                Transactions history
-              </div>
-              {[
-                {
-                  id: 1,
-                  amount: "$40,000",
-                  status: "✔️",
-                  tId: "2504D56A...",
-                  type: "Credit",
-                },
-                {
-                  id: 2,
-                  amount: "$300,000",
-                  status: "✔️",
-                  tId: "2504G5A...",
-                  type: "Debit",
-                },
-                {
-                  id: 3,
-                  amount: "$106,000",
-                  status: "✔️",
-                  tId: "2504D76B...",
-                  type: "Credit",
-                },
-                {
-                  id: 4,
-                  amount: "$200,000",
-                  status: "✔️",
-                  tId: "2504D76B...",
-                  type: "Credit",
-                },
-              ].map((item, index) => {
-                const isTop = item.id == 1;
-                const isBottom = item.id == 4;
-
-                return (
-                  <>
-                    <div
-                      key={index}
-                      style={{
-                        borderTopLeftRadius: isTop ? 15 : 2,
-                        borderTopRightRadius: isTop ? 15 : 2,
-                        borderBottomLeftRadius: isBottom ? 20 : 2,
-                        borderBottomRightRadius: isBottom ? 20 : 2,
-                      }}
-                      className="tbox"
-                    >
-                      <div className="status">{item.status}</div>
-                      <div className="alert">{item.type}</div>
-                      <div className="amount">{item.amount}</div>
-                      <div className="tId">{item.tId}</div>
-                    </div>
-                  </>
-                );
-              })}
-            </div>
-	    
-
-
-	    </div>
-
 
             <div className="notes">
               <b style={{}}>BitBanker</b>, here every customer is verified and
