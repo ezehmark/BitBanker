@@ -18,11 +18,11 @@ justify-content:space-between;padding:20px;align-items:center;flex-direction:col
 
 @keyframes coinBoxAnim{
 0%{background-color:white}
-100%{box-shadow: 0px 3px 3px white,0px 4px 10px rgba(0,0,0,0.6);filter:sepia(0);opacity:1;height:320px;width:220px;margin:0px 15px 0px 15px;transform:scale(1))}}
+100%{box-shadow: 0px 3px 2px white,0px 4px 10px rgba(0,0,0,0.6);filter:sepia(0);opacity:1;height:320px;width:220px;margin:0px 15px 0px 15px;transform:scale(1))}}
 
 .coinBoxAnimClass{animation:coinBoxAnim 0.5s ease forwards}
 
-.coinLogo{z-index:23;height:80px;width:80px;display:flex;position:relative;overflow:hidden;box-shadow:0px 0px 4px white, 0px 2px 20px #ccc;border-radius:50%;background-color:#213547}
+.coinLogo{z-index:23;height:80px;width:80px;display:flex;position:relative;overflow:hidden;box-shadow:0px 0px 4px #ccc, 0px 2px 20px rgba(0,0,0,0.7);border-radius:50%;background-color:#213547}
 
 @keyframes coinLogoMove{
 0%{transform:rotate(0deg)}

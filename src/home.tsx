@@ -61,14 +61,14 @@ function Home({
 
 
   const angle = useMotionValue(0);
-  const radius = 100;
+  const radius = 80;
 
-  const x = useTransform(angle,(a)=>radius* Math.cos(a));
-  const y = useTransform(angle,(a)=>radius * Math.sin(a));
+  const x = useTransform(angle,(a)=> 110 + radius* Math.cos(a));
+  const y = useTransform(angle,(a)=> 110 + radius * Math.sin(a));
   const ref = useRef(null);
 
   useAnimationFrame((t)=>{
-  angle.set((t/1000)*2)});
+  angle.set((t/2000)*2)});
 
 
 
@@ -80,7 +80,7 @@ function Home({
   useEffect(()=>{
 
   const timeout = setTimeout(()=>{
-  hof1.current.classList.add("show")},2000);
+  hof1.current.classList.add("hof1AnimClass")},2000);
 
   setTimeout(()=>{                                                hof2.current.classList.add("show")},3500);
 
@@ -230,7 +230,23 @@ cl.classList.remove("coinLogoAnimClass");
 void cl.offsetWidth;
 cl.classList.add("coinLogoAnimClass")}})
   }
+
+//Function to scroll the coin boxes
   
+const sampleContainer=useRef(null);
+const coinBox =useRef(null);
+const scrollBoxes=(direction)=>{
+const scrollWidth = coinBox.current.offsetWidth;
+const scrollDistance = direction ==="next"?scrollWidth:-scrollWidth;
+
+sampleContainer.current.scrollBy({left:scrollDistance,
+				 behaviour:"smooth"
+});
+
+
+
+
+}
 
   useEffect(() => {
     document.addEventListener("click", controlCoinLogo);
@@ -747,25 +763,6 @@ cl.classList.add("coinLogoAnimClass")}})
           zIndex: 22,
         }}
       >
-      <div className="framerBox"
-      style={{top:200,left:100,position:"absolute",height:220,width:220,backgroundColor:"#feb819",zIndex:60}}>
-      <motion.div
-
-      ref={ref}
-	style={{
-	x,
-	y,
-	height:20,
-	width:20,
-	top:40,
-	left:40,
-	backgroundColor:"#312547",
-	borderRadius:"50%",
-	poaition:"absolute"
-
-	}}
-	      />
-      </div>
         <div
           className="outer"
           style={{
@@ -1009,13 +1006,13 @@ cl.classList.add("coinLogoAnimClass")}})
                   }}
                 >
                   <button 
-		  style={{boxShadow:day?"0px 0px 4px rgba(0,0,0,0.5)":"0px 0px 4px #ccc",
+		  onClick={()=>{scrollBoxes("prev")}}style={{boxShadow:day?"0px 0px 4px rgba(0,0,0,0.5)":"0px 0px 4px #ccc",
 		  color:day?"#feb819":"#00d4d4",
 		  backgroundColor:day?"#213547":"black"}}
 		  className="back">Back</button>
                   <button
                     onClick={() => {
-                      toggleDay();
+                      scrollBoxes("next");
                     }}
                     ref={nextRef}
                     className="next"
@@ -1084,6 +1081,7 @@ cl.classList.add("coinLogoAnimClass")}})
                       paddingRight: 60,
                       height: 500,
                     }}
+		    ref={sampleContainer}
                     className="sampleContainer"
                   >
                     {coinData.map((item, index) => {
@@ -1092,8 +1090,10 @@ cl.classList.add("coinLogoAnimClass")}})
                           key={index}
                           onClick={() => getBtcChart()}
                           className="coinBox"
+			  ref={coinBox}
                           style={{ 
-				  background:!day && "linear-gradient(to bottom, #566262 0% 20%,#566262 20% 50%, black 50% 60%, black 60% 80%, #feb819 80% 100%)",
+				  background: !day && "linear-gradient(to bottom, #566262 0%, #566262 20%, rgba(0,0,0,0.7) 60%,black 80%, #1a2a38 100%)",
+				  boxShadow:day?"0px 1px 4px white, 0px 2px 20px rgba(0,0,0,0.7)":"0px 0px 4px #ccc, 0px 2px 20px rgba(0,0,0,0.7)",
 				  opacity:1,height: 270, width: 180 }}
                         >
                           <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo">

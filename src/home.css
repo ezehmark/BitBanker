@@ -483,10 +483,10 @@ img {
 
 .menuItem1{color:#213547;border-radius:10px;padding:5px}
 .menuItem:hover{box-shadow:0px 0px 4px #00d4d4;color:#00d4d4}
-button{background-color:transparent}
-button:hover{outline:none}
-button:active{outline:none}
-button:focus{outline:none}
+button{border:none;background-color:transparent}
+button:hover{outline:none;box-shadow:none !important}
+button:active{outline:none !important}
+button:focus{outline:none;box-shadow:none!important}
 .menuItem1:hover{color:white;border-radius:10px;background-color:#00d4d4;box-shadow:0px 0px 4px rgba(0,0,0,0.6)}
 .menuItem1:active{color:#00d4d4;border-radius:10px;background-color:#00d4d4;box-shadow:0px 0px 4px #00d4d4}
 
@@ -512,7 +512,10 @@ button:focus{outline:none}
 .nextBack{}
 .next{font-size:10px;height:45px;width:45px;border-radius:50%;box-shadow:0px 0px 4px #ccc;text-align:center;align-items:center;display:flex;background-color:#00d4d4;color:white;justify-content:center}
 
-.back{font-size:10px;align-items:center;display:flex;justify-content:center;height:45px;width:45px;border-radius:50%;box-shadow:0px 0px 4px #ccc;background-color:#00d4d4;color:white}   
+.back{font-size:10px;align-items:center;display:flex;justify-content:center;height:45px;width:45px;border-radius:50%;box-shadow:0px 0px 4px #ccc;background-color:#00d4d4;color:white}
+.back:focus{box-shadow:none;outline:none}
+.next:focus{box-shadow:none;outline:none}
+.back:active{box-shadow:none}
 h1{padding:0;margin:0}
 
 .heading1{color:#f2fff3}
@@ -520,6 +523,12 @@ h1{padding:0;margin:0}
 @keyframes showH{
 0%{opacity:0}
 100%{opacity:1}}
+
+@keyframes hof1Anim{
+50%{color:#ccc;opacity:1;filter:brightness(1.5)}
+100%{color:#213547;opacity:1;filter:brightness(1)}}
+
+.hof1AnimClass{animation:hof1Anim 2s ease-in forwards}
 .show{animation:showH 1s ease forwards}
 .hof1{opacity:0}
 .hof2{opacity:0}
