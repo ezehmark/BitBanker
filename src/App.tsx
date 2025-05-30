@@ -13,18 +13,25 @@ const [openMenu,setOpenMenu]=useState(false);
 const toggleMenu =()=>{
 setOpenMenu(x=>!x)}
 
+const[day,setDay]=useState(true);
+function toggleDay(){
+setDay(now=>!now)}
+
 
 const[openProfile,setOpenProfile]=useState(false);              const toggleProfile =()=>{                                    setOpenProfile(y=>!y)}
   return (<>
 
-{openMenu && <Menu setOpenMenu={setOpenMenu}/>}
+{openMenu && <Menu day={day} toggleDay={toggleDay}
+	setOpenMenu={setOpenMenu}/>}
 {openProfile && <Profile setOpenProfile={setOpenProfile}/>}
+
+
 
 
     <Router>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu}  />} />
+        <Route path="/" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
         <Route path="/picupload" element={<UploadPic />} />
 	<Route path="/login" element={<Login/>}/>
       </Routes>

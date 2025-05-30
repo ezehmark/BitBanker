@@ -1,4 +1,4 @@
-.sampleContainer{width:100%;display:flex;align-items:center;background-colior:grey;justify-content:space-between;flex-direction:row;flex-wrap:nowrap;position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overflow-y:hidden;flex:0 0 auto;bhackground:linear-gradient(to bottom,transparent 0% 30%, #213547 30% 70%,#f3f0e9 )}
+.sampleContainer{width:100%;display:flex;align-items:center;background-colior:grey;justify-content:space-between;flex-direction:row;flex-wrap:nowrap;backdrop-filter:blur(2px);position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overflow-y:hidden;flex:0 0 auto;bhackground:linear-gradient(to bottom,transparent 0% 30%, #213547 30% 70%,#f3f0e9 )}
 
 .coinBoxTop{
   background: linear-gradient(to right,
@@ -18,7 +18,7 @@ justify-content:space-between;padding:20px;align-items:center;flex-direction:col
 
 @keyframes coinBoxAnim{
 0%{background-color:white}
-100%{box-shadow: 0px 3px 3px white,0px 4px 10px rgba(0,0,0,0.6);filter:sepia(0);opacity:1;height:320px;width:220px;margin:0px 15px 0px 15px;transform:scale(1);background:linear-gradient(to top, #213547 60%, #1b2b39)}}
+100%{box-shadow: 0px 3px 3px white,0px 4px 10px rgba(0,0,0,0.6);filter:sepia(0);opacity:1;height:320px;width:220px;margin:0px 15px 0px 15px;transform:scale(1))}}
 
 .coinBoxAnimClass{animation:coinBoxAnim 0.5s ease forwards}
 
@@ -36,7 +36,7 @@ justify-content:space-between;padding:20px;align-items:center;flex-direction:col
 @keyframes cointitleanim{
 0%{display:none}
 50%{display:flex}
-100%{opacity:1}}
+100%{opacity:0}}
 .coinTitleAnim{animation:cointitleanim 3s ease forwards}
 
 

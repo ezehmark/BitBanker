@@ -25,6 +25,7 @@ import "chartjs-adapter-date-fns";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import {motion, useMotionValue, useTransform,useAnimationFrame} from "framer-motion";
 
 ChartJS.register(
   LineElement,
@@ -40,10 +41,12 @@ ChartJS.register(
 
 function Home({
   toggleProfile,
+  day,
+  toggleDay,
   toggleMenu,
 }: {
-  toggleMenu: () => void;
-  toggleProfile: () => void;
+  toggleMenu: () => void,toggleDay:()=>void,day:boolean,
+  toggleProfile: () => void
 }) {
   const [darkTheme, setDarkTheme] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
@@ -55,7 +58,37 @@ function Home({
 
   const [name, setName] = useState("null_user");
   const [picUrl, setPicUrl] = useState("");
-  const [day, setDay] = useState(true);
+
+
+  const angle = useMotionValue(0);
+  const radius = 100;
+
+  const x = useTransform(angle,(a)=>radius* Math.cos(a));
+  const y = useTransform(angle,(a)=>radius * Math.sin(a));
+  const ref = useRef(null);
+
+  useAnimationFrame((t)=>{
+  angle.set((t/1000)*2)});
+
+
+
+  const hof1 = useRef(null);
+  const hof2 = useRef(null);
+  const hof3 = useRef(null);
+  const hof4 = useRef(null);
+
+  useEffect(()=>{
+
+  const timeout = setTimeout(()=>{
+  hof1.current.classList.add("show")},2000);
+
+  setTimeout(()=>{                                                hof2.current.classList.add("show")},3500);
+
+  setTimeout(()=>{                                                hof3.current.classList.add("show")},2500);
+
+  setTimeout(()=>{                                                hof4.current.classList.add("show")},3000)
+  },[]);
+
 
   const [text, setText] = useState(
     "The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?",
@@ -64,20 +97,26 @@ function Home({
   const [speed, setSpeed] = useState(300);
   const [typedText, setTypedText] = useState("");
 
+  const[autoType,setAutoType]=useState(false);
+  function toggleAutoType(){
+  setAutoType((a)=>!a)}
+
   useEffect(() => {
-    let index = 0;
+	  let index = 0;
+
+
+	  const typer = ()=>{
+
     const typeInterval = setInterval(() => {
-      setTypedText((now) => now + text.charAt(index));
+      setTypedText((now) => (now  + text.charAt(index)));
       index += 1;
       if (index >= text.length) {
         clearInterval(typeInterval);
       }
     }, speed);
-    return () => clearInterval(typeInterval);
+    return () => clearInterval(typeInterval);}
+
   }, [text, speed]);
-  function toggleDay() {
-    setDay((d) => !d);
-  }
 
   const navigate = useNavigate();
 
@@ -280,28 +319,28 @@ cl.classList.add("coinLogoAnimClass")}})
       },
     },
     particles: {
-      color: { value: "#feb819" },
+      color: { value: !day?"#feb819":"#213547" },
       links: {
-        color: "#213547",
+        color: "#d50204",
         distance: 100,
         enable: true,
-        opacity: 0.4,
-        width: 1,
+        opacity: 0.2,
+        width: isMobile?0.3 :1,
       },
       collisions: { enable: true },
       move: {
         direction: "none",
         enable: true,
         outModes: { default: "bounce" },
-        random: true,
-        speed: 0.6,
+        random: false,
+        speed: 0.9,
         straight: false,
       },
       number: {
-        density: { enable: true, area: 800 },
-        value: 40,
+        density: { enable: false, area: 800 },
+        value: 20,
       },
-      opacity: { value: 1 },
+      opacity: { value: 0.8 },
       shape: { type: "circle" }, // You can also use: "square", "polygon", "star", "image", etc.
       size: { value: { min: 1, max: 5 } },
     },
@@ -509,7 +548,8 @@ cl.classList.add("coinLogoAnimClass")}})
   }
 
   useEffect(() => {
-    getBtcChart();
+	  setInterval(()=>{
+    getBtcChart();},4000);
   }, []);
 
   const chartOptions = {
@@ -591,8 +631,8 @@ cl.classList.add("coinLogoAnimClass")}})
           position: "absolute",
           zIndex: 1,
           width: "100vw",
-          backgroundImage:
-            'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")',
+          backgroundImage:day?
+            'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")':'url("https://i.postimg.cc/TYNxMjzh/file-000000000c5c620ab1bc59dfa9933041.jpg")',
           backgroundSize: "cover",
           height: 2500,
         }}
@@ -618,11 +658,11 @@ cl.classList.add("coinLogoAnimClass")}})
           >
             <img
               src={
-                darkTheme
-                  ? "https://i.postimg.cc/B65wgYfV/images-41.jpg"
+                !day
+                  ? "https://i.postimg.cc/15T7P1FF/Picsart-25-05-29-14-49-46-426.png"
                   : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"
               }
-              style={{ position: "absolute", height: "100%", width: "100%" }}
+              style={{ position: "absolute", height: day?"100%":"110%", width: day?"100%":"110%" }}
             />
           </button>
 
@@ -631,6 +671,7 @@ cl.classList.add("coinLogoAnimClass")}})
             style={{
               fontSize: 18,
               left: isMobile ? "50%" : 100,
+	      color:day?"#213547":"white",
             }}
           >
             Blocavax
@@ -661,7 +702,7 @@ cl.classList.add("coinLogoAnimClass")}})
           <div
             className="title"
             style={{
-              color: day ? "black" : "#ccc",
+              color: day ? "black" : "white",
               left: isMobile ? "50%" : 100,
             }}
           >
@@ -675,6 +716,7 @@ cl.classList.add("coinLogoAnimClass")}})
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "row",
+	      color:day?"#213547":"#ccc",
               gap: 40,
             }}
           >
@@ -694,7 +736,7 @@ cl.classList.add("coinLogoAnimClass")}})
               color: day ? "gray" : "#00d4d4",
             }}
           >
-            Sign in now
+            Continue to app
           </div>
         </div>
       )}
@@ -705,6 +747,25 @@ cl.classList.add("coinLogoAnimClass")}})
           zIndex: 22,
         }}
       >
+      <div className="framerBox"
+      style={{top:200,left:100,position:"absolute",height:220,width:220,backgroundColor:"#feb819",zIndex:60}}>
+      <motion.div
+
+      ref={ref}
+	style={{
+	x,
+	y,
+	height:20,
+	width:20,
+	top:40,
+	left:40,
+	backgroundColor:"#312547",
+	borderRadius:"50%",
+	poaition:"absolute"
+
+	}}
+	      />
+      </div>
         <div
           className="outer"
           style={{
@@ -716,7 +777,7 @@ cl.classList.add("coinLogoAnimClass")}})
             <div
               className="heading1"
               style={{
-                color: day ? "#213547" : "white",
+                color: day ? "#213547" : "#f2fff3",
                 position: "relative",
                 justifyContent: "space-between",
                 flexDirection: isMobile ? "column" : "row",
@@ -729,10 +790,15 @@ cl.classList.add("coinLogoAnimClass")}})
                 fontSize: isMobile ? 12 : 15,
               }}
             >
-              <h1>Fast transactions</h1>
-              <h1 style={{ opacity: 1 }}>High security</h1>
-              <h1>efficient system</h1>
-              <h1>hybrid technology</h1>
+              <h1 className="hof1"
+	      ref={hof1}>Fast transactions</h1>
+              <h1 className="hof2"
+	      ref={hof2}>High security</h1>
+              <h1 className="hof3"
+	      ref={hof3}>Efficient system</h1>
+              <h1 className="hof4"
+	      style={{
+	      fontSize:18}}ref={hof4}>Hybrid Engine</h1>
             </div>
           ) : (
             <h1
@@ -740,7 +806,7 @@ cl.classList.add("coinLogoAnimClass")}})
                 paddingBottom: 50,
                 marginTop: 30,
                 textAlign: "center",
-                color: day ? "#213547" : "white",
+                color: day ? "#213547" : "#f2fff3",
               }}
             >
               
@@ -749,8 +815,9 @@ cl.classList.add("coinLogoAnimClass")}})
             </h1>
           )}
 
+
           <div
-            style={{ backgroundColor: !day && "black" }}
+            style={{ backgroundColor: "transparent" }}
             className="outerMiddle"
           >
             <div
@@ -762,7 +829,7 @@ cl.classList.add("coinLogoAnimClass")}})
                 width: "95%",
                 flexDirection: isMobile ? "column" : "row",
                 gap: 20,
-                backgroundColor: "#f3f0e9",
+                backgroundColor: "transparent",
               }}
             >
               <div
@@ -780,7 +847,9 @@ cl.classList.add("coinLogoAnimClass")}})
                 <div
                   ref={cryptoBoxRef}
                   className="cryptoBox"
-                  style={{ opacity: 1, padding: 0, color: "#213547" }}
+                  style={{ 
+			 backgroundColor: day?"white":"#213547",
+			 opacity: 1, padding: 0, }}
                 >
                   <h2
                     className="cryptoH2"
@@ -790,16 +859,17 @@ cl.classList.add("coinLogoAnimClass")}})
                       padding: 10,
                       borderRadius: 20,
                       textAlign: "center",
-                      backgroundColor: "#00d4d4",
+		      color:day?"#213547":"#feb819",
+                      backgroundColor: day?"#00d4d4":"#213547",
+		      border:day?"2px solid #00d4d4":"2px solid #feb819"
                     }}
                   >
-                    Crypto meets banking
+                    Crypto meets Banking
                   </h2>
                 </div>
 
-                <div
-                  ref={boxText}
-                  className="boxText"
+		{autoType?<div
+                  ref={boxText}                                                         className="boxText"
                   style={{
                     fontSize: 15,
                     textAlign: "center",
@@ -807,8 +877,19 @@ cl.classList.add("coinLogoAnimClass")}})
                     color: "#213547",
                   }}
                 >
-                  {typedText}
-                </div>
+                  {typedText}                                                         </div>:
+
+			<div
+                  ref={boxText}
+                  className="boxText"
+                  style={{
+                    fontSize: 15,
+                    textAlign: "center",
+                    backgroundColor: "transparent",
+                    color: day?"#213547":"#ccc",
+                  }}
+                >The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from <b>Blocavax</b>. Ready to explore and trade?
+                </div>}
 
                 <div
                   ref={loginRef}
@@ -829,8 +910,9 @@ cl.classList.add("coinLogoAnimClass")}})
                         justifyContent: "center",
                         display: "flex",
                         position: "relative",
-                        color: "black",
+                        color: day?"black":"#ccc",
                         zIndex: 10,
+
                       }}
                     >
                       Quick sign in
@@ -853,12 +935,21 @@ cl.classList.add("coinLogoAnimClass")}})
                       onClick={() => navigate("/login")}
                       ref={login2Ref}
                       className="login2Button"
-                      style={{ color: "#ccc" }}
+                      style={{ 
+			      backgroundColor:day?"#213547":"#feb819",
+			      color: day?"#ccc":"#213547" }}
                     >
                       Sign in
                     </button>
-                  </div>
-                </div>
+
+
+
+                  </div></div>
+
+
+                
+
+
               </div>
             </div>
 
@@ -898,7 +989,7 @@ cl.classList.add("coinLogoAnimClass")}})
                       !day &&
                       "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.3)  95%,black 100%)",
                     height: 450,
-                    width: isMobile ? window.innerWidth : 498,
+                    width: isMobile ? window.innerWidth : "85%",
                   }}
                 ></div>
 
@@ -919,8 +1010,8 @@ cl.classList.add("coinLogoAnimClass")}})
                 >
                   <button 
 		  style={{boxShadow:day?"0px 0px 4px rgba(0,0,0,0.5)":"0px 0px 4px #ccc",
-		  color:day?"#feb819":"#213547",
-		  backgroundColor:day?"#213547":"white"}}
+		  color:day?"#feb819":"#00d4d4",
+		  backgroundColor:day?"#213547":"black"}}
 		  className="back">Back</button>
                   <button
                     onClick={() => {
@@ -928,10 +1019,10 @@ cl.classList.add("coinLogoAnimClass")}})
                     }}
                     ref={nextRef}
                     className="next"
-                    style={{ color: "#feb819",
+                    style={{ color: day?"#feb819":"#00d4d4",
 		    boxShadow:day? "0px 1px 4px rgba(0,0,0,0.5)":
 		    "0px 0px 4px #ccc",
-		    backgroundColor:day?"#213547":"white"}}
+		    backgroundColor:day?"#213547":"black"}}
                   >
                     Next
                   </button>
@@ -941,19 +1032,17 @@ cl.classList.add("coinLogoAnimClass")}})
                   ref={coinTitle}
                   style={{
                     fontSize: 25,
-                    padding: 10,
+                    padding: 0,
                     textAlign: "center",
                     color: day ? "#213547" : "white",
                   }}
                 >
-                  Trade your favourite 
-                  <b
+                  Trade your favourite <b
                     style={{
                       color: "#feb819",
                     }}
-                  > coins,
-                  </b>
-                  in a giffy,<b style={{ color: "#00d4d4" }}> anytime</b>
+                  > coins </b>
+                  with speed,<b style={{ color: "#00d4d4" }}> anytime</b>
                 </h2>
 
                 <div
@@ -993,7 +1082,6 @@ cl.classList.add("coinLogoAnimClass")}})
                       width: isMobile ? window.innerWidth : 500,
                       paddingLeft: 20,
                       paddingRight: 60,
-                      backgroundColor: "transparent",
                       height: 500,
                     }}
                     className="sampleContainer"
@@ -1004,7 +1092,9 @@ cl.classList.add("coinLogoAnimClass")}})
                           key={index}
                           onClick={() => getBtcChart()}
                           className="coinBox"
-                          style={{ height: 270, width: 180 }}
+                          style={{ 
+				  background:!day && "linear-gradient(to bottom, #566262 0% 20%,#566262 20% 50%, black 50% 60%, black 60% 80%, #feb819 80% 100%)",
+				  opacity:1,height: 270, width: 180 }}
                         >
                           <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo">
                             <img
@@ -1014,6 +1104,7 @@ cl.classList.add("coinLogoAnimClass")}})
                                 height: "100%",
                                 width: "100%",
                                 position: "absolute",
+				boxShadow:day && "0px 1px 7px rgba(0,0,0,0.5)"
                               }}
                             />
                           </div>
