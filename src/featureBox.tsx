@@ -129,7 +129,7 @@ onClick={()=>{setFeature("Fast transactions...");
               transform: "translate(-50%,-50%)",
               top: "50%",
               left: "50%",
-	      fonthSize:20,
+	      fontSize:20,
 	      fontWeight:"bold",
 	      color:day?"#00d4d4":"#feb819",
             }}
