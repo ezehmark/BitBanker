@@ -7,6 +7,7 @@ import { loadFull } from "tsparticles";
 import { analytics } from "./firebase.ts";
 import { useNavigate } from "react-router-dom";
 import { logEvent } from "firebase/analytics";
+import FeatureBox from "./featureBox.tsx";
 
 import { Line } from "react-chartjs-2";
 import {
@@ -25,7 +26,6 @@ import "chartjs-adapter-date-fns";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {motion, useMotionValue, useTransform,useAnimationFrame} from "framer-motion";
 
 ChartJS.register(
   LineElement,
@@ -60,15 +60,7 @@ function Home({
   const [picUrl, setPicUrl] = useState("");
 
 
-  const angle = useMotionValue(0);
-  const radius = 80;
-
-  const x = useTransform(angle,(a)=> 110 + radius* Math.cos(a));
-  const y = useTransform(angle,(a)=> 110 + radius * Math.sin(a));
-  const ref = useRef(null);
-
-  useAnimationFrame((t)=>{
-  angle.set((t/2000)*2)});
+  
 
 
 
@@ -115,10 +107,33 @@ function Home({
       }
     }, speed);
     return () => clearInterval(typeInterval);}
+    typer();
 
   }, [text, speed]);
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+let pressedTime;
+const longPress =()=>{
+ pressedTime = setTimeout(()=>{
+ toggleAutoType()},4000);
+  };
+
+  const cancelLongPress = ()=>{
+  clearTimeout(pressedTime)}
+
+
+  if(cryptoBoxRef.current){
+cryptoBoxRef.current.addEventListener("touchstart",longPress);
+  cryptoBoxRef.current.addEventListener("touchend",cancelLongPress)}
+
+  return()=>{
+  if(cryptoBoxRef.current){
+  cryptoBoxRef.current.removeEventListener("touchstart",longPress);
+  cryptoBoxRef.current.removeEventListener("touchend",cancelLongPress);}}
+
+  },[]);
 
   const breakpoint = 768;
 
@@ -267,6 +282,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("coinBoxAnimClass");
+
           } else {
             entry.target.classList.remove("coinBoxAnimClass");
           }
@@ -695,7 +711,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
 
           <button
             onClick={() => {
-              navigate("/login");
+              toggleDay();
             }}
             className="signInButton"
             style={{
@@ -770,7 +786,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
             flexDirection: isMobile ? "column" : "column",
           }}
         >
-          {isMobile ? (
+          {!isMobile ? (
             <div
               className="heading1"
               style={{
@@ -798,19 +814,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
 	      fontSize:18}}ref={hof4}>Hybrid Engine</h1>
             </div>
           ) : (
-            <h1
-              style={{
-                paddingBottom: 50,
-                marginTop: 30,
-                textAlign: "center",
-                color: day ? "#213547" : "#f2fff3",
-              }}
-            >
-              
-              Fast transactions, High security, efficient sytstem hybrid
-              technology
-            </h1>
-          )}
+          <FeatureBox/>)}
 
 
           <div
@@ -979,14 +983,15 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                   className="coinBoxTop"
                   style={{
                     position: "absolute",
-                    bottom: 70,
+                    bottom: 80,
                     pointerEvents: "none",
                     zIndex: 40,
                     background:
                       !day &&
-                      "linear-gradient(to right,black 0%,rgba(0,0,0,0.3) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.3)  95%,black 100%)",
-                    height: 450,
-                    width: isMobile ? window.innerWidth : "85%",
+                      "linear-gradient(to right,rgba(38,70,98,0.6) 0%,rgba(0,0,0,0.0) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.0)  95%,rgba(38,70,98,0.6) 100%)",
+                    height: 400,
+		    borderRadius:20,
+                    width: isMobile ? "84%": "80%",
                   }}
                 ></div>
 
@@ -1094,9 +1099,11 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                           style={{ 
 				  background: !day && "linear-gradient(to bottom, #566262 0%, #566262 20%, rgba(0,0,0,0.7) 60%,black 80%, #1a2a38 100%)",
 				  boxShadow:day?"0px 1px 4px white, 0px 2px 20px rgba(0,0,0,0.7)":"0px 0px 4px #ccc, 0px 2px 20px rgba(0,0,0,0.7)",
-				  opacity:1,height: 270, width: 180 }}
+				  opacity:1,
+				  overflow:"hidden",height: 270, width: 180 }}
                         >
-                          <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo">
+                          <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo"
+			  style={{boxShadow:day ? "0px 0px 4px white, 0px 0px 7px black" :"0px 0px 4px #ccc, 0px 2px 20px rgba(255,255,255, 1)"}}>
                             <img
                               className="logoImg"
                               src={item.coinLogo}
@@ -1104,7 +1111,6 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                                 height: "100%",
                                 width: "100%",
                                 position: "absolute",
-				boxShadow:day && "0px 1px 7px rgba(0,0,0,0.5)"
                               }}
                             />
                           </div>
@@ -1138,8 +1144,8 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                             {btcChartData ? (
                               <Line
                                 options={chartOptions2}
-                                width={188}
-                                height={100}
+                                width={218}
+                                height={"100%"}
                                 data={btcChartData}
                               />
                             ) : (

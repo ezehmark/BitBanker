@@ -1,5 +1,6 @@
 import {useState,useEffect,useRef} from "react";
 import "./menu.css";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -7,7 +8,11 @@ import "./menu.css";
 
 
 
-export default function Menu({setOpenMenu}:{setOpenMenu:()=>void}){
+
+
+export default function Menu({day,toggleDay,setOpenMenu}:{day:boolean,toggleDay:()=>void,setOpenMenu:()=>void}){
+
+const navigate = useNavigate();
 
 const itemsHolderRef = useRef<HTMLDivElement>(null);
 
@@ -23,19 +28,27 @@ document.addEventListener("pointerdown",closeMenu);
 return ()=>document.removeEventListener("pointerdown",closeMenu);
 },[setOpenMenu]);
 
+const menuItems =[{name:"Markets"},{name:"Trading"},{name:"Fintech"},{name:"Settings"},{name:"About us"}];
+
 
 
 return(<>
 
-<div className="menuContainer">
+<div 
+className="menuContainer">
 
-<div ref={itemsHolderRef} className="menuItemsContainer">
-<div className="itemsHolder">
-<button className="menuItem">Reigster</button>
-<button className="menuItem">Markets</button>
-<button className="menuItem">Banking</button>
-<button style={{marginTop:40}}className="menuItem">About us</button>
-<button className="menuItem">Settings</button>
+<div ref={itemsHolderRef} 
+className="menuItemsContainer"
+style={{backgroundColor:!day?"#213547":"#f3f0e9"}}>
+<div className="itemsHolder"
+style={{color:day?"#213547":"#ccc"}}>
+{menuItems.map((item,index)=>{
+	return(
+<button 
+className="menuItem"
+style={{marginTop:index == 3 && 100}}
+onClick={()=>{setOpenMenu(false);navigate(`/${item.name}`)}}
+>{item.name}</button>)})}
 </div>
 </div>
 </div>
