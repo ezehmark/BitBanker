@@ -6,7 +6,7 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import "./featureBox.css";
-export default function FeatureBox() {
+export default function FeatureBox({day}) {
   //First circle
 
   const angle1 = useMotionValue(0);
@@ -17,7 +17,7 @@ export default function FeatureBox() {
 
   useAnimationFrame((t) => {
     setTimeout(() => {
-      angle1.set((t / 10000) * 2);
+      angle1.set((t / 20000) * 2);
     }, 2000);
   });
 
@@ -30,8 +30,8 @@ export default function FeatureBox() {
   const c1Refb = useRef(null);
   useAnimationFrame((t) => {
     setTimeout(() => {
-      angle1b.set(((t / 12000) * 2)+Math.PI);
-    }, 1000);
+      angle1b.set(((t / 20000) * 2)+Math.PI);
+    }, 2000);
   });
 
   //Circle 2  details
@@ -43,14 +43,19 @@ export default function FeatureBox() {
   const c2Ref = useRef(null);
   useAnimationFrame((t) => {
     setTimeout(() => {
-      angle2.set((t / 4000) * 2);
-    }, 8000);
+      angle2.set((t / 15000) * 2);
+    }, 16000);
   });
 
   //circle 2b
 
-const angle2b = useMotionValue(0);
-  const radius2b = 80;                                                   const c2xb = useTransform(angle2b, (a) => 80 + radius2b * Math.cos(a) - 20);                                                                   const c2yb = useTransform(angle2b, (a) => 80 + radius2b * Math.sin(a) - 20);                                                                   const c2Refb = useRef(null);                                           useAnimationFrame((t) => {                                              setTimeout(() => {                                                      angle2b.set((t / 4000) * 2);                                         }, 8000);                                                           });
+const angle2b = useMotionValue(Math.PI);
+
+const radius2b = 80;                                                   const c2xb = useTransform(angle2b, (a) => 80 + radius2b * Math.cos(a) - 20);                                                                   const c2yb = useTransform(angle2b, (a) => 80 + radius2b * Math.sin(a) - 20);
+const c2Refb = useRef(null);                                           useAnimationFrame((t) => {                                              setTimeout(() => {                                                      angle2b.set(((t / 15000) * 2)+Math.PI);                                         }, 16000);                                                           });
+
+const [feature,SetFeature]=useState("Fast transactions..");
+
 
   return (
     <div
@@ -63,24 +68,24 @@ const angle2b = useMotionValue(0);
           position: "relative",
           height: 260,
           width: 260,
-          border: "0.5px solid rgba(0,0,0,0.2)",
+          border: "0px solid rgba(0,0,0,0.2)",
           borderRadius: "50%",
           backgroundColor: "transparent",
         }}
       >
         <motion.div
+onClick={()=>{setFeature("Fast transactions...");
+}}
           ref={c1Ref}
           style={{
             x: c1x,
-            y: c1y,
-            height: 80,
+            y: c1y,                                                               height: 80,
             width: 80,
             display: "flex",
             borderRadius: "50%",
             backgroundColor: "rgba(239,152,0,0.4)",
             position: "absolute",
-          }}
-        ><img                                                                    src="https://i.postimg.cc/85LH9mhX/file-000000001ee46246ad2d850c2d5649db.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
+          }}><img                                                                    src="https://i.postimg.cc/85LH9mhX/file-000000001ee46246ad2d850c2d5649db.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
 
         <motion.div
           ref={c1Refb}
@@ -115,19 +120,25 @@ const angle2b = useMotionValue(0);
             transform: "translate(-50%,-50%)",
             top: "50%",
             left: "50%",
-            backgroundColor: "transparent",
+            backgroundColor: "#213547",
           }}
         >
-          <h1
+          <div
             style={{
               position: "absolute",
               transform: "translate(-50%,-50%)",
               top: "50%",
               left: "50%",
+	      fonthSize:20,
+	      fontWeight:"bold",
+	      color:day?"#00d4d4":"#feb819",
             }}
           >
             Blocavax
-          </h1>
+          </div>
+	  <div
+	  className="feature"
+	  style={{color:"white"}}>{feature}</div>
           <motion.div
             ref={c2Ref}
             style={{
@@ -147,7 +158,7 @@ const angle2b = useMotionValue(0);
           </motion.div>
 
 	  <motion.div                                                             ref={c2Refb}                                                           style={{                                                                x: c2xb,
-              y: c2yb,                                                               height: 60,                                                           width: 60,                                                            borderRadius: "50%",                                                  position: "absolute",                                                 backgroundColor: "rgba(239,152,0,0.4)",                             }}                                                                  >                                                                       <img                                                                    src="https://i.postimg.cc/Gh53JzMN/file-000000003c00624690d3a7bbc870baf4.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
+              y: c2yb,                                                               height: 60,                                                           width: 60,                                                            borderRadius: "50%",                                                  position: "absolute",                                                 backgroundColor: "rgba(239,152,0,0.4)",                             }}                                                                  >                                                                       <img                                                                    src=" https://i.postimg.cc/6qHx4vMc/file-000000001d9c6246be034652f5242108.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
 
         </div>
       </div>

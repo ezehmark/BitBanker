@@ -2,3 +2,4 @@
 height:380px;;background-color:black;display:flex;justify-content:center;align-items:center}
 
 .circle2{display:flex}
+.feature{color:white;position:absolute;bottom:30px;transform:translateX(-50%);left:50%;font-size:10px;font-weight:bold;text-wrap:nowrap}

@@ -8,6 +8,7 @@ import Menu from "./menuPanel.tsx";
 import Profile from "./profile.tsx";
 
 import Settings from "./settings.tsx";
+import FeatureBox from "./featureBox.tsx";
 
 
 export default function App() {
@@ -34,6 +35,7 @@ const toggleProfile =()=>{
 
     {openMenu && <Menu day={day} toggleDay={toggleDay}                            setOpenMenu={setOpenMenu}/>}
 {openProfile && <Profile setOpenProfile={setOpenProfile}/>}
+{<FeatureBox day={day}/>}
       <Routes>
 
         <Route path="/signup" element={<SignUp />} />
