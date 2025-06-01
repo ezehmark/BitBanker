@@ -35,7 +35,6 @@ const toggleProfile =()=>{
 
     {openMenu && <Menu day={day} toggleDay={toggleDay}                            setOpenMenu={setOpenMenu}/>}
 {openProfile && <Profile setOpenProfile={setOpenProfile}/>}
-{<FeatureBox day={day}/>}
       <Routes>
 
         <Route path="/signup" element={<SignUp />} />

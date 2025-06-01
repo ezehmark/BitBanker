@@ -6,7 +6,7 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import "./featureBox.css";
-export default function FeatureBox({day}) {
+export default function FeatureBox({ day }) {
   //First circle
 
   const angle1 = useMotionValue(0);
@@ -16,9 +16,9 @@ export default function FeatureBox({day}) {
   const c1Ref = useRef(null);
 
   useAnimationFrame((t) => {
-    setTimeout(() => {
+    
       angle1.set((t / 20000) * 2);
-    }, 2000);
+
   });
 
   //Circle1b
@@ -27,34 +27,124 @@ export default function FeatureBox({day}) {
   const radius1b = 130;
   const c1xb = useTransform(angle1b, (a) => 130 + radius1b * Math.cos(a) - 50);
   const c1yb = useTransform(angle1b, (a) => 130 + radius1b * Math.sin(a) - 50);
-  const c1Refb = useRef(null);
-  useAnimationFrame((t) => {
-    setTimeout(() => {
-      angle1b.set(((t / 20000) * 2)+Math.PI);
-    }, 2000);
+  const c1bRef = useRef(null);
+  useAnimationFrame((t) =>{
+
+      angle1b.set((t / 20000) * 2 + Math.PI);
+
   });
 
   //Circle 2  details
 
-  const angle2 = useMotionValue(0);
+  const angle2 = useMotionValue(Math.PI);
   const radius2 = 80;
   const c2x = useTransform(angle2, (a) => 80 + radius2 * Math.cos(a) - 20);
   const c2y = useTransform(angle2, (a) => 80 + radius2 * Math.sin(a) - 20);
-  const c2Ref = useRef(null);
   useAnimationFrame((t) => {
-    setTimeout(() => {
-      angle2.set((t / 15000) * 2);
-    }, 16000);
+    
+      angle2.set(((t / 10000) * 2)+Math.PI);
+
   });
 
   //circle 2b
+  //
+  const c2Ref=useRef(null);
+  const c2bRef = useRef(null);
 
-const angle2b = useMotionValue(Math.PI);
+  const angle2b = useMotionValue(Math.PI/2);
 
-const radius2b = 80;                                                   const c2xb = useTransform(angle2b, (a) => 80 + radius2b * Math.cos(a) - 20);                                                                   const c2yb = useTransform(angle2b, (a) => 80 + radius2b * Math.sin(a) - 20);
-const c2Refb = useRef(null);                                           useAnimationFrame((t) => {                                              setTimeout(() => {                                                      angle2b.set(((t / 15000) * 2)+Math.PI);                                         }, 16000);                                                           });
+  const radius2b = 80;
+  const c2xb = useTransform(angle2b, (a) => 80 + radius2b * Math.cos(a) - 20);
+  const c2yb = useTransform(angle2b, (a) => 80 + radius2b * Math.sin(a) - 20);
+  useAnimationFrame((t) => {
 
-const [feature,SetFeature]=useState("Fast transactions..");
+      angle2b.set((t / 10000) * 2 + Math.PI/2);
+    
+  });
+
+  const [feature, setFeature] = useState("");
+
+  const [flashFeature,setFlasFeature] = useState(false);
+
+
+  const featureRef = useRef(null);
+
+  const features = ["Fast transactions","Efficient system", "High security","Hybrid technology"];
+
+  useEffect(()=>{
+
+
+
+//flashing each motion circle and
+//selecting each feature from features array
+
+  let fIndex = 0;
+  let selectInterval;
+
+
+const runCycle=()=>{
+
+if(selectInterval){clearInterval(selectInterval)};
+selectInterval = setInterval(()=>{
+
+
+setFeature("");
+
+//use setTimout to flash the feature updates
+
+setTimeout(()=>{
+
+setFeature(features[fIndex]);
+
+  fIndex = (fIndex +1 ) % features.length
+          },500);
+
+	  },5000);
+
+//remove all claslists first to ensire reanimation
+//
+
+
+c1Ref.current.classList.remove(day?"featureAnimClass":"featureAnimNight");
+c1bRef.current.classList.remove(day?"featureAnimClass":"featureAnimNight");
+
+c2Ref.current.classList.remove(day?"featureAnimClass":"featureAnimNight");
+
+
+
+c2bRef.current.classList.remove(day?"featureAnimClass":"featureAnimNight");
+
+//Then add the timeouts separately:
+
+
+setTimeout(()=>{
+c1Ref.current.classList.add(day?"featureAnimClass":"featureAnimNight");},5000);
+
+setTimeout(()=>{
+c1bRef.current.classList.add(day?"featureAnimClass":"featureAnimNight");},11000);
+
+setTimeout(()=>{
+c2Ref.current.classList.add(day?"featureAnimClass":"featureAnimNight");},18000);
+
+setTimeout(()=>{
+c2bRef.current.classList.add(day?"featureAnimClass":"featureAnimNight");},24000);
+}
+
+
+runCycle();
+
+let cycleInterval = setInterval(runCycle,24200);
+
+
+  return ()=>{clearInterval(cycleInterval);clearInterval(selectInterval)}
+
+
+  
+
+
+  },[]);
+
+
 
 
   return (
@@ -74,21 +164,31 @@ const [feature,SetFeature]=useState("Fast transactions..");
         }}
       >
         <motion.div
-onClick={()=>{setFeature("Fast transactions...");
-}}
-          ref={c1Ref}
+	ref={c1Ref}
+          onClick={() => {
+            setFeature("Fast transactions");setTimeout(()=>{setFeature("")},4000);
+          }}
           style={{
             x: c1x,
-            y: c1y,                                                               height: 80,
+            y: c1y,
+            height: 80,
             width: 80,
             display: "flex",
             borderRadius: "50%",
             backgroundColor: "rgba(239,152,0,0.4)",
             position: "absolute",
-          }}><img                                                                    src="https://i.postimg.cc/85LH9mhX/file-000000001ee46246ad2d850c2d5649db.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
+          }}
+        >
+          <img
+            src="https://i.postimg.cc/85LH9mhX/file-000000001ee46246ad2d850c2d5649db.png"
+            style={{ position: "absolute", height: "125%", width: "125%" }}
+          />
+        </motion.div>
 
         <motion.div
-          ref={c1Refb}
+	ref={c1bRef}
+	onClick={() => {                                                                          setFeature("Efficient system");setTimeout(()=>{setFeature("")},4000);
+          }}
           style={{
             x: c1xb,
             y: c1yb,
@@ -97,8 +197,7 @@ onClick={()=>{setFeature("Fast transactions...");
             display: "flex",
             borderRadius: "50%",
             position: "absolute",
-	    backgroundColor: "rgba(239,152,0,0.4)",
-            display: "flex",
+            backgroundColor: "rgba(239,152,0,0.4)",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -121,6 +220,7 @@ onClick={()=>{setFeature("Fast transactions...");
             top: "50%",
             left: "50%",
             backgroundColor: "#213547",
+            zIndex: 60,
           }}
         >
           <div
@@ -129,18 +229,21 @@ onClick={()=>{setFeature("Fast transactions...");
               transform: "translate(-50%,-50%)",
               top: "50%",
               left: "50%",
-	      fontSize:20,
-	      fontWeight:"bold",
-	      color:day?"#00d4d4":"#feb819",
+              fontSize: 20,
+              fontWeight: "bold",
+              color: day ? "#00d4d4" : "#feb819",
             }}
           >
-            Blocavax
+            BLOCAVAX
           </div>
-	  <div
-	  className="feature"
-	  style={{color:"white"}}>{feature}</div>
+	  {feature && <div 
+		  ref={featureRef} className="feature" style={{  }}>
+            {feature}
+          </div>}
           <motion.div
-            ref={c2Ref}
+	  ref={c2Ref}
+	  onClick={() => {                                                                          setFeature("High security");setTimeout(()=>{setFeature("")},4000);
+          }}
             style={{
               x: c2x,
               y: c2y,
@@ -148,7 +251,7 @@ onClick={()=>{setFeature("Fast transactions...");
               width: 60,
               borderRadius: "50%",
               position: "absolute",
-	      backgroundColor: "rgba(239,152,0,0.4)",
+              backgroundColor: "rgba(239,152,0,0.4)",
             }}
           >
             <img
@@ -157,9 +260,27 @@ onClick={()=>{setFeature("Fast transactions...");
             />
           </motion.div>
 
-	  <motion.div                                                             ref={c2Refb}                                                           style={{                                                                x: c2xb,
-              y: c2yb,                                                               height: 60,                                                           width: 60,                                                            borderRadius: "50%",                                                  position: "absolute",                                                 backgroundColor: "rgba(239,152,0,0.4)",                             }}                                                                  >                                                                       <img                                                                    src=" https://i.postimg.cc/6qHx4vMc/file-000000001d9c6246be034652f5242108.png"                                                               style={{ position: "absolute", height: "125%", width: "125%" }}                                                                           />                                                                  </motion.div>
-
+          <motion.div
+	  ref={c2bRef}
+	  onClick={() => {                                                                          setFeature("Hybrid technology");setTimeout(()=>{setFeature("")},4000);
+          }}
+            style={{
+              x: c2xb,
+              y: c2yb,
+              height: 60,
+              width: 60,
+              zIndex: 58,
+              borderRadius: "50%",
+              position: "absolute",
+              backgroundColor: "rgba(239,152,0,0.4)",
+            }}
+          >
+            
+            <img
+              src=" https://i.postimg.cc/6qHx4vMc/file-000000001d9c6246be034652f5242108.png"
+              style={{ position: "absolute", height: "125%", width: "125%" }}
+            />
+          </motion.div>
         </div>
       </div>
     </div>

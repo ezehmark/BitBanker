@@ -45,8 +45,10 @@ function Home({
   toggleDay,
   toggleMenu,
 }: {
-  toggleMenu: () => void,toggleDay:()=>void,day:boolean,
-  toggleProfile: () => void
+  toggleMenu: () => void;
+  toggleDay: () => void;
+  day: boolean;
+  toggleProfile: () => void;
 }) {
   const [darkTheme, setDarkTheme] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
@@ -59,28 +61,28 @@ function Home({
   const [name, setName] = useState("null_user");
   const [picUrl, setPicUrl] = useState("");
 
-
-  
-
-
-
   const hof1 = useRef(null);
   const hof2 = useRef(null);
   const hof3 = useRef(null);
   const hof4 = useRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      hof1.current.classList.add("hof1AnimClass");
+    }, 2000);
 
-  const timeout = setTimeout(()=>{
-  hof1.current.classList.add("hof1AnimClass")},2000);
+    setTimeout(() => {
+      hof2.current.classList.add("show");
+    }, 3500);
 
-  setTimeout(()=>{                                                hof2.current.classList.add("show")},3500);
+    setTimeout(() => {
+      hof3.current.classList.add("show");
+    }, 2500);
 
-  setTimeout(()=>{                                                hof3.current.classList.add("show")},2500);
-
-  setTimeout(()=>{                                                hof4.current.classList.add("show")},3000)
-  },[]);
-
+    setTimeout(() => {
+      hof4.current.classList.add("show");
+    }, 3000);
+  }, []);
 
   const [text, setText] = useState(
     "The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?",
@@ -89,51 +91,53 @@ function Home({
   const [speed, setSpeed] = useState(300);
   const [typedText, setTypedText] = useState("");
 
-  const[autoType,setAutoType]=useState(false);
-  function toggleAutoType(){
-  setAutoType((a)=>!a)}
+  const [autoType, setAutoType] = useState(false);
+  function toggleAutoType() {
+    setAutoType((a) => !a);
+  }
 
   useEffect(() => {
-	  let index = 0;
+    let index = 0;
 
-
-	  const typer = ()=>{
-
-    const typeInterval = setInterval(() => {
-      setTypedText((now) => (now  + text.charAt(index)));
-      index += 1;
-      if (index >= text.length) {
-        clearInterval(typeInterval);
-      }
-    }, speed);
-    return () => clearInterval(typeInterval);}
+    const typer = () => {
+      const typeInterval = setInterval(() => {
+        setTypedText((now) => now + text.charAt(index));
+        index += 1;
+        if (index >= text.length) {
+          clearInterval(typeInterval);
+        }
+      }, speed);
+      return () => clearInterval(typeInterval);
+    };
     typer();
-
   }, [text, speed]);
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
-let pressedTime;
-const longPress =()=>{
- pressedTime = setTimeout(()=>{
- toggleAutoType()},4000);
-  };
+  useEffect(() => {
+    let pressedTime;
+    const longPress = () => {
+      pressedTime = setTimeout(() => {
+        toggleAutoType();
+      }, 4000);
+    };
 
-  const cancelLongPress = ()=>{
-  clearTimeout(pressedTime)}
+    const cancelLongPress = () => {
+      clearTimeout(pressedTime);
+    };
 
+    if (cryptoBoxRef.current) {
+      cryptoBoxRef.current.addEventListener("touchstart", longPress);
+      cryptoBoxRef.current.addEventListener("touchend", cancelLongPress);
+    }
 
-  if(cryptoBoxRef.current){
-cryptoBoxRef.current.addEventListener("touchstart",longPress);
-  cryptoBoxRef.current.addEventListener("touchend",cancelLongPress)}
-
-  return()=>{
-  if(cryptoBoxRef.current){
-  cryptoBoxRef.current.removeEventListener("touchstart",longPress);
-  cryptoBoxRef.current.removeEventListener("touchend",cancelLongPress);}}
-
-  },[]);
+    return () => {
+      if (cryptoBoxRef.current) {
+        cryptoBoxRef.current.removeEventListener("touchstart", longPress);
+        cryptoBoxRef.current.removeEventListener("touchend", cancelLongPress);
+      }
+    };
+  }, []);
 
   const breakpoint = 768;
 
@@ -239,29 +243,28 @@ cryptoBoxRef.current.addEventListener("touchstart",longPress);
   const coinLogoRefs = useRef({});
 
   const controlCoinLogo = (e) => {
-Object.values(coinLogoRefs.current).forEach((cl)=>{
-if(cl.contains(e.target as Node)){
-cl.classList.remove("coinLogoAnimClass");
-void cl.offsetWidth;
-cl.classList.add("coinLogoAnimClass")}})
-  }
+    Object.values(coinLogoRefs.current).forEach((cl) => {
+      if (cl.contains(e.target as Node)) {
+        cl.classList.remove("coinLogoAnimClass");
+        void cl.offsetWidth;
+        cl.classList.add("coinLogoAnimClass");
+      }
+    });
+  };
 
-//Function to scroll the coin boxes
-  
-const sampleContainer=useRef(null);
-const coinBox =useRef(null);
-const scrollBoxes=(direction)=>{
-const scrollWidth = coinBox.current.offsetWidth;
-const scrollDistance = direction ==="next"?scrollWidth:-scrollWidth;
+  //Function to scroll the coin boxes
 
-sampleContainer.current.scrollBy({left:scrollDistance,
-				 behaviour:"smooth"
-});
+  const sampleContainer = useRef(null);
+  const coinBox = useRef(null);
+  const scrollBoxes = (direction) => {
+    const scrollWidth = coinBox.current.offsetWidth;
+    const scrollDistance = direction === "next" ? scrollWidth : -scrollWidth;
 
-
-
-
-}
+    sampleContainer.current.scrollBy({
+      left: scrollDistance,
+      behaviour: "smooth",
+    });
+  };
 
   useEffect(() => {
     document.addEventListener("click", controlCoinLogo);
@@ -282,7 +285,6 @@ sampleContainer.current.scrollBy({left:scrollDistance,
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("coinBoxAnimClass");
-
           } else {
             entry.target.classList.remove("coinBoxAnimClass");
           }
@@ -351,13 +353,13 @@ sampleContainer.current.scrollBy({left:scrollDistance,
       },
     },
     particles: {
-      color: { value: !day?"#feb819":"#213547" },
+      color: { value: !day ? "#feb819" : "#213547" },
       links: {
         color: "#d50204",
         distance: 100,
         enable: true,
         opacity: 0.2,
-        width: isMobile?0.3 :1,
+        width: isMobile ? 0.3 : 1,
       },
       collisions: { enable: true },
       move: {
@@ -391,16 +393,25 @@ sampleContainer.current.scrollBy({left:scrollDistance,
   const [ethPrice, setEthPrice] = useState<string | null>(null);
   const [solPrice, setSolPrice] = useState<string | null>(null);
   const [dogePrice, setDogePrice] = useState<string | null>(null);
+  const [linkPrice, setLinkPrice] = useState(null);
+  const [adaPrice, setAdaPrice] = useState(null);
+  const [xrpPrice, setXrpPrice] = useState(null);
 
   const btcPriceRef = useRef<string | null>(null);
   const ethPriceRef = useRef<string | null>(null);
   const solPriceRef = useRef<string | null>(null);
   const dogePriceRef = useRef<string | null>(null);
+  const linkPriceRef = useRef(null);
+  const adaPriceRef = useRef(null);
+  const xrpPriceRef = useRef(null);
 
   const [btcColor, setBtcColor] = useState("white");
   const [ethColor, setEthColor] = useState("white");
   const [solColor, setSolColor] = useState("white");
   const [dogeColor, setDogeColor] = useState("white");
+  const [linkColor, setLinkColor] = useState("white");
+  const [adaColor, setAdaColor] = useState("white");
+  const [xrpColor, setXrpColor] = useState("white");
 
   useEffect(() => {
     logEvent(analytics, "Screen_Views", { screen: "home" });
@@ -424,6 +435,8 @@ sampleContainer.current.scrollBy({left:scrollDistance,
               "publicTrade.DOGEUSDT",
               "publicTrade.XRPUSDT",
               "publicTrade.ADAUSDT",
+              "publicTrade.LINKUSDT",
+              "publicTrade.XRPUSDT",
             ],
           }),
         );
@@ -510,6 +523,58 @@ sampleContainer.current.scrollBy({left:scrollDistance,
             totalSol = Number(price) * 12;
             setSol(totalSol.toString());
           }
+
+          if (symbol === "LINKUSDT") {
+            const prev = linkPriceRef.current
+              ? parseFloat(linkPriceRef.current)
+              : 0;
+            const newPrice = parseFloat(price);
+            if (price > prev) {
+              setLinkColor("#feb819");
+            } else if (prev > price) {
+              setLinkColor("#ec5300");
+            } else {
+              setLinkColor("grey");
+            }
+
+            setLinkPrice(price);
+            linkPriceRef.current = price;
+          }
+
+          if (symbol === "ADAUSDT") {
+            const prev = adaPriceRef.current
+              ? parseFloat(adaPriceRef.current)
+              : 0;
+            const newPrice = parseFloat(price);
+            if (price > prev) {
+              setAdaColor("#feb819");
+            } else if (prev > price) {
+              setAdaColor("#ec5300");
+            } else {
+              setAdaColor("grey");
+            }
+            setAdaPrice(price);
+            adaPriceRef.current = price;
+          }
+
+          if (symbol === "XRPUSDT") {
+            const prev = xrpPriceRef.current
+              ? parseFloat(xrpPriceRef.current)
+              : 0;
+            const newPrice = parseFloat(price);
+            if (price > prev) {
+              setXrpColor("#feb819");
+            } else if (prev > price) {
+              setXrpColor("#ec5300");
+            } else {
+              setXrpColor("grey");
+            }
+            setXrpPrice(price);
+            xrpPrice.current = price;
+          }
+
+          //Calculating prices of thw wallet coins
+
           const btcVal = btcPriceRef.current
             ? parseFloat(btcPriceRef.current) * 12
             : 0;
@@ -580,8 +645,9 @@ sampleContainer.current.scrollBy({left:scrollDistance,
   }
 
   useEffect(() => {
-	  setInterval(()=>{
-    getBtcChart();},4000);
+    setInterval(() => {
+      getBtcChart();
+    }, 4000);
   }, []);
 
   const chartOptions = {
@@ -653,6 +719,29 @@ sampleContainer.current.scrollBy({left:scrollDistance,
       coinSymbol: "DOGEUSDT",
       coinName: "Dogecoin",
     },
+    {
+      coinLogo: "https://i.postimg.cc/HWwfmdQD/images-2.png",
+      coinColor: linkColor,
+      coinPrice: linkPrice,
+      coinSymbol: "LINKUSDT",
+      coinName: "Chainlink",
+    },
+
+    {
+      coinLogo: "https://i.postimg.cc/xjmbTFCS/images-4.png",
+      coinColor: adaColor,
+      coinPrice: adaPrice,
+      coinSymbol: "ADAUSDT",
+      coinName: "Cardano",
+    },
+
+    {
+      coinLogo: "https://i.postimg.cc/dQfTqcv6/images-3.png",
+      coinColor: xrpColor,
+      coinPrice: xrpPrice,
+      coinSymbol: "XRPUSDT",
+      coinName: "Ripple",
+    },
   ];
 
   return (
@@ -663,8 +752,9 @@ sampleContainer.current.scrollBy({left:scrollDistance,
           position: "absolute",
           zIndex: 1,
           width: "100vw",
-          backgroundImage:day?
-            'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")':'url("https://i.postimg.cc/TYNxMjzh/file-000000000c5c620ab1bc59dfa9933041.jpg")',
+          backgroundImage: day
+            ? 'url("https://i.postimg.cc/L6fhJ6Dy/file-000000005f2c62468e48d3172131c61a-2.jpg")'
+            : 'url("https://i.postimg.cc/TYNxMjzh/file-000000000c5c620ab1bc59dfa9933041.jpg")',
           backgroundSize: "cover",
           height: 2500,
         }}
@@ -694,7 +784,11 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                   ? "https://i.postimg.cc/15T7P1FF/Picsart-25-05-29-14-49-46-426.png"
                   : "https://i.postimg.cc/3xCFDfww/Picsart-25-05-04-05-37-21-849.png"
               }
-              style={{ position: "absolute", height: day?"100%":"110%", width: day?"100%":"110%" }}
+              style={{
+                position: "absolute",
+                height: day ? "100%" : "110%",
+                width: day ? "100%" : "110%",
+              }}
             />
           </button>
 
@@ -703,7 +797,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
             style={{
               fontSize: 18,
               left: isMobile ? "50%" : 100,
-	      color:day?"#213547":"white",
+              color: day ? "#213547" : "white",
             }}
           >
             Blocavax
@@ -748,7 +842,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "row",
-	      color:day?"#213547":"#ccc",
+              color: day ? "#213547" : "#ccc",
               gap: 40,
             }}
           >
@@ -803,19 +897,28 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                 fontSize: isMobile ? 12 : 15,
               }}
             >
-              <h1 className="hof1"
-	      ref={hof1}>Fast transactions</h1>
-              <h1 className="hof2"
-	      ref={hof2}>High security</h1>
-              <h1 className="hof3"
-	      ref={hof3}>Efficient system</h1>
-              <h1 className="hof4"
-	      style={{
-	      fontSize:18}}ref={hof4}>Hybrid Engine</h1>
+              <h1 className="hof1" ref={hof1}>
+                Fast transactions
+              </h1>
+              <h1 className="hof2" ref={hof2}>
+                High security
+              </h1>
+              <h1 className="hof3" ref={hof3}>
+                Efficient system
+              </h1>
+              <h1
+                className="hof4"
+                style={{
+                  fontSize: 18,
+                }}
+                ref={hof4}
+              >
+                Hybrid Engine
+              </h1>
             </div>
           ) : (
-          <FeatureBox/>)}
-
+            <FeatureBox day={day} />
+          )}
 
           <div
             style={{ backgroundColor: "transparent" }}
@@ -848,9 +951,11 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                 <div
                   ref={cryptoBoxRef}
                   className="cryptoBox"
-                  style={{ 
-			 backgroundColor: day?"white":"#213547",
-			 opacity: 1, padding: 0, }}
+                  style={{
+                    backgroundColor: day ? "white" : "#213547",
+                    opacity: 1,
+                    padding: 0,
+                  }}
                 >
                   <h2
                     className="cryptoH2"
@@ -860,37 +965,46 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                       padding: 10,
                       borderRadius: 20,
                       textAlign: "center",
-		      color:day?"#213547":"#feb819",
-                      backgroundColor: day?"#00d4d4":"#213547",
-		      border:day?"2px solid #00d4d4":"2px solid #feb819"
+                      color: day ? "#213547" : "#feb819",
+                      backgroundColor: day ? "#00d4d4" : "#213547",
+                      border: day ? "2px solid #00d4d4" : "2px solid #feb819",
                     }}
                   >
                     Crypto meets Banking
                   </h2>
                 </div>
 
-		{autoType?<div
-                  ref={boxText}                                                         className="boxText"
-                  style={{
-                    fontSize: 15,
-                    textAlign: "center",
-                    backgroundColor: "transparent",
-                    color: "#213547",
-                  }}
-                >
-                  {typedText}                                                         </div>:
-
-			<div
-                  ref={boxText}
-                  className="boxText"
-                  style={{
-                    fontSize: 15,
-                    textAlign: "center",
-                    backgroundColor: "transparent",
-                    color: day?"#213547":"#ccc",
-                  }}
-                >The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from <b>Blocavax</b>. Ready to explore and trade?
-                </div>}
+                {autoType ? (
+                  <div
+                    ref={boxText}
+                    className="boxText"
+                    style={{
+                      fontSize: 15,
+                      textAlign: "center",
+                      backgroundColor: "transparent",
+                      color: "#213547",
+                    }}
+                  >
+                    {typedText}
+                  </div>
+                ) : (
+                  <div
+                    ref={boxText}
+                    className="boxText"
+                    style={{
+                      fontSize: 15,
+                      textAlign: "center",
+                      backgroundColor: "transparent",
+                      color: day ? "#213547" : "#ccc",
+                    }}
+                  >
+                    The speed of blockchain transactions and the ultimate safety
+                    of banking, all built together to empower you with the ease
+                    and confidence of trading your choice cryptocurrencies
+                    anywhere, anytime from <b>Blocavax</b>. Ready to explore and
+                    trade?
+                  </div>
+                )}
 
                 <div
                   ref={loginRef}
@@ -911,9 +1025,8 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                         justifyContent: "center",
                         display: "flex",
                         position: "relative",
-                        color: day?"black":"#ccc",
+                        color: day ? "black" : "#ccc",
                         zIndex: 10,
-
                       }}
                     >
                       Quick sign in
@@ -936,21 +1049,15 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                       onClick={() => navigate("/login")}
                       ref={login2Ref}
                       className="login2Button"
-                      style={{ 
-			      backgroundColor:day?"#213547":"#feb819",
-			      color: day?"#ccc":"#213547" }}
+                      style={{
+                        backgroundColor: day ? "#213547" : "#feb819",
+                        color: day ? "#ccc" : "#213547",
+                      }}
                     >
                       Sign in
                     </button>
-
-
-
-                  </div></div>
-
-
-                
-
-
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -990,15 +1097,15 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                       !day &&
                       "linear-gradient(to right,rgba(38,70,98,0.6) 0%,rgba(0,0,0,0.0) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.0)  95%,rgba(38,70,98,0.6) 100%)",
                     height: 400,
-		    borderRadius:20,
-                    width: isMobile ? "84%": "80%",
+                    borderRadius: 20,
+                    width: isMobile ? "84%" : "80%",
                   }}
                 ></div>
 
                 <div
                   className="nextBack"
                   style={{
-                    width: isMobile?"95%":"88%",
+                    width: isMobile ? "95%" : "88%",
                     backgroundColor: "transparent",
                     zIndex: 50,
                     justifyContent: "space-between",
@@ -1010,21 +1117,34 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                     gap: "65%",
                   }}
                 >
-                  <button 
-		  onClick={()=>{scrollBoxes("prev")}}style={{boxShadow:day?"0px 0px 4px rgba(0,0,0,0.5)":"0px 0px 4px #ccc",
-		  color:day?"#feb819":"#00d4d4",
-		  backgroundColor:day?"#213547":"black"}}
-		  className="back">Back</button>
+                  <button
+                    onClick={() => {
+                      scrollBoxes("prev");
+                    }}
+                    style={{
+                      boxShadow: day
+                        ? "0px 0px 4px rgba(0,0,0,0.5)"
+                        : "0px 0px 4px #ccc",
+                      color: day ? "#feb819" : "#00d4d4",
+                      backgroundColor: day ? "#213547" : "black",
+                    }}
+                    className="back"
+                  >
+                    Back
+                  </button>
                   <button
                     onClick={() => {
                       scrollBoxes("next");
                     }}
                     ref={nextRef}
                     className="next"
-                    style={{ color: day?"#feb819":"#00d4d4",
-		    boxShadow:day? "0px 1px 4px rgba(0,0,0,0.5)":
-		    "0px 0px 4px #ccc",
-		    backgroundColor:day?"#213547":"black"}}
+                    style={{
+                      color: day ? "#feb819" : "#00d4d4",
+                      boxShadow: day
+                        ? "0px 1px 4px rgba(0,0,0,0.5)"
+                        : "0px 0px 4px #ccc",
+                      backgroundColor: day ? "#213547" : "black",
+                    }}
                   >
                     Next
                   </button>
@@ -1039,11 +1159,16 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                     color: day ? "#213547" : "white",
                   }}
                 >
-                  Trade your favourite <b
+                  Trade your favourite
+                  <b
                     style={{
                       color: "#feb819",
+		      padding:10
                     }}
-                  > coins </b>
+                  >
+                    
+                    coins
+                  </b>
                   with speed,<b style={{ color: "#00d4d4" }}> anytime</b>
                 </h2>
 
@@ -1054,7 +1179,7 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                     position: "relative",
                     display: "flex",
                     alignItems: "center",
-                    width: isMobile?"85%":"80%",
+                    width: isMobile ? "85%" : "80%",
 
                     height: 400,
                     backgroundColor: "transparent",
@@ -1083,10 +1208,10 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                       position: "relative",
                       width: isMobile ? window.innerWidth : 500,
                       paddingLeft: 20,
-                      paddingRight: 60,
+                      paddingRight: 80,
                       height: 500,
                     }}
-		    ref={sampleContainer}
+                    ref={sampleContainer}
                     className="sampleContainer"
                   >
                     {coinData.map((item, index) => {
@@ -1095,15 +1220,29 @@ sampleContainer.current.scrollBy({left:scrollDistance,
                           key={index}
                           onClick={() => getBtcChart()}
                           className="coinBox"
-			  ref={coinBox}
-                          style={{ 
-				  background: !day && "linear-gradient(to bottom, #566262 0%, #566262 20%, rgba(0,0,0,0.7) 60%,black 80%, #1a2a38 100%)",
-				  boxShadow:day?"0px 1px 4px white, 0px 2px 20px rgba(0,0,0,0.7)":"0px 0px 4px #ccc, 0px 2px 20px rgba(0,0,0,0.7)",
-				  opacity:1,
-				  overflow:"hidden",height: 270, width: 180 }}
+                          ref={coinBox}
+                          style={{
+                            background:
+                              !day &&
+                              "linear-gradient(to bottom, #566262 0%, #566262 20%, rgba(0,0,0,0.7) 60%,black 80%, #1a2a38 100%)",
+                            boxShadow: day
+                              ? "0px 1px 4px white, 0px 2px 20px rgba(0,0,0,0.7)"
+                              : "0px 0px 4px #ccc, 0px 2px 20px rgba(0,0,0,0.7)",
+                            opacity: 1,
+                            overflow: "hidden",
+                            height: 270,
+                            width: 180,
+                          }}
                         >
-                          <div ref={(el)=>coinLogoRefs.current[index]=el} className="coinLogo"
-			  style={{boxShadow:day ? "0px 0px 4px white, 0px 0px 7px black" :"0px 0px 4px #ccc, 0px 2px 20px rgba(255,255,255, 1)"}}>
+                          <div
+                            ref={(el) => (coinLogoRefs.current[index] = el)}
+                            className="coinLogo"
+                            style={{
+                              boxShadow: day
+                                ? "0px 0px 4px white, 0px 0px 7px black"
+                                : "0px 0px 4px #ccc, 0px 2px 20px rgba(255,255,255, 1)",
+                            }}
+                          >
                             <img
                               className="logoImg"
                               src={item.coinLogo}
