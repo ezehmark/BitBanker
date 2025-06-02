@@ -98,9 +98,10 @@ function Home({
 
   useEffect(() => {
     let index = 0;
+    let typeInterval;
 
     const typer = () => {
-      const typeInterval = setInterval(() => {
+      typeInterval = setInterval(() => {
         setTypedText((now) => now + text.charAt(index));
         index += 1;
         if (index >= text.length) {
@@ -113,17 +114,28 @@ function Home({
   }, [text, speed]);
 
   const navigate = useNavigate();
+const cryptoBoxRef = useRef(null);                                    const boxTitleRef = useRef(null);
+
+
+
+
+
+
+const pressedTime = useRef(null);
 
   useEffect(() => {
-    let pressedTime;
-    const longPress = () => {
-      pressedTime = setTimeout(() => {
+	
+    const longPress = (e) => {
+	    e.preventDefault();
+	if(pressedTime.current){clearTimeout(pressedTime.current)}
+      pressedTime.current = setTimeout(() => {
         toggleAutoType();
       }, 4000);
     };
 
     const cancelLongPress = () => {
-      clearTimeout(pressedTime);
+	    if(pressedTime.current){
+      clearTimeout(pressedTime.current);}
     };
 
     if (cryptoBoxRef.current) {
@@ -137,7 +149,7 @@ function Home({
         cryptoBoxRef.current.removeEventListener("touchend", cancelLongPress);
       }
     };
-  }, []);
+  }, [toggleAutoType]);
 
   const breakpoint = 768;
 
@@ -152,8 +164,6 @@ function Home({
   const maxScroll2 = 90;
   const maxScroll3 = 400;
 
-  const cryptoBoxRef = useRef(null);
-  const boxTitleRef = useRef(null);
 
   useEffect(() => {
     cryptoBoxRef.current.classList.add("cryptoAnimClass");
@@ -608,7 +618,7 @@ function Home({
 
   const [loading, setLoading] = useState(false);
   const [btcChartData, setBtcChartData] = useState(null);
-  async function getBtcChart() {
+  async function getChartData() {
     setLoading(true);
     console.warn("effect triggered!");
 
@@ -646,7 +656,7 @@ function Home({
 
   useEffect(() => {
     setInterval(() => {
-      getBtcChart();
+      geChartData();
     }, 4000);
   }, []);
 
@@ -825,9 +835,19 @@ function Home({
             flexDirection: "row",
           }}
         >
+
+
+
+
+	<div                                                                    className="menuList"                                                  style={{                                                                position: "absolute",                                                 display: "flex",                                                      justifyContent: "space-around",                                       flexDirection: "row",                                                 color: day ? "#213547" : "#ccc",                                      gap: 40,                                                            }}                                                                  >
+
+
+
+
           <div
             className="title"
             style={{
+		    marginLeft:20,
               color: day ? "black" : "white",
               left: isMobile ? "50%" : 100,
             }}
@@ -835,17 +855,6 @@ function Home({
             Blocavax
           </div>
 
-          <div
-            className="menuList"
-            style={{
-              position: "absolute",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-              color: day ? "#213547" : "#ccc",
-              gap: 40,
-            }}
-          >
             <button className="menuItem1">Track Prices</button>
             <button className="menuItem1">Markets</button>
             <button className="menuItem1">About us</button>
@@ -881,6 +890,7 @@ function Home({
           }}
         >
           {!isMobile ? (
+		  <>
             <div
               className="heading1"
               style={{
@@ -888,8 +898,9 @@ function Home({
                 position: "relative",
                 justifyContent: "space-between",
                 flexDirection: isMobile ? "column" : "row",
-                gap: 2,
+		padding:40,
                 paddingBottom: 20,
+		width:"100%",
                 height: 200,
                 display: "flex",
                 alignItems: "center",
@@ -898,26 +909,30 @@ function Home({
               }}
             >
               <h1 className="hof1" ref={hof1}>
-                Fast transactions
+                Fast
               </h1>
               <h1 className="hof2" ref={hof2}>
-                High security
+                Secured
               </h1>
               <h1 className="hof3" ref={hof3}>
-                Efficient system
+                Efficient
               </h1>
               <h1
                 className="hof4"
                 style={{
-                  fontSize: 18,
                 }}
                 ref={hof4}
               >
-                Hybrid Engine
+                Hybrid
               </h1>
             </div>
+
+	    <FeatureBox day={day}
+	    style={{backgroundColor:"red"}}/>
+	    </>
           ) : (
             <FeatureBox day={day} />
+	    
           )}
 
           <div
@@ -930,7 +945,7 @@ function Home({
                 padding: 20,
                 justifyContent: "space-between",
                 display: "flex",
-                width: "95%",
+                width: "85%",
                 flexDirection: isMobile ? "column" : "row",
                 gap: 20,
                 backgroundColor: "transparent",
@@ -970,7 +985,7 @@ function Home({
                       border: day ? "2px solid #00d4d4" : "2px solid #feb819",
                     }}
                   >
-                    Crypto meets Banking
+                    Crypto hybrids Banking
                   </h2>
                 </div>
 
@@ -1086,21 +1101,6 @@ function Home({
                   backgroundColor: "transparent",
                 }}
               >
-                <div
-                  className="coinBoxTop"
-                  style={{
-                    position: "absolute",
-                    bottom: 80,
-                    pointerEvents: "none",
-                    zIndex: 40,
-                    background:
-                      !day &&
-                      "linear-gradient(to right,rgba(38,70,98,0.6) 0%,rgba(0,0,0,0.0) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.0)  95%,rgba(38,70,98,0.6) 100%)",
-                    height: 400,
-                    borderRadius: 20,
-                    width: isMobile ? "84%" : "80%",
-                  }}
-                ></div>
 
                 <div
                   className="nextBack"
@@ -1110,11 +1110,11 @@ function Home({
                     zIndex: 50,
                     justifyContent: "space-between",
                     position: "absolute",
-                    top: 300,
+                    top: "38%",
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "row",
-                    gap: "65%",
+                    gap: "66%",
                   }}
                 >
                   <button
@@ -1154,7 +1154,7 @@ function Home({
                   ref={coinTitle}
                   style={{
                     fontSize: 25,
-                    padding: 0,
+                    padding: 20,
                     textAlign: "center",
                     color: day ? "#213547" : "white",
                   }}
@@ -1185,7 +1185,7 @@ function Home({
                     backgroundColor: "transparent",
                     borderRadius: 20,
                     overflow: "hidden",
-                    border: "2px solid #213547",
+                    border: "2px solid rgba(33,53,71,0.5)",
                   }}
                 >
                   <Particles
@@ -1202,11 +1202,14 @@ function Home({
                     options={particlesOption}
                   />
 
+		  <div                                                                    className="coinBoxTop"                                                style={{                                                                position: "absolute",                                              
+			  pointerEvents: "none",                                                zIndex: 40,                                                           background:                                                             !day &&                                                               "linear-gradient(to right,rgba(38,70,98,0.6) 0%,rgba(0,0,0,0.0) 5%,                                      rgba(0, 0, 0, 0.0) 15%,                                         rgba(0, 0, 0, 0) 30%,rgba(0, 0, 0, 0) 70%,rgba(0, 0, 0, 0.0) 85%,rgba(0,0,0,0.0)  95%,rgba(38,70,98,0.6) 100%)",                                                                   height:"100%" ,                                                          borderRadius: 20,                                                     width: "100%",                                    }}                                                                  ></div>
+
                   <div
                     style={{
                       zIndex: 24,
-                      position: "relative",
-                      width: isMobile ? window.innerWidth : 500,
+                      position: "absolute",
+                      width: "100%",
                       paddingLeft: 20,
                       paddingRight: 80,
                       height: 500,
@@ -1218,7 +1221,7 @@ function Home({
                       return (
                         <div
                           key={index}
-                          onClick={() => getBtcChart()}
+                          onClick={() => getChartData()}
                           className="coinBox"
                           ref={coinBox}
                           style={{
@@ -1310,76 +1313,20 @@ function Home({
                   }}
                 >
                   <div className="deposit">Deposit</div>
+
+<svg fill="blue"width="100" height="100" viewBox="0 0 100 100" stroke="black" stroke-width="2" fill="none">
+  <line x1="20" y1="50" x2="70" y2="20" />
+  <line x1="70" y1="20" x2="90" y2="50" />
+  <line x1="90" y1="50" x2="130" y2="20" />
+
+
+  <line x1="30" y1="50" x2="30" y2="80" />
+  <line x1="70" y1="50" x2="70" y2="80" />
+  <line x1="30" y1="80" x2="70" y2="80" />
+</svg>
                   <div className="withdraw">Withdraw</div>
-                </div>
               </div>
 
-              <div className="transactions">
-                <div
-                  style={{
-                    fontSize: 10,
-                    fontWeight: "bold",
-                    color: "#5a3600",
-                    marginRight: 10,
-                  }}
-                >
-                  Transactions history
-                </div>
-                {[
-                  {
-                    id: 1,
-                    amount: "$40,000",
-                    status: "✔️",
-                    tId: "2504D56A...",
-                    type: "Credit",
-                  },
-                  {
-                    id: 2,
-                    amount: "$300,000",
-                    status: "✔️",
-                    tId: "2504G5A...",
-                    type: "Debit",
-                  },
-                  {
-                    id: 3,
-                    amount: "$106,000",
-                    status: "✔️",
-                    tId: "2504D76B...",
-                    type: "Credit",
-                  },
-                  {
-                    id: 4,
-                    amount: "$200,000",
-                    status: "✔️",
-                    tId: "2504D76B...",
-                    type: "Credit",
-                  },
-                ].map((item, index) => {
-                  const isTop = item.id == 1;
-                  const isBottom = item.id == 4;
-
-                  return (
-                    <>
-                      <div
-                        key={index}
-                        style={{
-                          borderTopLeftRadius: isTop ? 15 : 2,
-                          borderTopRightRadius: isTop ? 15 : 2,
-                          borderBottomLeftRadius: isBottom ? 20 : 2,
-                          borderBottomRightRadius: isBottom ? 20 : 2,
-                        }}
-                        className="tbox"
-                      >
-                        <div className="status">{item.status}</div>
-                        <div className="alert">{item.type}</div>
-                        <div className="amount">{item.amount}</div>
-                        <div className="tId">{item.tId}</div>
-                      </div>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
 
             <div className="notes">
               <b style={{}}>BitBanker</b>, here every customer is verified and
@@ -1389,6 +1336,8 @@ function Home({
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   );

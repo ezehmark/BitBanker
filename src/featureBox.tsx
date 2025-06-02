@@ -36,13 +36,13 @@ export default function FeatureBox({ day }) {
 
   //Circle 2  details
 
-  const angle2 = useMotionValue(Math.PI);
+  const angle2 = useMotionValue(Math.PI/3);
   const radius2 = 80;
   const c2x = useTransform(angle2, (a) => 80 + radius2 * Math.cos(a) - 20);
   const c2y = useTransform(angle2, (a) => 80 + radius2 * Math.sin(a) - 20);
   useAnimationFrame((t) => {
     
-      angle2.set(((t / 10000) * 2)+Math.PI);
+      angle2.set(((t / 8000) * 2)+Math.PI/3);
 
   });
 
@@ -51,14 +51,14 @@ export default function FeatureBox({ day }) {
   const c2Ref=useRef(null);
   const c2bRef = useRef(null);
 
-  const angle2b = useMotionValue(Math.PI/2);
+  const angle2b = useMotionValue(Math.PI*1.5);
 
   const radius2b = 80;
   const c2xb = useTransform(angle2b, (a) => 80 + radius2b * Math.cos(a) - 20);
   const c2yb = useTransform(angle2b, (a) => 80 + radius2b * Math.sin(a) - 20);
   useAnimationFrame((t) => {
 
-      angle2b.set((t / 10000) * 2 + Math.PI/2);
+      angle2b.set((t / 8000) * 2 + Math.PI*1.5);
     
   });
 
@@ -124,16 +124,16 @@ setTimeout(()=>{
 c1bRef.current.classList.add(day?"featureAnimClass":"featureAnimNight");},11000);
 
 setTimeout(()=>{
-c2Ref.current.classList.add(day?"featureAnimClass":"featureAnimNight");},18000);
+c2Ref.current.classList.add(day?"featureAnimClass":"featureAnimNight");},16000);
 
 setTimeout(()=>{
-c2bRef.current.classList.add(day?"featureAnimClass":"featureAnimNight");},24000);
+c2bRef.current.classList.add(day?"featureAnimClass":"featureAnimNight");},21000);
 }
 
 
 runCycle();
 
-let cycleInterval = setInterval(runCycle,24200);
+let cycleInterval = setInterval(runCycle,24000);
 
 
   return ()=>{clearInterval(cycleInterval);clearInterval(selectInterval)}
@@ -219,9 +219,9 @@ let cycleInterval = setInterval(runCycle,24200);
             transform: "translate(-50%,-50%)",
             top: "50%",
             left: "50%",
-            backgroundColor: "#213547",
             zIndex: 60,
-          }}
+	    boxShadow:"2px 2px 4px rgba(0,0,0,0.3)",
+          background:!day?"radial-gradient(circle at 30% 30%, #ffffff, #888888)":"radial-gradient(circle at 30% 30%, #ffffff, #213457)"}}
         >
           <div
             style={{
@@ -231,7 +231,7 @@ let cycleInterval = setInterval(runCycle,24200);
               left: "50%",
               fontSize: 20,
               fontWeight: "bold",
-              color: day ? "#00d4d4" : "#feb819",
+              color: day ? "#213447" : "#feb819",
             }}
           >
             BLOCAVAX
