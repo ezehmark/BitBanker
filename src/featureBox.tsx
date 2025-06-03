@@ -144,6 +144,26 @@ let cycleInterval = setInterval(runCycle,24000);
 
   },[]);
 
+  const killerRef=useRef(null);
+  useEffect(()=>{
+  setTimeout(()=>{
+
+
+	  if(killerRef.current){
+  setInterval(()=>{
+  killerRef.current.classList.remove("killerAnimClass");
+  void killerRef.current.offsetWidth;
+  killerRef.current.classList.add("killerAnimClass")
+  
+
+  },3000);
+	
+}
+
+  	
+  },3500);
+},[]);
+
 
 
 
@@ -220,16 +240,28 @@ let cycleInterval = setInterval(runCycle,24000);
             top: "50%",
             left: "50%",
             zIndex: 60,
+	    overfluow:"hidden",
+	    display:"flex",
+	    backgroundColor:"black",
 	    boxShadow:"2px 2px 4px rgba(0,0,0,0.3)",
-          background:!day?"radial-gradient(circle at 30% 30%, #ffffff, #888888)":"radial-gradient(circle at 30% 30%, #ffffff, #213457)"}}
-        >
+	    backgroundImage:'url("https://i.postimg.cc/xCZVLKTJ/file-000000007fe06246945a42ff767b69c2-1.png")',
+	    backgroundSize:"cover"
+	  }}>
+	  <div
+	  style={{height:20,width:20,borderRadius:"50%",
+		  backgroundColor:"red",zIndex:44,top:-25,
+	  transform:"translateX(-50%)",left:"50%",
+	  position:"absolute"
+	  }}
+	  ref={killerRef}
+	  className="killer"></div>
           <div
             style={{
               position: "absolute",
               transform: "translate(-50%,-50%)",
-              top: "50%",
+              top: "45%",
               left: "50%",
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: "bold",
               color: day ? "#213447" : "#feb819",
             }}
@@ -252,6 +284,7 @@ let cycleInterval = setInterval(runCycle,24000);
               borderRadius: "50%",
               position: "absolute",
               backgroundColor: "rgba(239,152,0,0.4)",
+	      zIndex:45
             }}
           >
             <img

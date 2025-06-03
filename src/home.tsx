@@ -656,7 +656,7 @@ const pressedTime = useRef(null);
 
   useEffect(() => {
     setInterval(() => {
-      geChartData();
+      getChartData();
     }, 4000);
   }, []);
 
@@ -808,9 +808,9 @@ const pressedTime = useRef(null);
               fontSize: 18,
               left: isMobile ? "50%" : 100,
               color: day ? "#213547" : "white",
+	      transform:"translate(-50%,-50%)",top:"50%",left:"50%"
             }}
-          >
-            Blocavax
+          >BLOCAVAX
           </div>
 
           <button
@@ -835,6 +835,8 @@ const pressedTime = useRef(null);
             flexDirection: "row",
           }}
         >
+	<div                                                                    className="title"                                                     style={{                                                                color: day ? "black" : "white",position:"absolute",
+		left:"5%"}}>BLOCAVAX                                                            </div>
 
 
 
@@ -844,16 +846,6 @@ const pressedTime = useRef(null);
 
 
 
-          <div
-            className="title"
-            style={{
-		    marginLeft:20,
-              color: day ? "black" : "white",
-              left: isMobile ? "50%" : 100,
-            }}
-          >
-            Blocavax
-          </div>
 
             <button className="menuItem1">Track Prices</button>
             <button className="menuItem1">Markets</button>
@@ -908,9 +900,12 @@ const pressedTime = useRef(null);
                 fontSize: isMobile ? 12 : 15,
               }}
             >
-              <h1 className="hof1" ref={hof1}>
-                Fast
-              </h1>
+              <div className="hof1" ref={hof1}>
+                <div style={{display:"flex",
+		opqcity:0.2,alignItems:'center',
+			justifyContent:"center",height:80, width:50}}><img                                                                    src="https://i.postimg.cc/85LH9mhX/file-000000001ee46246ad2d850c2d5649db.png"                                                               style={{ height: 50, width: 40 }}                                                                           /> 
+		</div><h1>Fast</h1>
+              </div>
               <h1 className="hof2" ref={hof2}>
                 Secured
               </h1>
@@ -967,6 +962,8 @@ const pressedTime = useRef(null);
                   ref={cryptoBoxRef}
                   className="cryptoBox"
                   style={{
+
+
                     backgroundColor: day ? "white" : "#213547",
                     opacity: 1,
                     padding: 0,
@@ -1040,8 +1037,9 @@ const pressedTime = useRef(null);
                         justifyContent: "center",
                         display: "flex",
                         position: "relative",
-                        color: day ? "black" : "#ccc",
+                        color: day ? "rgba(0,0,0,0.6)" : "#ccc",
                         zIndex: 10,
+			fontSize:12,
                       }}
                     >
                       Quick sign in
@@ -1066,7 +1064,8 @@ const pressedTime = useRef(null);
                       className="login2Button"
                       style={{
                         backgroundColor: day ? "#213547" : "#feb819",
-                        color: day ? "#ccc" : "#213547",
+                        fontSize:14,
+				color: day ? "#ffffff" : "#213547",
                       }}
                     >
                       Sign in
@@ -1169,7 +1168,7 @@ const pressedTime = useRef(null);
                     
                     coins
                   </b>
-                  with speed,<b style={{ color: "#00d4d4" }}> anytime</b>
+                  with speed,<b style={{ color: "#feb819" }}> anytime</b>
                 </h2>
 
                 <div
@@ -1303,33 +1302,19 @@ const pressedTime = useRef(null);
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    width: "85%",
-                    justifyContent: "space-between",
-                    display: "flex",
-                    gap: 10,
-                    flexDirection: "row",
-                  }}
-                >
-                  <div className="deposit">Deposit</div>
 
-<svg fill="blue"width="100" height="100" viewBox="0 0 100 100" stroke="black" stroke-width="2" fill="none">
+<svg fill="blue"width="100" height="100" viewBox="0 0 100 100" stroke="black" stroke-width="2">
   <line x1="20" y1="50" x2="70" y2="20" />
   <line x1="70" y1="20" x2="90" y2="50" />
   <line x1="90" y1="50" x2="130" y2="20" />
 
 
-  <line x1="30" y1="50" x2="30" y2="80" />
-  <line x1="70" y1="50" x2="70" y2="80" />
-  <line x1="30" y1="80" x2="70" y2="80" />
+
 </svg>
-                  <div className="withdraw">Withdraw</div>
-              </div>
 
 
             <div className="notes">
-              <b style={{}}>BitBanker</b>, here every customer is verified and
+              <b style={{}}>BLOCAVAX</b>, here every customer is verified and
               user data are protected by the C-SKv architecture, guaran teeing
               <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
               done by logged in users promptings.
