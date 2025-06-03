@@ -309,14 +309,14 @@ const SignUp = ({day}) => {
 
           <button
             className="button"
-	    style={{backgrounColor:ready?"#00d4d4":"rgba(0,0,0,0.6)"}}
+	    style={{backgrounColor:ready?"#213547":"rgba(0,0,0,0.6)"}}
             onClick={() => {
               handleLogin();
               handleAnalytics();
             }}
           >
             <div className="buttonIn"
-	    style={{backgrounColor:ready?"#00d4d4":"rgba(0,0,0,0.6)"}}>
+	    style={{backgrounColor:ready?"#213547":"rgba(0,0,0,0.6)"}}>
               <div className="buttonTitle">Sign up</div>
               {loading1 && (
                 <ClipLoader className="loader" size={30} color="white" />
