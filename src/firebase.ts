@@ -8,14 +8,13 @@ import {getStorage} from "firebase/storage";
 
 // Your Firebase configuration (already copied from Firebase Console)
 const firebaseConfig = {
-  apiKey: "AIzaSyCHKz2c_zOCdrRYzYFw0a1CwWwHVUU0lPE",
-  authDomain: "bitbankerauth.firebaseapp.com",
-  projectId: "bitbankerauth",
-  storageBucket: "bitbankerauth.appspot.com",
-  messagingSenderId: "307534060015",
-  appId: "1:307534060015:web:6ff9462be34fabd592be1a",
-  measurementId: "G-YT9EJEXV2L",
-};
+apiKey: "AIzaSyClJa9jKOfp8fo1Cl1NKLMlBqCgrRyEpmc",
+  authDomain: "blocavax.firebaseapp.com",
+  projectId: "blocavax",
+  storageBucket: "blocavax.appspot.com",
+  messagingSenderId: "461681404700",
+  appId: "1:461681404700:web:867a3ff6a068b5bf7028d9",
+  measurementId: "G-E70XLXXF46"};
 
 // Initialize Firebase and Analytics
 const app = initializeApp(firebaseConfig);

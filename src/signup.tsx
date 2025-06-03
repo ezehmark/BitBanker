@@ -10,7 +10,7 @@ import { FirebaseError } from "firebase/app";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
 
-const SignUp = () => {
+const SignUp = ({day}) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -20,6 +20,14 @@ const SignUp = () => {
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const checkerRef = useRef<HTMLDivElement>(null);
+
+  const [ready,setReady]=useState(false);
+
+  useEffect(()=>{
+  if(email && password && fullName){
+	  console.log(email,password,fullName);
+	  setReady(true)}},[email,password,fullName]);
+
 
   const [savedEmail, setSavedEmail] = useState<string>("");
 
@@ -183,7 +191,44 @@ const SignUp = () => {
 
   return (
     <div className="loginScreen">
-      <div className="blurComp1"></div>
+    {!day?<svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="techGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2027" />
+      <stop offset="50%" stop-color="#203a43" />
+      <stop offset="100%" stop-color="#2c5364" />
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00ffcc11" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#techGradient)" />
+  <rect width="100%" height="100%" fill="url(#gridPattern)" />
+  <g stroke="#00ffcc22" stroke-width="0.5">
+    <path d="M0,100 Q400,300 800,100" fill="none"/>
+    <path d="M0,200 Q400,400 800,200" fill="none"/>
+    <path d="M0,300 Q400,500 800,300" fill="none"/>
+  </g>
+</svg>:
+    <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="lightGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#f0f4f8" />
+      <stop offset="100%" stop-color="#dce6f2" />
+    </linearGradient>
+    <pattern id="lightGridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#99999922" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#lightGradient)" />
+  <rect width="100%" height="100%" fill="url(#lightGridPattern)" />
+  <g stroke="#99999933" stroke-width="0.5">
+    <path d="M0,100 Q400,300 800,100" fill="none"/>
+    <path d="M0,200 Q400,400 800,200" fill="none"/>
+    <path d="M0,300 Q400,500 800,300" fill="none"/>
+  </g>
+</svg>}
       <div className="titleAndLogo">
         <div className="logoC">
           <img
@@ -196,10 +241,11 @@ const SignUp = () => {
             src="https://i.postimg.cc/J0nFJC8h/favicon-1.png"
           />
         </div>
-        <div className="app-name">BitBanker™</div>
+        <div className="app-name">BLOCAVAX</div>
       </div>
 
       <div className="formAndFooter">
+
         <div className="notifyer"> Continue to app</div>
 
         {checker && (
@@ -221,9 +267,10 @@ const SignUp = () => {
               setChecker("");
             }}
             onBlur={() => setT3(false)}
-            style={{ backgroundColor: t3 ? "white" : "#ffe0b2" }}
+            style={{ backgroundColor: t3 ? "white" : "white" }}
             className="input"
             placeholder="Enter full name"
+	    placeholderTextColor="red"
             onChange={(e) => {
               setFullName(e.target.value);
             }}
@@ -237,7 +284,7 @@ const SignUp = () => {
               setChecker("");
             }}
             onBlur={() => setT(false)}
-            style={{ backgroundColor: t ? "white" : "#ffe0b2" }}
+            style={{ backgroundColor: t ? "white" : "white" }}
             className="input"
             placeholder="Enter email here..."
             onChange={(e) => {
@@ -252,33 +299,32 @@ const SignUp = () => {
               setT2(true);
               setChecker("");
             }}
-            style={{ backgroundColor: t2 ? "white" : "#ffe0b2" }}
+            style={{ backgroundColor: t2 ? "white" : "white" }}
             onBlur={() => setT2(false)}
             className="input"
             placeholder="Type your password"
+	    returnkeyType="Done"
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <div
+          <button
             className="button"
+	    style={{backgrounColor:ready?"#00d4d4":"rgba(0,0,0,0.6)"}}
             onClick={() => {
               handleLogin();
               handleAnalytics();
             }}
           >
-            <div className="buttonIn">
+            <div className="buttonIn"
+	    style={{backgrounColor:ready?"#00d4d4":"rgba(0,0,0,0.6)"}}>
               <div className="buttonTitle">Sign up</div>
               {loading1 && (
                 <ClipLoader className="loader" size={30} color="white" />
               )}
             </div>
-          </div>
+          </button>
         </div>
 
-        <div className="footer">
-          Experience the hybrid of banking and web3, all at BitBanker™.
-        </div>
-        <div className="blurComp2"></div>
 
         <div
           className="button"
@@ -286,7 +332,7 @@ const SignUp = () => {
             marginBottom: 60,
             width: "80%",
             color: "white",
-            backgroundColor: "black",
+            backgroundColor: day?"#ccc":"white",
           }}
           onClick={() => {
             handleGoogleLogin();

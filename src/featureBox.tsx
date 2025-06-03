@@ -144,25 +144,6 @@ let cycleInterval = setInterval(runCycle,24000);
 
   },[]);
 
-  const killerRef=useRef(null);
-  useEffect(()=>{
-  setTimeout(()=>{
-
-
-	  if(killerRef.current){
-  setInterval(()=>{
-  killerRef.current.classList.remove("killerAnimClass");
-  void killerRef.current.offsetWidth;
-  killerRef.current.classList.add("killerAnimClass")
-  
-
-  },3000);
-	
-}
-
-  	
-  },3500);
-},[]);
 
 
 
@@ -247,16 +228,8 @@ let cycleInterval = setInterval(runCycle,24000);
 	    backgroundImage:'url("https://i.postimg.cc/xCZVLKTJ/file-000000007fe06246945a42ff767b69c2-1.png")',
 	    backgroundSize:"cover"
 	  }}>
-	  <div
-	  style={{height:20,width:20,borderRadius:"50%",
-		  backgroundColor:"red",zIndex:44,top:-25,
-	  transform:"translateX(-50%)",left:"50%",
-	  position:"absolute"
-	  }}
-	  ref={killerRef}
-	  className="killer"></div>
-          <div
-            style={{
+            <div
+	    style={{
               position: "absolute",
               transform: "translate(-50%,-50%)",
               top: "45%",
