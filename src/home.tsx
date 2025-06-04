@@ -1061,7 +1061,7 @@ className="outer"
                     </div>
 
                     <button
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/signup")}
                       ref={login2Ref}
                       className="login2Button"
                       style={{
