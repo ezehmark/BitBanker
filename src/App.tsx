@@ -37,8 +37,8 @@ const toggleProfile =()=>{
 {openProfile && <Profile setOpenProfile={setOpenProfile}/>}
       <Routes>
 
-        <Route path="/" element={<SignUp day={day}/>} />
-        <Route path="/home" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
+        <Route path="/signup" element={<SignUp day={day}/>} />
+        <Route path="/" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
 	<Route path="/Settings" element={<Settings day={day} toggleDay={toggleDay}/>}/>
         <Route path="/picupload" element={<UploadPic />} />
 	<Route path="/login" element={<Login/>}/>

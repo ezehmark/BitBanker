@@ -762,35 +762,15 @@ const pressedTime = useRef(null);
           position: "absolute",
           zIndex: 1,
           width: "100vw",
-          backgroundColor:"green",
+          backgroundColor:"transparent",
 	  height: 2500,
+	  top:0,
+
         }}
-      >{!day?<svg width="100%" height="100%" viewBox="0 0 800 600" xmlns=
-"http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs>                                                                  <linearGradient id="techGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f2027" />
-      <stop offset="50%" stop-color="#203a43" />
-      <stop offset="100%" stop-color="#2c5364" />
-    </linearGradient>
-    <pattern id="gridPattern" width="40" height="40" patternUnits="use
-rSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00ffcc11" stroke-width="1"/>
-    </pattern>                                                          </defs>
-  <rect width="100%" height="100%" fill="url(#techGradient)" />
-  <rect width="100%" height="100%" fill="url(#gridPattern)" />
-  <g stroke="#00ffcc22" stroke-width="0.5">
-    <path d="M0,100 Q400,300 800,100" fill="none"/>
-    <path d="M0,200 Q400,400 800,200" fill="none"/>
-    <path d="M0,300 Q400,500 800,300" fill="none"/>
-  </g>
-</svg>:
-    <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http:
-//www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs>                                                                  <linearGradient id="lightGradient" x1="0" y1="0" x2="1" y2="1">         <stop offset="0%" stop-color="#ffffff" />                             <stop offset="50%" stop-color="#f0f4f8" />                            <stop offset="100%" stop-color="#dce6f2" />                         </linearGradient>                                                     <pattern id="lightGridPattern" width="40" height="40" patternUnits="userSpaceOnUse">                                                          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#99999922" stroke-width="1"/>                                                             </pattern>                                                          </defs>                                                               <rect width="100%" height="100%" fill="url(#lightGradient)" />        <rect width="100%" height="100%" fill="url(#lightGridPattern)" />
-  <g stroke="#99999933" stroke-width="0.5">                               <path d="M0,100 Q400,300 800,100" fill="none"/>                       <path d="M0,200 Q400,400 800,200" fill="none"/>
-    <path d="M0,300 Q400,500 800,300" fill="none"/>                     </g>                                                                </svg>}
-        <div
-          style={{
+      >
+
+          <div
+	  style={{
             height: 500,
             overflow: "hidden",
             display: "flex",
@@ -890,34 +870,14 @@ rSpaceOnUse">
       <div
         className="container"
         style={{
-          backgroundColor: "transparent",
-          zIndex: 22,
+          backgroundColor: "white",
+          zIndex: 9,
         }}
       >
-      {day&&<svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <rect width="800" height="600" fill="white"/>
-  
-  <path d="M 100 0 L 100 600 M 200 0 L 200 600 M 300 0 L 300 600 M 400 0 L 400 600 M 500 0 L 500 600 M 600 0 L 600 600 M 700 0 L 700 600" stroke="#00d4d4" stroke-opacity="0.2"/>
 
-  <path d="M 0 100 L 800 100 M 0 200 L 800 200 M 0 300 L 800 300 M 0 400 L 800 400 M 0 500 L 800 500" stroke="#00d4d4" stroke-opacity="0.2"/>
 
-  <path d="M150 150 H250 V250 H350 V150" stroke="#213546" stroke-width="3" fill="none"/>
-  <circle cx="150" cy="150" r="6" fill="#00d4d4"/>
-  <circle cx="250" cy="250" r="6" fill="#00d4d4"/>
-  <circle cx="350" cy="150" r="6" fill="#00d4d4"/>
-
-  <polygon points="550,200 580,215 580,245 550,260 520,245 520,215" fill="#00d4d4" stroke="#213546" stroke-width="2"/>
-
-  <path d="M0 450 Q200 400 400 450 T800 450" stroke="#213546" stroke-width="2" fill="none"/>
-
-  <circle cx="650" cy="350" r="5" fill="#213546"/>
-  <line x1="650" y1="350" x2="700" y2="400" stroke="#00d4d4" stroke-dasharray="5,5" stroke-width="2"/>
-  <circle cx="700" cy="400" r="5" fill="#00d4d4"/>
-
-  <rect x="300" y="80" width="120" height="60" rx="10" fill="#00d4d4" stroke="#213546" stroke-width="2"/>
-  <text x="310" y="115" font-family="Arial, sans-serif" font-size="14" fill="#213546">SECURE DATA</text>
-</svg>}<div
-          className="outer"
+<div
+className="outer"
           style={{
             position: "relative",
             flexDirection: isMobile ? "column" : "column",
