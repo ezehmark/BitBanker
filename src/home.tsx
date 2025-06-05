@@ -459,6 +459,8 @@ const pressedTime = useRef(null);
           const symbol = myData.topic.split(".")[1];
           const price = myData.data[0].p;
 
+	  console.log("Websocket connected, prices and symbols are fetched");
+
           let totalBtc = 0;
           let totalEth = 0;
           let totalSol = 0;
@@ -474,7 +476,6 @@ const pressedTime = useRef(null);
             }
             btcPriceRef.current = price;
             setBtcPrice(price);
-            console.log("Price updated live, BTCUSDT:", price);
             totalBtc = Number(price) * 12;
             setBtc(totalBtc.toString());
           }
