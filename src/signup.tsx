@@ -73,7 +73,7 @@ const SignUp = ({day}) => {
   };
 
   const handleLogin = async () => {
-	  await axios.post("https://mybackend-oftz.onrender.com/CSAgent",[{name:"John Doe",msg:"If testing for a second message, codes are working well"}])
+	  await axios.post("https://mybackend-oftz.onrender.com/CSAgent",[{name:"John Doe",msg:"I am testing. This code is coming from backend. If seen, then server is good"}])
 	  .then((response)=>console.log(response.data.feedback)).catch((error)=>console.error(error.message)).finally(()=>console.log("Allis done"));
 	  
     if (fullName.length < 4) {
