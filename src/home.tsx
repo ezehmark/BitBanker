@@ -761,16 +761,40 @@ const pressedTime = useRef(null);
         className="tsParticles"
         style={{
           position: "absolute",
-          zIndex: 1,
+          zIndex: -1,
           width: "100vw",
-          backgroundColor:"transparent",
+          backgroundColor:"white",
 	  height: 2500,
 	  top:0,
 
         }}
       >
+          
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="circuitPattern" patternUnits="userSpaceOnUse" width="200" height="200">
+      <path d="M 0 50 H 200 M 50 0 V 200 M 150 0 V 200" stroke="#ccc" stroke-width="1" />
+      <circle cx="50" cy="50" r="3" fill="#888" />
+      <circle cx="150" cy="150" r="3" fill="#888" />
+      <circle cx="50" cy="150" r="2" fill="#aaa" />
+      <circle cx="150" cy="50" r="2" fill="#aaa" />
+    </pattern>
 
-          <div
+    <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="40" height="40">
+      <polygon points="20,0 30,10 30,30 20,40 10,30 10,10" fill="none" stroke="#e0e0e0" stroke-width="1" />
+    </pattern>
+
+    <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="30" height="30">
+      <circle cx="15" cy="15" r="1.5" fill="#ddd" />
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="white" />
+  <rect width="100%" height="100%" fill="url(#hexPattern)" opacity="0.1" />
+  <rect width="100%" height="100%" fill="url(#dotPattern)" opacity="0.2" />
+  <rect width="100%" height="100%" fill="url(#circuitPattern)" opacity="0.3" />
+</svg>
+<div
 	  style={{
             height: 500,
             overflow: "hidden",
@@ -809,7 +833,7 @@ const pressedTime = useRef(null);
               fontSize: 18,
               left: isMobile ? "50%" : 100,
               color: day ? "#213547" : "white",
-	      transform:"translate(-50%,-50%)",top:"50%",left:"50%"
+	      transform:"translate(-50%,-50%)",top:"50%"
             }}
           >BLOCAVAX
           </div>
@@ -871,7 +895,7 @@ const pressedTime = useRef(null);
       <div
         className="container"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "transparent",
           zIndex: 9,
         }}
       >
@@ -882,6 +906,7 @@ className="outer"
           style={{
             position: "relative",
             flexDirection: isMobile ? "column" : "column",
+	    backgroundColor:"transparent"
           }}
         >
           {!isMobile ? (
@@ -985,7 +1010,7 @@ className="outer"
                       border: day ? "2px solid #00d4d4" : "2px solid #feb819",
                     }}
                   >
-                    Crypto hybrids Banking
+                    Crypto and  Banking
                   </h2>
                 </div>
 
@@ -1306,14 +1331,6 @@ className="outer"
                 </div>
 
 
-<svg fill="blue"width="100" height="100" viewBox="0 0 100 100" stroke="black" stroke-width="2">
-  <line x1="20" y1="50" x2="70" y2="20" />
-  <line x1="70" y1="20" x2="90" y2="50" />
-  <line x1="90" y1="50" x2="130" y2="20" />
-
-
-
-</svg>
 
 
             <div className="notes">

@@ -26,7 +26,6 @@ flex-direction:column;
   gap: 40px;
   transform: translateX(-50%);
   left: 50%;
-  backgrohund:linear-gradient( transparent 30%, transparent 60%,transparent 70%,#feb819 100%);
   width: 100%;
   display: flex;
   padding: 0px;
