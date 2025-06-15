@@ -14,7 +14,7 @@ transform:translateX(-50%);background-color:transparent;top:85px;width:95%;justi
 .input{height:40px;padding:15px;width:90%;border-radius:15px;background-color:#ccc;color:#213547;caret:red; border:0px solid #213547;outline:none;box-shadow:0px 0px 4px rgba(0,0,0,0.3)}
 
 .input:focus{box-shadow:0px 0px 4px #feb819}
-.input::placeholder{color:#feb819;opacity:0.7}
+.input::placeholder{color:#ccc;opacity:0.7}
 .button{position:relative;height:50px;margin-top:20px;width:85%;text-align:center;display:flex;align-items:center;color:white;border-radius:20px;justify-content:center;font-weight:bold;flex-direction:row;background-color:#00d4d4;box-shadow:0px 0px 4px rgba(0,0,0,0.5)}
 
 .buttonIn{position:absolute;justify-content:space-between;align-items:center;padding:15px;display:flex;background-color:transparent;align-items:center;gap:15px}

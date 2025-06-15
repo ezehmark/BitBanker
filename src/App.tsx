@@ -9,6 +9,7 @@ import Profile from "./profile.tsx";
 
 import Settings from "./settings.tsx";
 import FeatureBox from "./featureBox.tsx";
+import CSChats from './CSChats.tsx';
 
 
 export default function App() {
@@ -38,10 +39,11 @@ const toggleProfile =()=>{
       <Routes>
 
         <Route path="/signup" element={<SignUp day={day}/>} />
-        <Route path="/" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
+        <Route path="/home" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
 	<Route path="/Settings" element={<Settings day={day} toggleDay={toggleDay}/>}/>
         <Route path="/picupload" element={<UploadPic />} />
 	<Route path="/login" element={<Login/>}/>
+	<Route path="/" element={<CSChats/>}/>
       </Routes>
       </>
     </Router>
