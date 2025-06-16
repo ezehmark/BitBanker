@@ -39,11 +39,11 @@ const toggleProfile =()=>{
       <Routes>
 
         <Route path="/signup" element={<SignUp day={day}/>} />
-        <Route path="/home" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
+        <Route path="/" element={<Home  toggleProfile={toggleProfile} toggleMenu={toggleMenu} day={day} toggleDay={toggleDay}  />} />
 	<Route path="/Settings" element={<Settings day={day} toggleDay={toggleDay}/>}/>
         <Route path="/picupload" element={<UploadPic />} />
 	<Route path="/login" element={<Login/>}/>
-	<Route path="/" element={<CSChats/>}/>
+	<Route path="/cschats" element={<CSChats/>}/>
       </Routes>
       </>
     </Router>
