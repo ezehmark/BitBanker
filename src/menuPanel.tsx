@@ -28,7 +28,7 @@ document.addEventListener("pointerdown",closeMenu);
 return ()=>document.removeEventListener("pointerdown",closeMenu);
 },[setOpenMenu]);
 
-const menuItems =[{name:"Markets"},{name:"Trading"},{name:"Fintech"},{name:"Settings"},{name:"About us"}];
+const menuItems =[{name:"Markets"},{name:"Trading"},{name:"Fintech"},{name:"Settings",url:"Settings"},{name:"About us",url:"cschats"}];
 
 
 
@@ -47,7 +47,7 @@ style={{color:day?"#213547":"#ccc"}}>
 <button 
 className="menuItem"
 style={{marginTop:index == 3 && 100}}
-onClick={()=>{setOpenMenu(false);navigate(`/${item.name}`)}}
+onClick={()=>{setOpenMenu(false);navigate(`/${item.url}`)}}
 >{item.name}</button>)})}
 </div>
 </div>
