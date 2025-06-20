@@ -898,8 +898,8 @@ const pressedTime = useRef(null);
 
             <button className="menuItem1">Track Prices</button>
             <button className="menuItem1">Markets</button>
-            <button onpress={()=>{navigate("/cschats")}}className="menuItem1">About us</button>
-	    <button onpress={()=>{navigate("/Settings")}}className="menuItem1">Settings</button>
+            <button onClick={()=>{navigate("/cschats")}}className="menuItem1">About us</button>
+	    <button onClick={()=>{navigate("/Settings")}}className="menuItem1">Settings</button>
             <button className="menuItem1">Banking</button>
           </div>
 
