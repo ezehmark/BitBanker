@@ -905,7 +905,7 @@ const pressedTime = useRef(null);
 
           <div
             onClick={() => {
-              navigate("/login");
+              navigate("/signup");
             }}
             className="signInButton"
             style={{
