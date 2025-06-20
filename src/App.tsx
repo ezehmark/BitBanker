@@ -17,7 +17,7 @@ const [openMenu,setOpenMenu]=useState(false);
 const toggleMenu =()=>{
 setOpenMenu(x=>!x)}
 
-const[day,setDay]=useState(true);
+const[day,setDay]=useState(false);
 function toggleDay(){
 setDay(now=>!now)}
 
