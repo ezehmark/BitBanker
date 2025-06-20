@@ -244,7 +244,7 @@ const SignUp = ({day}) => {
             src="https://i.postimg.cc/J0nFJC8h/favicon-1.png"
           />
         </div>
-        <div className="app-name">BLOCAVAX</div>
+        <div className="app-name">Bitbanker</div>
       </div>
 
       <div className="formAndFooter">
@@ -334,7 +334,7 @@ const SignUp = ({day}) => {
           style={{
             marginBottom: 60,
             width: "80%",
-            color: "white",
+            color: day?"white":"black",
             backgroundColor: day?"#ccc":"white",
           }}
           onClick={() => {

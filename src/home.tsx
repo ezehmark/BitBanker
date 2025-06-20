@@ -50,7 +50,6 @@ function Home({
   day: boolean;
   toggleProfile: () => void;
 }) {
-  const [darkTheme, setDarkTheme] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
   const button2Ref = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState("1300450");
@@ -85,7 +84,7 @@ function Home({
   }, []);
 
   const [text, setText] = useState(
-    "The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from Blocavax. Ready to explore and trade?",
+    "The speed of blockchain transactions and the ultimate safety of banking, all built together to empower you with the ease and confidence of trading your choice cryptocurrencies anywhere, anytime from Bitbanker. Ready to explore and trade?",
   );
 
   const [speed, setSpeed] = useState(300);
@@ -769,32 +768,57 @@ const pressedTime = useRef(null);
 
         }}
       >
-          
-<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <pattern id="circuitPattern" patternUnits="userSpaceOnUse" width="200" height="200">
-      <path d="M 0 50 H 200 M 50 0 V 200 M 150 0 V 200" stroke="#ccc" stroke-width="1" />
-      <circle cx="50" cy="50" r="3" fill="#888" />
-      <circle cx="150" cy="150" r="3" fill="#888" />
-      <circle cx="50" cy="150" r="2" fill="#aaa" />
-      <circle cx="150" cy="50" r="2" fill="#aaa" />
-    </pattern>
+{!day ? (
+  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="circuitPatternDark" patternUnits="userSpaceOnUse" width="200" height="200">
+        <path d="M 0 50 H 200 M 50 0 V 200 M 150 0 V 200" stroke="#aaa" strokeWidth="1" />
+        <circle cx="50" cy="50" r="3" fill="#ccc" />
+        <circle cx="150" cy="150" r="3" fill="#ccc" />
+        <circle cx="50" cy="150" r="2" fill="#eee" />
+        <circle cx="150" cy="50" r="2" fill="#eee" />
+      </pattern>
 
-    <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="40" height="40">
-      <polygon points="20,0 30,10 30,30 20,40 10,30 10,10" fill="none" stroke="#e0e0e0" stroke-width="1" />
-    </pattern>
+      <pattern id="hexPatternDark" patternUnits="userSpaceOnUse" width="40" height="40">
+        <polygon points="20,0 30,10 30,30 20,40 10,30 10,10" fill="none" stroke="#999" strokeWidth="1" />
+      </pattern>
 
-    <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="30" height="30">
-      <circle cx="15" cy="15" r="1.5" fill="#ddd" />
-    </pattern>
-  </defs>
+      <pattern id="dotPatternDark" patternUnits="userSpaceOnUse" width="30" height="30">
+        <circle cx="15" cy="15" r="1.5" fill="#bbb" />
+      </pattern>
+    </defs>
 
-  <rect width="100%" height="100%" fill="white" />
-  <rect width="100%" height="100%" fill="url(#hexPattern)" opacity="0.1" />
-  <rect width="100%" height="100%" fill="url(#dotPattern)" opacity="0.2" />
-  <rect width="100%" height="100%" fill="url(#circuitPattern)" opacity="0.3" />
-</svg>
-<div
+    <rect width="100%" height="100%" fill="#111" />
+    <rect width="100%" height="100%" fill="url(#hexPatternDark)" opacity="0.2" />
+    <rect width="100%" height="100%" fill="url(#dotPatternDark)" opacity="0.3" />
+    <rect width="100%" height="100%" fill="url(#circuitPatternDark)" opacity="0.4" />
+  </svg>
+) : (
+  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="circuitPatternLight" patternUnits="userSpaceOnUse" width="200" height="200">
+        <path d="M 0 50 H 200 M 50 0 V 200 M 150 0 V 200" stroke="#ccc" strokeWidth="1" />
+        <circle cx="50" cy="50" r="3" fill="#888" />
+        <circle cx="150" cy="150" r="3" fill="#888" />
+        <circle cx="50" cy="150" r="2" fill="#aaa" />
+        <circle cx="150" cy="50" r="2" fill="#aaa" />
+      </pattern>
+
+      <pattern id="hexPatternLight" patternUnits="userSpaceOnUse" width="40" height="40">
+        <polygon points="20,0 30,10 30,30 20,40 10,30 10,10" fill="none" stroke="#e0e0e0" strokeWidth="1" />
+      </pattern>
+
+      <pattern id="dotPatternLight" patternUnits="userSpaceOnUse" width="30" height="30">
+        <circle cx="15" cy="15" r="1.5" fill="#ddd" />
+      </pattern>
+    </defs>
+
+    <rect width="100%" height="100%" fill="white" />
+    <rect width="100%" height="100%" fill="url(#hexPatternLight)" opacity="0.1" />
+    <rect width="100%" height="100%" fill="url(#dotPatternLight)" opacity="0.2" />
+    <rect width="100%" height="100%" fill="url(#circuitPatternLight)" opacity="0.3" />
+  </svg>
+)}<div
 	  style={{
             height: 500,
             overflow: "hidden",
@@ -835,12 +859,12 @@ const pressedTime = useRef(null);
               color: day ? "#213547" : "white",
 	      transform:"translate(-50%,-50%)",top:"50%"
             }}
-          >BLOCAVAX
+          >Bitbanker
           </div>
 
           <button
             onClick={() => {
-              toggleDay();
+              navigate("/signup");
             }}
             className="signInButton"
             style={{
@@ -861,7 +885,7 @@ const pressedTime = useRef(null);
           }}
         >
 	<div                                                                    className="title"                                                     style={{                                                                color: day ? "black" : "white",position:"absolute",
-		left:"5%"}}>BLOCAVAX                                                            </div>
+		left:"5%"}}>Bitbanker                                                            </div>
 
 
 
@@ -1041,7 +1065,7 @@ className="outer"
                     The speed of blockchain transactions and the ultimate safety
                     of banking, all built together to empower you with the ease
                     and confidence of trading your choice cryptocurrencies
-                    anywhere, anytime from <b>Blocavax</b>. Ready to explore and
+                    anywhere, anytime from <b>Bitbanker</b>. Ready to explore and
                     trade?
                   </div>
                 )}
@@ -1058,7 +1082,8 @@ className="outer"
                     backgroundColor: "transparent",
                   }}
                 >
-                  <div className="login2">
+                  <div className="login2"
+		  style={{backgroundColor: day?"white":"grey"}}>
                     <div
                       style={{
                         alignItems: "center",
@@ -1067,6 +1092,7 @@ className="outer"
                         position: "relative",
                         color: day ? "rgba(0,0,0,0.6)" : "#ccc",
                         zIndex: 10,
+			backgroundColor: day?"white":"grey",
 			fontSize:12,
                       }}
                     >
@@ -1333,11 +1359,10 @@ className="outer"
 
 
 
-            <div className="notes">
-              <b style={{}}>BLOCAVAX</b>, here every customer is verified and
-              user data are protected by the C-SKv architecture, guaran teeing
-              <b style={{}}> 24/7</b> security of funds.{"\n"} Transactions are
-              done by logged in users promptings.
+            <div className="notes"style={{color:day?"#feb819":"#ccc"}}>
+              <b style={{}}>Bitbanker </b>is an efficient web app from <a href="https://wa.me/2349036202766"><b style={{color:"#ef9800",padding:'2px 4px',borderRadius:5,backgroundColor:"black"}}>Bytance<b style={{color:"#ec5300"}}>Tech</b></b></a>, here every customer is verified and
+              user data are protected by the Byt-S architecture, guaranteeing
+              <b style={{}}> 24/7</b> security of funds.{"\n"} Prices change according to transactions in the order books. Market prices brought to you seamlessly!
             </div>
           </div>
         </div>
