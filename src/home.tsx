@@ -1361,7 +1361,7 @@ className="outer"
 
 
             <div className="notes"style={{color:day?"#feb819":"#ccc"}}>
-              <b style={{}}>Bitbanker </b>is an efficient web app from <a href="https://wa.me/2349036202766"><b style={{color:"#ef9800",padding:'2px 4px',borderRadius:5,backgroundColor:"black"}}>Bytance<b style={{color:"#ec5300"}}>Tech</b></b></a>, here every customer is verified and
+              <b style={{}}>Bitbanker </b>is an efficient web app from <a href="https://wa.me/2349036202766"><b style={{color:"#ef9800",padding:'2px 4px',border:"1px solid white",borderRadius:5,backgroundColor:"black"}}>Bytance<b style={{color:"#ec5300"}}>Tech</b></b></a>, here every customer is verified and
               user data are protected by the Byt-S architecture, guaranteeing
               <b style={{}}> 24/7</b> security of funds.{"\n"} Prices change according to transactions in the order books. Market prices brought to you seamlessly!
             </div>
