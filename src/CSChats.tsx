@@ -100,16 +100,16 @@ export default function CSChats() {
           </div>
         )}
 
-        <form className="form">
-          <input
-            type="text"
+        <form className="form"
+	onSubmit={()=>sendMsg()}>
+          <textarea
             value={chat}
             onFocus={() => {
               setT(true);
               setChecker("");
             }}
             onBlur={() => setT(false)}
-            style={{ height:150,textAlign:"top",backgroundColor: t ? "white" : "white" }}
+            style={{ height:120,backgroundColor: t ? "white" : "white" }}
             className="input"
             placeholderColor={"#ccc"}
             placeholder="Make complaints or commend us here..."
@@ -120,6 +120,7 @@ export default function CSChats() {
 
           <button
             className="button"
+	    type='submit'
             style={{ overflow: "hidden", width:"50%",backgroundColor: "#00d4d4" }}
             onClick={() => {
               sendMsg();
