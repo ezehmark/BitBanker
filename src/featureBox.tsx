@@ -239,7 +239,7 @@ let cycleInterval = setInterval(runCycle,24000);
               color: day ? "#213447" : "#feb819",
             }}
           >
-            BLOCAVAX
+            BitBanker™
           </div>
 	  {feature && <div 
 		  ref={featureRef} className="feature" style={{  }}>
