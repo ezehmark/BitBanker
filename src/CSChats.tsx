@@ -9,8 +9,8 @@ export default function CSChats() {
   const [chat, setChat] = useState("");
   const [checker, setChecker] = useState("");
 
-  const sendMsg = async (e) => {
-	e.preventDefault();
+  const sendMsg = async () => {
+	//e.preventDefault();
     setLoading1(true);
     await axios
       .post("https://mybackend-oftz.onrender.com/CSAgent", [
