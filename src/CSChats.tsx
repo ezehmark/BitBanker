@@ -9,7 +9,8 @@ export default function CSChats() {
   const [chat, setChat] = useState("");
   const [checker, setChecker] = useState("");
 
-  const sendMsg = async () => {
+  const sendMsg = async (e) => {
+	e.preventDefault();
     setLoading1(true);
     await axios
       .post("https://mybackend-oftz.onrender.com/CSAgent", [
@@ -108,7 +109,7 @@ export default function CSChats() {
               setChecker("");
             }}
             onBlur={() => setT(false)}
-            style={{ backgroundColor: t ? "white" : "white" }}
+            style={{ height:150,textAlign:"top",backgroundColor: t ? "white" : "white" }}
             className="input"
             placeholderColor={"#ccc"}
             placeholder="Make complaints or commend us here..."
