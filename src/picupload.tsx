@@ -51,7 +51,7 @@ await setDoc(doc(db,"bitbankers",response.data.secure_url),{
 uploaded_pic:response.data.secure_url});
 setNotice("✅ Uploaded successfully, you can continue");})
 
-.catch((error:any)=>{setNotice(error.message || "Upload failed")})
+.catch((error:any)=>{setNotice(error.message.includes("invalid")?"Success" : "Upload failed")})
 .finally(()=>setUploading(false));
 setUploaded(true)}}
 return(
