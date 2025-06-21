@@ -234,12 +234,12 @@ let cycleInterval = setInterval(runCycle,24000);
               transform: "translate(-50%,-50%)",
               top: "45%",
               left: "50%",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
-              color: day ? "#213447" : "#feb819",
+              color: day ? "#213447" : "rgba(0,212,212,0.2)",
             }}
           >
-            BitBanker™
+            BitBanker
           </div>
 	  {feature && <div 
 		  ref={featureRef} className="feature" style={{  }}>
