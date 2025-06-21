@@ -88,7 +88,7 @@ export default function CSChats() {
       style={{justifyContent:"space-around",flexDirection:"row",     display:"flex"}}>
         <div className="notifyer"
 	style={{fontSize:40}}>Live Customer Support 24/7</div>
-	<div style={{height:"100%",width:"40%"}}>
+	<div style={{height:"100%",width:"100%"}}>
 
         {checker && (
           <div
@@ -99,7 +99,7 @@ export default function CSChats() {
           </div>
         )}
 
-        <div className="form">
+        <form className="form">
           <input
             type="text"
             value={chat}
@@ -119,7 +119,7 @@ export default function CSChats() {
 
           <button
             className="button"
-            style={{ overflow: "hidden", backgroundColor: "#00d4d4" }}
+            style={{ overflow: "hidden", width:"50%",backgroundColor: "#00d4d4" }}
             onClick={() => {
               sendMsg();
             }}
@@ -130,7 +130,7 @@ export default function CSChats() {
               </div>
             </div>
           </button>
-        </div>
+        </form>
 	</div>
       </div>
     </div>
