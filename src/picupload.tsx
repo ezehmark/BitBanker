@@ -20,7 +20,7 @@ const[uploading,setUploading]=useState(false);
 const[uploaded,setUploaded]=useState(false);
 
 const handleNav = ()=>{if(uploaded){
-navigate("/home")}}
+navigate("/")}}
 
 
 
