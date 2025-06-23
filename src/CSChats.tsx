@@ -13,7 +13,7 @@ export default function CSChats() {
 	//e.preventDefault();
     setLoading1(true);
     await axios
-      .post("https://mybackend-oftz.onrender.com/CSAgent", [
+      .post("http://192.168.0.200:3000/CSAgent", [
         { name: "John Doe", msg: chat },
       ])
       .then((response) => setChecker(response.data.feedback))
