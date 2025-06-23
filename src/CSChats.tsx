@@ -88,7 +88,7 @@ export default function CSChats() {
       <div className="formAndFooter"
       style={{justifyContent:"space-around",flexDirection:"row",     display:"flex"}}>
         <div className="notifyer"
-	style={{fontSize:40}}>Live Customer Support 24/7</div>
+	style={{fontSize:60}}>Live Customer Support 24/7</div>
 	<div style={{height:"100%",width:"100%"}}>
 
         {checker && (
