@@ -101,7 +101,7 @@ export default function CSChats() {
         )}
 
         <form className="form"
-	onSubmit={()=>sendMsg()}>
+	onSubmit={(e)=>{e.preventDefault();sendMsg()}}>
           <textarea
             value={chat}
             onFocus={() => {
@@ -122,7 +122,8 @@ export default function CSChats() {
             className="button"
 	    type='submit'
             style={{ overflow: "hidden", width:"50%",backgroundColor: "#00d4d4" }}
-            onClick={() => {
+            onClick={(e) => {
+		    e.preventDefault();
               sendMsg();
             }}
           >
