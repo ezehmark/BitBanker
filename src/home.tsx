@@ -1294,7 +1294,7 @@ className="outer"
                           <div
                             ref={(el) => (coinLogoRefs.current[index] = el)}
                             className="coinLogo"
-                            style={{
+                            style={{cusor:"pointer",
                               boxShadow: day
                                 ? "0px 0px 4px white, 0px 0px 7px black"
                                 : "0px 0px 4px #ccc, 0px 2px 20px rgba(255,255,255, 1)",
