@@ -11,13 +11,16 @@ export default function CSChats() {
 
   const sendMsg = async () => {
 	//e.preventDefault();
+	if(chat.trim().length < 1){
+	setChecker("Empty message! Could not send.⚠️");
+	return}
     setLoading1(true);
     await axios
       .post("https://mybackend-oftz.onrender.com/CSAgent", [
         { name: "John Doe", msg: chat },
       ])
       .then((response) => setChecker(response.data.feedback))
-      .catch((error) => setChacker(error.message))
+      .catch((error) => setChecker(error.message))
       .finally(() => {
         setChat("");
         console.log("All is done");
