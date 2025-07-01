@@ -99,7 +99,8 @@ export default function CSChats() {
             style={{ color: "black", backgroundColor: "#00d4d4" }}
             className="checkerCover"
           >
-            <div className="checker">{checker}</div>{" "}
+            <div className="checker"
+	    dangerouslySetInnerHTML={{ __html: checker }} />{" "}
           </div>
         )}
 

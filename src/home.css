@@ -479,7 +479,7 @@ img {
 100%{transform:translateY(-50px);opacity:1}}
 .boxTextnoAnim{animation:boxTextAnim 2s ease forwards}
 
-.menuItem1{color:#213547;border-radius:10px;padding:5px}
+.menuItem1{color:#eee;border-radius:10px;padding:5px}
 .menuItem:hover{box-shadow:0px 0px 4px #00d4d4;color:#00d4d4}
 button{border:none;background-color:transparent}
 button:hover{outline:none;box-shadow:none !important}
